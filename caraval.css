@@ -3,14 +3,14 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000; /* برای اینکه روی بقیه محتوا باشه */
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
   background-color: #f5f5f5;
   flex-wrap: wrap;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* اختیاری: سایه پایین */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
 }
 
 .center-icon {

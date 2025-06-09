@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>سبد خرید حرفه‌ای</title>
+  <style>
+    :root {
+      --primary-color: #0077ff;
+      --bg-light: #f9f9f9;
+      --bg-dark: #121212;
+      --text-light: #333;
+      --text-dark: #eee;
+      --card-bg-light: #fff;
+      --card-bg-dark: #1e1e1e;
+      --btn-bg: #0077ff;
+      --btn-hover-bg: #005ecb;
+      --danger-color: #ff4d4d;
+    }
+
+    body {
+      font-family: 'Tahoma', sans-serif;
+      padding: 20px;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .cart-container {
+      max-width: 650px;
+      margin: auto;
+      background: var(--card-bg-light);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+      transition: background-color 0.3s;
+    }
+    body.dark .cart-container {
+      background: var(--card-bg-dark);
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+      transition: border-color 0.3s;
+    }
+    body.dark .cart-item {
+      border-color: #444;
+    }
+
+    .cart-item img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-left: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .item-info {
+      flex-grow: 1;
+      direction: rtl;
+      text-align: right;
+      margin-right: 10px;
+    }
+    .item-name {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+    .item-price {
+      font-size: 15px;
+      color: #666;
+    }
+    body.dark .item-price {
+      color: #aaa;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .quantity-controls button {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: var(--btn-bg);
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .quantity-controls button:hover {
+      background: var(--btn-hover-bg);
+    }
+    .quantity-display {
+      min-width: 25px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--text-light);
+      user-select: none;
+    }
+    body.dark .quantity-display {
+      color: var(--text-dark);
+    }
+
+    .remove-btn {
+      background: transparent;
+      border: none;
+      color: var(--danger-color);
+      font-size: 20px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .remove-btn:hover {
+      color: #ff1a1a;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 25px;
+      border-top: 2px solid var(--btn-bg);
+      padding-top: 15px;
+      direction: rtl;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #888;
+      font-size: 20px;
+      margin-top: 50px;
+    }
+
+    .actions {
+      max-width: 650px;
+      margin: 25px auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      direction: rtl;
+    }
+    .btn {
+      padding: 12px 22px;
+      background: var(--btn-bg);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      user-select: none;
+    }
+    .btn:hover {
+      background: var(--btn-hover-bg);
+    }
+    .btn:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+
+    .coupon-form {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-grow: 1;
+    }
+    .coupon-form input[type="text"] {
+      flex-grow: 1;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s;
+    }
+    .coupon-form input[type="text"]:focus {
+      border-color: var(--btn-bg);
+      outline: none;
+    }
+
+    .dark-mode-toggle {
+      cursor: pointer;
+      background: transparent;
+      border: 2px solid var(--btn-bg);
+      color: var(--btn-bg);
+      border-radius: 8px;
+      font-weight: bold;
+      padding: 10px 16px;
+      transition: background-color 0.3s, color 0.3s;
+      user-select: none;
+    }
+    .dark-mode-toggle:hover {
+      background: var(--btn-bg);
+      color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .cart-item img {
+        margin-left: 0;
+      }
+      .actions {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🛒 سبد خرید شما</h1>
+
+  <div class="cart-container" id="cart-container">
+    <!-- محصولات سبد خرید اینجا نمایش داده می‌شوند -->
+  </div>
+
+  <div class="total" id="total-price">جمع کل: ۰ تومان</div>
+
+  <div class="actions">
+    <a href="#" class="btn" id="continue-shopping">ادامه خرید</a>
+
+    <form id="coupon-form" class="coupon-form">
+      <input type="text" id="coupon-code" placeholder="کد تخفیف را وارد کنید" />
+      <button type="submit" class="btn">اعمال تخفیف</button>
+    </form>
+
+    <button class="btn" id="checkout-btn" disabled>پرداخت</button>
+
+    <button class="dark-mode-toggle" id="dark-mode-toggle">حالت تاریک</button>
+  </div>
+
+  <script>
+    const cartContainer = document.getElementById('cart-container');
+    const totalPriceElement = document.getElementById('total-price');
+    const continueShoppingBtn = document.getElementById('continue-shopping');
+    const couponForm = document.getElementById('coupon-form');
+    const couponCodeInput = document.getElementById('coupon-code');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+
+    // نمونه سبد خرید پیش‌فرض برای تست
+    let cart = JSON.parse(localStorage.getItem('cart')) || [
+      { id: 1, name: "کلاه", price: 250000, quantity: 1, image: "کلاه.webp" },
+      { id: 2, name: "تیشرت", price: 300000, quantity: 2, image: "تیشرت.webp" },
+      { id: 3, name: "شلوار", price: 400000, quantity: 1, image: "شلوار.webp" }
+    ];
+
+    let discountPercent = 0;
+
+    function formatPrice(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' تومان';
+    }
+
+    function updateLocalStorage() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function renderCart() {
+      cartContainer.innerHTML = '';
+      if(cart.length === 0) {
+        cartContainer.innerHTML = '<p class="empty-message">سبد خرید شما خالی است.</p>';
+        totalPriceElement.textContent = 'جمع کل: ۰ تومان';
+        checkoutBtn.disabled = true;
+        return;
+      }
+
+      checkoutBtn.disabled = false;
+
+      let total = 0;
+
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+
+        cartItem.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" />
+          <div class="item-info">
+            <div class="item-name">${item.name}</div>
+            <div class="item-price">قیمت واحد: ${formatPrice(item.price)}</div>
+            <div class="quantity-controls">
+              <button class="qty-minus" data-id="${item.id}">-</button>
+              <div class="quantity-display">${item.quantity}</div>
+              <button class="qty-plus" data-id="${item.id}">+</button>
+              <button class="remove-btn" data-id="${item.id}" title="حذف محصول">&times;</button>
+            </div>
+          </div>
+        `;
+
+        cartContainer.appendChild(cartItem);
+      });
+
+      // اعمال تخفیف روی جمع کل
+      let discountedTotal = total - (total * discountPercent / 100);
+
+      totalPriceElement.textContent = `جمع کل: ${formatPrice(Math.floor(discountedTotal))}`;
+    }
+
+    function changeQuantity(id, delta) {
+      cart = cart.map(item => {
+        if(item.id === id) {
+          let newQty = item.quantity + delta;
+          if(newQty < 1) newQty = 1;
+          return {...item, quantity: newQty};
+        }
+        return item;
+      });
+      updateLocalStorage();
+      renderCart();
+    }
+
+    function removeItem(id) {
+      cart = cart.filter(item => item.id !== id);
+      updateLocalStorage();
+      renderCart();
+    }
+
+    // دکمه ادامه خرید (فعلا هدایت به گوگل)
+    continueShoppingBtn.href = "https://example.com/shop";
+
+    // رویدادها
+    cartContainer.addEventListener('click', e => {
+      if(e.target.classList.contains('qty-minus')) {
+        const id = parseInt(e.target.dataset.id);
+        changeQuantity(id, -1);
+      }
+      if(e.target.classList.contains('qty-plus')) {
+        const id = parseInt(e.target.dataset.id);
+        changeQuantity(id, +1);
+      }
+      if(e.target.classList.contains('remove-btn')) {
+        const id = parseInt(e.target.dataset.id);
+        removeItem(id);
+      }
+    });
+
+    couponForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const code = couponCodeInput.value.trim().toUpperCase();
+
+      // نمونه کد تخفیف
+      const coupons = {
+        'SAVE10': 10,
+        'SAVE20': 20,
+        'BLACKFRIDAY': 50,
+      };
+
+      if(coupons[code]) {
+        discountPercent = coupons[code];
+        alert(`کد تخفیف با موفقیت اعمال شد! شما ${discountPercent}% تخفیف گرفتید.`);
+        couponCodeInput.value = '';
+        renderCart();
+      } else {
+        alert('کد تخفیف معتبر نیست.');
+      }
+    });
+
+    checkoutBtn.addEventListener('click', () => {
+      if(cart.length === 0) {
+        alert('سبد خرید شما خالی است.');
+        return;
+      }
+      alert('برای ادامه فرآیند پرداخت به صفحه تسویه حساب هدایت می‌شوید.');
+      // اینجا میتونی redirect به صفحه پرداخت بزاری
+    });
+
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      darkModeToggle.textContent = document.body.classList.contains('dark') ? 'حالت روشن' : 'حالت تاریک';
+    });
+
+    renderCart();
+  </script>
+
+</body>
+</html>

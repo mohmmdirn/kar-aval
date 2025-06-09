@@ -402,11 +402,6 @@ body {
 
 
 
-   font-family: {Tahoma sans-serif;
-      direction: rtl;
-      padding: 20px;
-      background: #f9f9f9;
-    }
     .cards-container {
       display: flex;
       gap: 20px;
@@ -499,6 +494,7 @@ body {
         <a href="">نشان‌ها</a>
         <a href="">خرید‌حضوری</a>
         <a href="">تماس‌باما</a>
+        <a href="admin.html">پنل مدیریت</a>
 <a href="cart.html">سبد خرید</a>
       </div>
     </div>
@@ -537,54 +533,9 @@ body {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 <button id="open-cart">نمایش سبد خرید</button>
 
-<!-- کارت‌ها -->
-<div class="cards-container">
-  <div class="apple-card">
-    <a href="https://example.com/product1" target="_blank">
-      <img src="کلاه.webp" alt="کلاه" />
-    </a>
-    <div class="apple-card-content">
-      <h3>کلاه</h3>
-      <p>طراحی مدرن و سبک، مناسب تمام فصول.</p>
-      <p class="product-price">قیمت: ۲۵۰٬۰۰۰ تومان</p>
-      <div class="card-actions">
-        <a href="https://example.com/product1" class="btn-link" target="_blank">جزئیات بیشتر &rarr;</a>
-        <button class="add-to-cart" data-name="کلاه" data-price="250000">افزودن به سبد خرید</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="apple-card">
-    <a href="https://example.com/product2" target="_blank">
-      <img src="تیشرت.webp" alt="تیشرت" />
-    </a>
-    <div class="apple-card-content">
-      <h3>تیشرت</h3>
-      <p>تیشرتی راحت و خوش‌دوخت با رنگ‌بندی متنوع.</p>
-      <p class="product-price">قیمت: ۲۵۰٬۰۰۰ تومان</p>
-      <div class="card-actions">
-        <a href="https://example.com/product2" class="btn-link" target="_blank">جزئیات بیشتر &rarr;</a>
-        <button class="add-to-cart" data-name="تیشرت" data-price="250000">افزودن به سبد خرید</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="apple-card">
-    <a href="https://web.rubika.ir/#c=u0Dbsbf0aecee7fdf50fbb54eb7cda0a" target="_blank">
-      <img src="شلوار.webp" alt="شلوار" />
-    </a>
-    <div class="apple-card-content">
-      <h3>شلوار</h3>
-      <p>شلواری با کیفیت بالا و دوخت عالی.</p>
-      <p class="product-price">قیمت: ۲۵۰٬۰۰۰ تومان</p>
-      <div class="card-actions">
-        <a href="https://web.rubika.ir/#c=u0Dbsbf0aecee7fdf50fbb54eb7cda0a" class="btn-link" target="_blank">جزئیات بیشتر &rarr;</a>
-        <button class="add-to-cart" data-name="شلوار" data-price="250000">افزودن به سبد خرید</button>
-      </div>
-    </div>
-  </div>
+<div class="cards-container" id="product-list">
+  <!-- محصولات از localStorage اینجا رندر میشن -->
 </div>
-
 
 <div id="cart-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%);
   background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.3); z-index:2000; max-width:90vw; max-height:80vh; overflow:auto;">
@@ -593,54 +544,54 @@ body {
   <button id="close-cart">بستن</button>
 </div>
 <script>
-  // اضافه کردن محصولات به سبد خرید در localStorage
-  document.querySelectorAll('.add-to-cart').forEach(button => {
-    button.addEventListener('click', function() {
-      const name = this.getAttribute('data-name');
-      const price = parseInt(this.getAttribute('data-price'));
+  function renderProductsFromStorage() {
+    const container = document.getElementById('product-list');
+    const products = JSON.parse(localStorage.getItem('products')) || [];
 
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-      // اگر محصول قبلا داخل سبد بود، تعداد را زیاد کن
-      const existingProduct = cart.find(item => item.name === name);
-      if(existingProduct) {
-        existingProduct.quantity++;
-      } else {
-        cart.push({ name, price, quantity: 1 });
-      }
-
-      localStorage.setItem('cart', JSON.stringify(cart));
-
-      alert(`${name} به سبد خرید اضافه شد.`);
-    });
-  });
-
-  // نمایش سبد خرید
-  function showCart() {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    if(cart.length === 0) {
-      alert('سبد خرید شما خالی است.');
+    if (products.length === 0) {
+      container.innerHTML = '<p style="text-align:center;color:#777;">محصولی برای نمایش وجود ندارد.</p>';
       return;
     }
 
-    let message = 'محصولات در سبد خرید:\n\n';
-    let total = 0;
+    container.innerHTML = '';
 
-    cart.forEach((item, index) => {
-      const itemTotal = item.price * item.quantity;
-      message += `${index + 1}. ${item.name} - تعداد: ${item.quantity} - قیمت واحد: ${item.price.toLocaleString()} تومان - جمع: ${itemTotal.toLocaleString()} تومان\n`;
-      total += itemTotal;
+    products.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'apple-card';
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" />
+        <div class="apple-card-content">
+          <h3>${product.name}</h3>
+          <p class="product-price">قیمت: ${product.price.toLocaleString()} تومان</p>
+          <div class="card-actions">
+            <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}">افزودن به سبد خرید</button>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
     });
 
-    message += `\nمجموع کل: ${total.toLocaleString()} تومان`;
+    // فعال‌سازی دکمه‌های افزودن به سبد
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', function () {
+        const name = this.getAttribute('data-name');
+        const price = parseInt(this.getAttribute('data-price'));
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    alert(message);
+        const existingProduct = cart.find(item => item.name === name);
+        if (existingProduct) {
+          existingProduct.quantity++;
+        } else {
+          cart.push({ name, price, quantity: 1 });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${name} به سبد خرید اضافه شد.`);
+      });
+    });
   }
 
-  document.getElementById('open-cart').addEventListener('click', function(e) {
-    e.preventDefault();
-    showCart();
-  });
+  renderProductsFromStorage();
 </script>
 
 

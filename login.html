@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>ورود به پنل مدیریت</title>
+  <style>
+    body {
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    input {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      width: 200px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>ورود به پنل مدیریت</h2>
+    <input type="text" id="username" placeholder="نام کاربری" />
+    <input type="password" id="password" placeholder="رمز عبور" />
+    <button onclick="login()">ورود</button>
+  </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+
+      const validUser = "mohammad";
+      const validPass = "mohammad_1386";
+
+      if (user === validUser && pass === validPass) {
+        localStorage.setItem('isAdmin', 'true');
+        window.location.href = "admin.html";
+      } else {
+        alert("نام کاربری یا رمز عبور اشتباه است.");
+      }
+    }
+  </script>
+</body>
+</html>

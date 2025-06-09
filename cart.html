@@ -4,296 +4,228 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>سبد خرید حرفه‌ای</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
   <style>
-    :root {
-      --primary-color: #0077ff;
-      --bg-light: #f9f9f9;
-      --bg-dark: #121212;
-      --text-light: #333;
-      --text-dark: #eee;
-      --card-bg-light: #fff;
-      --card-bg-dark: #1e1e1e;
-      --btn-bg: #0077ff;
-      --btn-hover-bg: #005ecb;
-      --danger-color: #ff4d4d;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
 
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Tahoma', sans-serif;
+      font-family: 'Vazirmatn', sans-serif;
+      background: #f4f7fb;
+      margin: 0;
       padding: 20px;
-      background: var(--bg-light);
-      color: var(--text-light);
-      transition: background-color 0.3s, color 0.3s;
+      color: #2c3e50;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    body.dark {
-      background: var(--bg-dark);
-      color: var(--text-dark);
-    }
-
     h1 {
       text-align: center;
       margin-bottom: 30px;
+      color: #34495e;
+    }
+
+    /* سبد خرید */
+    .cart-wrapper {
+      max-width: 600px;
+      width: 100%;
+      background: white;
+      border-radius: 15px;
+      padding: 25px 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    .cart-header h2 {
+      margin: 0;
+      color: #34495e;
+      font-weight: 700;
+    }
+    .btn-clear {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-clear:hover {
+      background: #c0392b;
     }
 
     .cart-container {
-      max-width: 650px;
-      margin: auto;
-      background: var(--card-bg-light);
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-      transition: background-color 0.3s;
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 20px;
     }
-    body.dark .cart-container {
-      background: var(--card-bg-dark);
-    }
-
     .cart-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid #eee;
       padding: 15px 0;
-      transition: border-color 0.3s;
+      gap: 15px;
     }
-    body.dark .cart-item {
-      border-color: #444;
-    }
-
     .cart-item img {
       width: 70px;
       height: 70px;
       object-fit: cover;
       border-radius: 10px;
-      margin-left: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-
     .item-info {
       flex-grow: 1;
-      direction: rtl;
-      text-align: right;
-      margin-right: 10px;
     }
     .item-name {
-      font-weight: bold;
-      font-size: 18px;
+      font-weight: 700;
+      font-size: 1.1rem;
       margin-bottom: 6px;
+      color: #34495e;
     }
     .item-price {
-      font-size: 15px;
-      color: #666;
+      font-size: 0.9rem;
+      color: #27ae60;
+      margin-bottom: 8px;
     }
-    body.dark .item-price {
-      color: #aaa;
-    }
-
     .quantity-controls {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-top: 6px;
     }
     .quantity-controls button {
+      background: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 5px;
       width: 30px;
       height: 30px;
-      border: none;
-      background: var(--btn-bg);
-      color: white;
-      font-size: 20px;
       font-weight: bold;
-      border-radius: 6px;
       cursor: pointer;
       transition: background-color 0.3s;
-    }
-    .quantity-controls button:hover {
-      background: var(--btn-hover-bg);
-    }
-    .quantity-display {
-      min-width: 25px;
-      text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-      color: var(--text-light);
       user-select: none;
     }
-    body.dark .quantity-display {
-      color: var(--text-dark);
+    .quantity-controls button:hover {
+      background: #1f6391;
     }
-
-    .remove-btn {
-      background: transparent;
+    .quantity-count {
+      min-width: 28px;
+      text-align: center;
+      font-size: 1rem;
+      user-select: none;
+      color: #34495e;
+    }
+    .btn-remove {
+      background: #c0392b;
       border: none;
-      color: var(--danger-color);
-      font-size: 20px;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: color 0.3s;
+      font-weight: 700;
+      transition: background-color 0.3s;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-    .remove-btn:hover {
-      color: #ff1a1a;
+    .btn-remove:hover {
+      background: #992d22;
     }
-
     .total {
       text-align: right;
-      font-size: 22px;
-      font-weight: bold;
-      margin-top: 25px;
-      border-top: 2px solid var(--btn-bg);
-      padding-top: 15px;
-      direction: rtl;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-top: 10px;
+      color: #2c3e50;
     }
-
     .empty-message {
       text-align: center;
       color: #888;
-      font-size: 20px;
-      margin-top: 50px;
-    }
-
-    .actions {
-      max-width: 650px;
-      margin: 25px auto 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      direction: rtl;
-    }
-    .btn {
-      padding: 12px 22px;
-      background: var(--btn-bg);
-      color: white;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      text-decoration: none;
-      user-select: none;
-    }
-    .btn:hover {
-      background: var(--btn-hover-bg);
-    }
-    .btn:disabled {
-      background: #aaa;
-      cursor: not-allowed;
-    }
-
-    .coupon-form {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-grow: 1;
-    }
-    .coupon-form input[type="text"] {
-      flex-grow: 1;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      transition: border-color 0.3s;
-    }
-    .coupon-form input[type="text"]:focus {
-      border-color: var(--btn-bg);
-      outline: none;
-    }
-
-    .dark-mode-toggle {
-      cursor: pointer;
-      background: transparent;
-      border: 2px solid var(--btn-bg);
-      color: var(--btn-bg);
-      border-radius: 8px;
-      font-weight: bold;
-      padding: 10px 16px;
-      transition: background-color 0.3s, color 0.3s;
-      user-select: none;
-    }
-    .dark-mode-toggle:hover {
-      background: var(--btn-bg);
-      color: white;
+      font-size: 1.2rem;
+      margin: 40px 0;
     }
 
     /* Responsive */
-    @media (max-width: 480px) {
-      .cart-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-      .cart-item img {
-        margin-left: 0;
-      }
-      .actions {
-        flex-direction: column;
-        gap: 15px;
+    @media (max-width: 700px) {
+      .cart-wrapper {
+        max-width: 100%;
+        padding: 20px;
       }
     }
   </style>
 </head>
 <body>
 
-  <h1>🛒 سبد خرید شما</h1>
+  <h1>🛒 سبد خرید حرفه‌ای</h1>
 
-  <div class="cart-container" id="cart-container">
-    <!-- محصولات سبد خرید اینجا نمایش داده می‌شوند -->
-  </div>
-
-  <div class="total" id="total-price">جمع کل: ۰ تومان</div>
-
-  <div class="actions">
-    <a href="#" class="btn" id="continue-shopping">ادامه خرید</a>
-
-    <form id="coupon-form" class="coupon-form">
-      <input type="text" id="coupon-code" placeholder="کد تخفیف را وارد کنید" />
-      <button type="submit" class="btn">اعمال تخفیف</button>
-    </form>
-
-    <button class="btn" id="checkout-btn" disabled>پرداخت</button>
-
-    <button class="dark-mode-toggle" id="dark-mode-toggle">حالت تاریک</button>
-  </div>
+  <section class="cart-wrapper">
+    <div class="cart-header">
+      <h2>سبد خرید شما</h2>
+      <button class="btn-clear" id="clear-cart"><i class="fas fa-trash-alt"></i> حذف همه</button>
+    </div>
+    <div class="cart-container" id="cart-container">
+      <!-- کالاهای سبد خرید -->
+    </div>
+    <div class="total" id="total-price">جمع کل: ۰ تومان</div>
+  </section>
 
   <script>
     const cartContainer = document.getElementById('cart-container');
     const totalPriceElement = document.getElementById('total-price');
-    const continueShoppingBtn = document.getElementById('continue-shopping');
-    const couponForm = document.getElementById('coupon-form');
-    const couponCodeInput = document.getElementById('coupon-code');
-    const checkoutBtn = document.getElementById('checkout-btn');
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    const clearCartBtn = document.getElementById('clear-cart');
 
-    // نمونه سبد خرید پیش‌فرض برای تست
+    // نمونه داده اولیه برای تست (اگر localStorage خالی بود)
     let cart = JSON.parse(localStorage.getItem('cart')) || [
-      { id: 1, name: "کلاه", price: 250000, quantity: 1, image: "کلاه.webp" },
-      { id: 2, name: "تیشرت", price: 300000, quantity: 2, image: "تیشرت.webp" },
-      { id: 3, name: "شلوار", price: 400000, quantity: 1, image: "شلوار.webp" }
+      {
+        id: 1,
+        name: "کلاه مدرن",
+        price: 250000,
+        quantity: 2,
+        image: "کلاه.webp"
+      },
+      {
+        id: 2,
+        name: "تیشرت راحت",
+        price: 150000,
+        quantity: 1,
+        image: "تیشرت.webp"
+      }
     ];
-
-    let discountPercent = 0;
 
     function formatPrice(num) {
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' تومان';
     }
 
-    function updateLocalStorage() {
+    function saveCart() {
       localStorage.setItem('cart', JSON.stringify(cart));
     }
 
+    // رندر سبد خرید
     function renderCart() {
       cartContainer.innerHTML = '';
-      if(cart.length === 0) {
+      if (cart.length === 0) {
         cartContainer.innerHTML = '<p class="empty-message">سبد خرید شما خالی است.</p>';
         totalPriceElement.textContent = 'جمع کل: ۰ تومان';
-        checkoutBtn.disabled = true;
         return;
       }
 
-      checkoutBtn.disabled = false;
-
       let total = 0;
 
-      cart.forEach(item => {
+      cart.forEach((item, index) => {
         total += item.price * item.quantity;
 
         const cartItem = document.createElement('div');
@@ -305,95 +237,63 @@
             <div class="item-name">${item.name}</div>
             <div class="item-price">قیمت واحد: ${formatPrice(item.price)}</div>
             <div class="quantity-controls">
-              <button class="qty-minus" data-id="${item.id}">-</button>
-              <div class="quantity-display">${item.quantity}</div>
-              <button class="qty-plus" data-id="${item.id}">+</button>
-              <button class="remove-btn" data-id="${item.id}" title="حذف محصول">&times;</button>
+              <button class="btn-decrease" data-index="${index}"><i class="fas fa-minus"></i></button>
+              <div class="quantity-count">${item.quantity}</div>
+              <button class="btn-increase" data-index="${index}"><i class="fas fa-plus"></i></button>
             </div>
           </div>
+          <button class="btn-remove" data-index="${index}">
+            <i class="fas fa-trash"></i> حذف
+          </button>
         `;
 
         cartContainer.appendChild(cartItem);
       });
 
-      // اعمال تخفیف روی جمع کل
-      let discountedTotal = total - (total * discountPercent / 100);
-
-      totalPriceElement.textContent = `جمع کل: ${formatPrice(Math.floor(discountedTotal))}`;
+      totalPriceElement.textContent = 'جمع کل: ' + formatPrice(total);
     }
 
-    function changeQuantity(id, delta) {
-      cart = cart.map(item => {
-        if(item.id === id) {
-          let newQty = item.quantity + delta;
-          if(newQty < 1) newQty = 1;
-          return {...item, quantity: newQty};
-        }
-        return item;
-      });
-      updateLocalStorage();
+    // تغییر تعداد کالا
+    function changeQuantity(index, delta) {
+      cart[index].quantity += delta;
+      if (cart[index].quantity < 1) {
+        cart[index].quantity = 1;
+      }
+      saveCart();
       renderCart();
     }
 
-    function removeItem(id) {
-      cart = cart.filter(item => item.id !== id);
-      updateLocalStorage();
+    // حذف کالا
+    function removeItem(index) {
+      cart.splice(index, 1);
+      saveCart();
       renderCart();
     }
 
-    // دکمه ادامه خرید (فعلا هدایت به گوگل)
-    continueShoppingBtn.href = "https://example.com/shop";
-
-    // رویدادها
-    cartContainer.addEventListener('click', e => {
-      if(e.target.classList.contains('qty-minus')) {
-        const id = parseInt(e.target.dataset.id);
-        changeQuantity(id, -1);
-      }
-      if(e.target.classList.contains('qty-plus')) {
-        const id = parseInt(e.target.dataset.id);
-        changeQuantity(id, +1);
-      }
-      if(e.target.classList.contains('remove-btn')) {
-        const id = parseInt(e.target.dataset.id);
-        removeItem(id);
-      }
-    });
-
-    couponForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const code = couponCodeInput.value.trim().toUpperCase();
-
-      // نمونه کد تخفیف
-      const coupons = {
-        'SAVE10': 10,
-        'SAVE20': 20,
-        'BLACKFRIDAY': 50,
-      };
-
-      if(coupons[code]) {
-        discountPercent = coupons[code];
-        alert(`کد تخفیف با موفقیت اعمال شد! شما ${discountPercent}% تخفیف گرفتید.`);
-        couponCodeInput.value = '';
+    // حذف همه کالاها
+    function clearCart() {
+      if (confirm('آیا مطمئن هستید که می‌خواهید همه کالاها را حذف کنید؟')) {
+        cart = [];
+        saveCart();
         renderCart();
-      } else {
-        alert('کد تخفیف معتبر نیست.');
+      }
+    }
+
+    // هندل کردن کلیک‌ها در سبد خرید
+    document.body.addEventListener('click', e => {
+      if (e.target.closest('.btn-increase')) {
+        const index = parseInt(e.target.closest('.btn-increase').getAttribute('data-index'));
+        changeQuantity(index, 1);
+      } else if (e.target.closest('.btn-decrease')) {
+        const index = parseInt(e.target.closest('.btn-decrease').getAttribute('data-index'));
+        changeQuantity(index, -1);
+      } else if (e.target.closest('.btn-remove')) {
+        const index = parseInt(e.target.closest('.btn-remove').getAttribute('data-index'));
+        removeItem(index);
       }
     });
 
-    checkoutBtn.addEventListener('click', () => {
-      if(cart.length === 0) {
-        alert('سبد خرید شما خالی است.');
-        return;
-      }
-      alert('برای ادامه فرآیند پرداخت به صفحه تسویه حساب هدایت می‌شوید.');
-      // اینجا میتونی redirect به صفحه پرداخت بزاری
-    });
-
-    darkModeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      darkModeToggle.textContent = document.body.classList.contains('dark') ? 'حالت روشن' : 'حالت تاریک';
-    });
+    clearCartBtn.addEventListener('click', clearCart);
 
     renderCart();
   </script>

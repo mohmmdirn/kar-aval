@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>پنل مدیریت</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f2f5;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    form {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+    }
+    form input, form button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px 10px 10px 0;
+    }
+    form input[type="text"], form input[type="number"] {
+      width: 200px;
+    }
+    form button {
+      cursor: pointer;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    form button:hover {
+      background-color: #218838;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      text-align: center;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    button.action-btn {
+      padding: 6px 12px;
+      margin: 0 5px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      color: white;
+    }
+    button.delete-btn {
+      background-color: #dc3545;
+    }
+    button.delete-btn:hover {
+      background-color: #a71d2a;
+    }
+    button.edit-btn {
+      background-color: #ffc107;
+      color: black;
+    }
+    button.edit-btn:hover {
+      background-color: #e0a800;
+    }
+    .link-back {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .link-back a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .link-back a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>پنل مدیریت محصولات</h1>
+
+  <form id="product-form">
+    <input type="text" id="product-name" placeholder="نام محصول" required />
+    <input type="number" id="product-price" placeholder="قیمت (تومان)" required min="1" />
+    <input type="text" id="product-image" placeholder="آدرس تصویر (مثلاً: hat.webp)" required />
+    <button type="submit">افزودن محصول</button>
+  </form>
+
+  <table id="products-table">
+    <thead>
+      <tr>
+        <th>نام محصول</th>
+        <th>قیمت (تومان)</th>
+        <th>تصویر</th>
+        <th>عملیات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- محصولات اینجا رندر میشن -->
+    </tbody>
+  </table>
+
+  <h2 style="margin-top:40px;">سبد خرید فعلی</h2>
+  <table id="cart-table">
+    <thead>
+      <tr>
+        <th>نام محصول</th>
+        <th>تعداد</th>
+        <th>قیمت واحد (تومان)</th>
+        <th>جمع (تومان)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- آیتم های سبد خرید اینجا -->
+    </tbody>
+  </table>
+
+  <div class="link-back">
+    <a href="Kar-aval.html">بازگشت به فروشگاه</a> | 
+    <a href="cart.html">رفتن به سبد خرید</a>
+  </div>
+
+  <script>
+    // گرفتن لیست محصولات از localStorage یا ساختن آرایه جدید
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+
+    // گرفتن سبد خرید
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const productsTableBody = document.querySelector('#products-table tbody');
+    const cartTableBody = document.querySelector('#cart-table tbody');
+    const productForm = document.getElementById('product-form');
+
+    // تابع رندر محصولات در جدول
+    function renderProducts() {
+      productsTableBody.innerHTML = '';
+      if(products.length === 0) {
+        productsTableBody.innerHTML = `<tr><td colspan="4" style="color:#888;">هیچ محصولی وجود ندارد.</td></tr>`;
+        return;
+      }
+      products.forEach((product, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${product.name}</td>
+          <td>${product.price.toLocaleString()}</td>
+          <td><img src="${product.image}" alt="${product.name}" style="width:50px; height:50px; object-fit: cover; border-radius: 5px;"></td>
+          <td>
+            <button class="action-btn delete-btn" data-index="${index}">حذف</button>
+          </td>
+        `;
+        productsTableBody.appendChild(row);
+      });
+
+      // اضافه کردن event listener به دکمه‌های حذف
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const index = parseInt(btn.getAttribute('data-index'));
+          if(confirm(`آیا از حذف "${products[index].name}" مطمئن هستید؟`)) {
+            products.splice(index,1);
+            localStorage.setItem('products', JSON.stringify(products));
+            renderProducts();
+          }
+        });
+      });
+    }
+
+    // تابع رندر سبد خرید
+    function renderCart() {
+      cartTableBody.innerHTML = '';
+      if(cart.length === 0) {
+        cartTableBody.innerHTML = `<tr><td colspan="4" style="color:#888;">سبد خرید خالی است.</td></tr>`;
+        return;
+      }
+      cart.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>${item.price.toLocaleString()}</td>
+          <td>${(item.price * item.quantity).toLocaleString()}</td>
+        `;
+        cartTableBody.appendChild(row);
+      });
+    }
+
+    // اضافه کردن محصول جدید
+    productForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('product-name').value.trim();
+      const price = parseInt(document.getElementById('product-price').value);
+      const image = document.getElementById('product-image').value.trim();
+
+      if(!name || isNaN(price) || price <= 0 || !image) {
+        alert('لطفا همه فیلدها را به درستی پر کنید.');
+        return;
+      }
+
+      // اضافه کردن محصول جدید
+      products.push({name, price, image});
+      localStorage.setItem('products', JSON.stringify(products));
+      productForm.reset();
+      renderProducts();
+      alert('محصول با موفقیت اضافه شد.');
+    });
+
+    // رندر اولیه
+    renderProducts();
+    renderCart();
+
+
+
+      document.getElementById('addProductBtn').addEventListener('click', () => {
+    const name = document.getElementById('productName').value;
+    const price = parseInt(document.getElementById('productPrice').value);
+    const img = document.getElementById('productImage').value;
+
+    let products = JSON.parse(localStorage.getItem('products')) || [];
+    products.push({ name, price, img });
+
+    localStorage.setItem('products', JSON.stringify(products));
+    alert("محصول اضافه شد!");
+  });
+  </script>
+
+</body>
+</html>

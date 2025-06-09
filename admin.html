@@ -101,6 +101,25 @@
 </head>
 <body>
 
+
+
+
+<!-- کادر جستجو بالای کارت‌ها -->
+<input type="text" id="search-cart" placeholder="جستجو در سبد خرید...">
+
+<!-- کانتینر کارت‌ها -->
+<div id="cart-items">
+  <div class="cart-item">تیشرت قرمز</div>
+  <div class="cart-item">شلوار آبی</div>
+  <div class="cart-item">کلاه سفید</div>
+  <!-- بقیه کارت‌ها -->
+</div>
+
+
+
+
+
+
   <h1>پنل مدیریت محصولات</h1>
 
   <form id="product-form">
@@ -143,8 +162,34 @@
     <a href="Kar-aval.html">بازگشت به فروشگاه</a> | 
     <a href="cart.html">رفتن به سبد خرید</a>
   </div>
+<button onclick="logout()" style="margin-top: 20px;">خروج از حساب</button>
+<script>
+  const searchInput = document.getElementById('search-cart');
+  const cartContainer = document.getElementById('cart-items');
+
+  searchInput.addEventListener('input', () => {
+    const filter = searchInput.value.trim().toLowerCase();
+    const cartItems = cartContainer.querySelectorAll('.cart-item');
+
+    cartItems.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      if (text.includes(filter)) {
+        item.style.display = ''; // نمایش کارت
+      } else {
+        item.style.display = 'none'; // مخفی کردن کارت
+      }
+    });
+  });
+</script>
 
   <script>
+      if (localStorage.getItem('isAdmin') !== 'true') {
+    window.location.href = 'login.html';
+  }
+    function logout() {
+    localStorage.removeItem('isAdmin');
+    window.location.href = 'login.html';
+  }
     // گرفتن لیست محصولات از localStorage یا ساختن آرایه جدید
     let products = JSON.parse(localStorage.getItem('products')) || [];
 
@@ -248,3 +293,7 @@
 
 </body>
 </html>
+
+<!-- 
+رمزونامadmin
+ps1234 -->

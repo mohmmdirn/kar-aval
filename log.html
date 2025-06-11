@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>ورود / ثبت‌نام</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+  <style>
+    body {
+      font-family: Tahoma;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #aaa;
+      width: 300px;
+      text-align: center;
+    }
+    input {
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px;
+      width: 100%;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    p {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>ورود / ثبت‌نام</h2>
+    <input type="email" id="email" placeholder="ایمیل">
+    <input type="password" id="password" placeholder="رمز عبور">
+    <button onclick="register()">ثبت‌نام</button>
+    <button onclick="login()">ورود</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    // کانفیگ Firebase - جایگزین کن با اطلاعات پروژه خودت
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "your-app.firebaseapp.com",
+      projectId: "your-app-id",
+      appId: "YOUR_APP_ID",
+    };
+
+    // مقداردهی اولیه
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth(
+apiKey: "AIzaSyCSzCeCL_9jT_y9qqJhu8D5pZNpAyi0x0Q",
+  authDomain: "kar-aval.firebaseapp.com",
+  projectId: "kar-aval",
+  storageBucket: "kar-aval.firebasestorage.app",
+  messagingSenderId: "349367654007",
+  appId: "1:349367654007:web:8a5d8b786f87bacc8d1872",
+  measurementId: "G-L3WZYC96EP"
+    );
+
+    // ثبت‌نام
+    function register() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          document.getElementById("message").style.color = "green";
+          document.getElementById("message").innerText = "ثبت‌نام موفق!";
+        })
+        .catch(error => {
+          document.getElementById("message").innerText = error.message;
+        });
+    }
+
+    // ورود
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          document.getElementById("message").style.color = "green";
+          document.getElementById("message").innerText = "ورود موفق!";
+          setTimeout(() => {
+            window.location.href = "kar-aval.html"; // صفحه بعد از ورود
+          }, 1000);
+        })
+        .catch(error => {
+          document.getElementById("message").innerText = error.message;
+        });
+    }
+  </script>
+
+</body>
+</html>

@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>ورود / ثبت‌نام</title>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <style>
     body {
       font-family: Tahoma;
@@ -56,7 +57,7 @@
 </div>
 
 <script>
-  // کانفیگ firebase
+  // تنظیمات پروژه Firebase خودت
   const firebaseConfig = {
     apiKey: "AIzaSyCSzCeCL_9jT_y9qqJhu8D5pZNpAyi0x0Q",
     authDomain: "kar-aval.firebaseapp.com",
@@ -78,14 +79,14 @@
 
     if (!email || !password) {
       message.style.color = "red";
-      message.innerText = "ایمیل و رمز عبور را وارد کنید.";
+      message.innerText = "لطفا ایمیل و رمز عبور را وارد کنید.";
       return;
     }
 
     auth.createUserWithEmailAndPassword(email, password)
       .then(() => {
         message.style.color = "green";
-        message.innerText = "ثبت‌نام با موفقیت انجام شد.";
+        message.innerText = "ثبت‌نام موفق بود.";
       })
       .catch(error => {
         message.style.color = "red";
@@ -100,7 +101,7 @@
 
     if (!email || !password) {
       message.style.color = "red";
-      message.innerText = "ایمیل و رمز عبور را وارد کنید.";
+      message.innerText = "لطفا ایمیل و رمز عبور را وارد کنید.";
       return;
     }
 
@@ -109,7 +110,7 @@
         message.style.color = "green";
         message.innerText = "ورود موفق بود.";
         setTimeout(() => {
-          window.location.href = "kar-aval.html";  // صفحه بعد از ورود
+          window.location.href = "kar-aval.html"; // صفحه اصلی بعد از ورود
         }, 1000);
       })
       .catch(error => {

@@ -166,17 +166,13 @@
         padding: 20px;
       }
     }
+    
   </style>
 </head>
 <body>
 
-  <h1>🛒 سبد خرید حرفه‌ای</h1>
-
-
-
-
-
-
+  <!-- عنوان اصلی با قابلیت نمایش تعداد کل کالاها -->
+  <h1 id="cart-title">🛒 سبد خرید حرفه‌ای</h1>
 
   <section class="cart-wrapper">
     <div class="cart-header">
@@ -187,14 +183,43 @@
       <!-- کالاهای سبد خرید -->
     </div>
     <div class="total" id="total-price">جمع کل: ۰ تومان</div>
+    <!-- نمایش تعداد کل کالاها -->
+    <div style="text-align: right; margin-top: 8px; font-weight: bold; color: #34495e" id="item-count"></div>
   </section>
 
+  <!-- دکمه ادامه خرید -->
+  <div style="margin-top: 15px; text-align: center">
+    <a href="index.html" style="
+      background: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+      display: inline-block;
+    " onmouseover="this.style.background='#2980b9'" onmouseout="this.style.background='#3498db'">
+      ادامه خرید ⬅
+    </a>
+  </div>
+
+  <!-- نوتیفیکیشن Toast -->
+  <div id="toast" style="
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #2ecc71;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    display: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: opacity 0.4s;
+  "></div>
+
   <script>
-
-
-
-
-
 
     const cartContainer = document.getElementById('cart-container');
     const totalPriceElement = document.getElementById('total-price');
@@ -232,6 +257,7 @@
       if (cart.length === 0) {
         cartContainer.innerHTML = '<p class="empty-message">سبد خرید شما خالی است.</p>';
         totalPriceElement.textContent = 'جمع کل: ۰ تومان';
+        updateItemCount();
         return;
       }
 
@@ -263,6 +289,14 @@
       });
 
       totalPriceElement.textContent = 'جمع کل: ' + formatPrice(total);
+      updateItemCount();
+    }
+
+    // نمایش تعداد کل کالاها و آپدیت عنوان
+    function updateItemCount() {
+      const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+      document.getElementById("item-count").textContent = `تعداد کل کالاها: ${count}`;
+      document.getElementById("cart-title").textContent = `🛒 سبد خرید شما (${count} کالا)`;
     }
 
     // تغییر تعداد کالا
@@ -273,6 +307,7 @@
       }
       saveCart();
       renderCart();
+      showToast('تعداد کالا به‌روزرسانی شد');
     }
 
     // حذف کالا
@@ -280,6 +315,7 @@
       cart.splice(index, 1);
       saveCart();
       renderCart();
+      showToast('کالا حذف شد');
     }
 
     // حذف همه کالاها
@@ -288,6 +324,7 @@
         cart = [];
         saveCart();
         renderCart();
+        showToast('سبد خرید خالی شد');
       }
     }
 
@@ -296,18 +333,48 @@
       if (e.target.closest('.btn-increase')) {
         const index = parseInt(e.target.closest('.btn-increase').getAttribute('data-index'));
         changeQuantity(index, 1);
+        animateButton(e.target.closest('.btn-increase'));
       } else if (e.target.closest('.btn-decrease')) {
         const index = parseInt(e.target.closest('.btn-decrease').getAttribute('data-index'));
         changeQuantity(index, -1);
+        animateButton(e.target.closest('.btn-decrease'));
       } else if (e.target.closest('.btn-remove')) {
         const index = parseInt(e.target.closest('.btn-remove').getAttribute('data-index'));
         removeItem(index);
+        animateButton(e.target.closest('.btn-remove'));
       }
     });
 
-    clearCartBtn.addEventListener('click', clearCart);
+    clearCartBtn.addEventListener('click', () => {
+      animateButton(clearCartBtn);
+      clearCart();
+    });
 
     renderCart();
+
+    // انیمیشن کوچک دکمه‌ها
+    function animateButton(btn) {
+      btn.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        btn.style.transform = 'scale(1)';
+      }, 150);
+    }
+
+    // نمایش نوتیفیکیشن Toast
+    const toast = document.getElementById('toast');
+    let toastTimeout;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.style.display = 'block';
+      toast.style.opacity = '1';
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => {
+          toast.style.display = 'none';
+        }, 400);
+      }, 2000);
+    }
   </script>
 
 </body>

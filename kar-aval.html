@@ -614,6 +614,27 @@ header {
   <ul id="cart-items"></ul>
   <button id="close-cart">بستن</button>
 </div>
+<!-- بریا ورود -->
+ <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "your-app.firebaseapp.com",
+    projectId: "your-app-id",
+    appId: "YOUR_APP_ID",
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  auth.onAuthStateChanged(user => {
+    if (!user) {
+      // اگه لاگین نکرده بود، بفرستش به صفحه ورود
+      window.location.href = "login.html";
+    }
+  });
+</script>
+
 <script>
   // برای منوی کار بر
   const userButton = document.getElementById('user-button');

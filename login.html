@@ -42,7 +42,7 @@
 </head>
 <body>
   <div class="login-box">
-    <h2>ورود به پنل مدیریت</h2>
+    <h2>ورود به پنل</h2>
     <input type="text" id="username" placeholder="نام کاربری" />
     <input type="password" id="password" placeholder="رمز عبور" />
     <button onclick="login()">ورود</button>
@@ -50,15 +50,16 @@
 
   <script>
     function login() {
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
 
-      const validUser = "11";
-      const validPass = "11";
-
-      if (user === validUser && pass === validPass) {
-        localStorage.setItem('isAdmin', 'true');
+      // تعریف کاربران
+      if (user === "admin" && pass === "1234") {
+        localStorage.setItem("currentUser", "admin");
         window.location.href = "admin.html";
+      } else if (user === "user1" && pass === "1111") {
+        localStorage.setItem("currentUser", "user1");
+        window.location.href = "shop.html"; // صفحه کاربران معمولی
       } else {
         alert("نام کاربری یا رمز عبور اشتباه است.");
       }

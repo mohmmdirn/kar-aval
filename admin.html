@@ -197,17 +197,21 @@
 
   <script>
     // کنترل دسترسی ادمین
-    if (localStorage.getItem('isAdmin') !== 'true') {
-      window.location.href = 'login.html';
-    }
+const currentUser = localStorage.getItem('currentUser');
+if (currentUser !== 'admin') {
+  alert("دسترسی غیرمجاز. فقط مدیر می‌تواند وارد شود.");
+  window.location.href = 'login.html';
+}
+
     function logout() {
-      localStorage.removeItem('isAdmin');
+      localStorage.removeItem('currentUser');
       window.location.href = 'login.html';
     }
 
     // داده‌ها
     let products = JSON.parse(localStorage.getItem('products')) || [];
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cartKey = `cart_${currentUser}`;
+    let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
 
     const productsTableBody = document.querySelector('#products-table tbody');
     const cartTableBody = document.querySelector('#cart-table tbody');

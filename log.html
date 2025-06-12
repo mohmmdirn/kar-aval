@@ -8,7 +8,7 @@
   <style>
     body {
       font-family: Tahoma;
-      background-color: #f0f0f0;
+      background-color: #eef2f5;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,9 +16,9 @@
     }
     .container {
       background: white;
-      padding: 30px;
+      padding: 30px 20px;
       border-radius: 10px;
-      box-shadow: 0 0 10px #aaa;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
       width: 300px;
       text-align: center;
     }
@@ -26,8 +26,9 @@
       margin: 10px 0;
       padding: 10px;
       width: 100%;
-      border-radius: 5px;
+      border-radius: 6px;
       border: 1px solid #ccc;
+      font-size: 14px;
     }
     button {
       padding: 10px;
@@ -35,13 +36,26 @@
       background: #007bff;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
       margin-top: 10px;
+      font-size: 14px;
     }
-    p {
+    button:hover {
+      background: #0056b3;
+    }
+    .forgot {
+      background: transparent;
+      color: #007bff;
+      border: none;
+      margin-top: 5px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    p#message {
       color: red;
       min-height: 20px;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -53,11 +67,11 @@
   <input type="password" id="password" placeholder="رمز عبور" />
   <button onclick="register()">ثبت‌نام</button>
   <button onclick="login()">ورود</button>
+  <button class="forgot" onclick="forgotPassword()">فراموشی رمز عبور؟</button>
   <p id="message"></p>
 </div>
 
 <script>
-  // تنظیمات پروژه Firebase خودت
   const firebaseConfig = {
     apiKey: "AIzaSyCSzCeCL_9jT_y9qqJhu8D5pZNpAyi0x0Q",
     authDomain: "kar-aval.firebaseapp.com",
@@ -68,7 +82,6 @@
     measurementId: "G-L3WZYC96EP"
   };
 
-  // مقداردهی اولیه
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
 
@@ -110,8 +123,29 @@
         message.style.color = "green";
         message.innerText = "ورود موفق بود.";
         setTimeout(() => {
-          window.location.href = "kar-aval.html"; // صفحه اصلی بعد از ورود
+          window.location.href = "kar-aval.html";
         }, 1000);
+      })
+      .catch(error => {
+        message.style.color = "red";
+        message.innerText = error.message;
+      });
+  }
+
+  function forgotPassword() {
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message");
+
+    if (!email) {
+      message.style.color = "red";
+      message.innerText = "لطفاً ابتدا ایمیل را وارد کنید.";
+      return;
+    }
+
+    auth.sendPasswordResetEmail(email)
+      .then(() => {
+        message.style.color = "green";
+        message.innerText = "ایمیل بازیابی رمز عبور ارسال شد.";
       })
       .catch(error => {
         message.style.color = "red";

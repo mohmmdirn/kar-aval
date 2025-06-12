@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <title>پروفایل کاربر</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      direction: rtl;
+      font-family: Tahoma, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #80deea);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-box {
+      background-color: #ffffff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 350px;
+    }
+
+    .profile-box h2 {
+      color: #00796b;
+      margin-bottom: 20px;
+    }
+
+    .info {
+      margin: 15px 0;
+      font-size: 16px;
+      color: #333;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      margin: 10px 0;
+      transition: background-color 0.3s ease;
+    }
+
+    button.logout {
+      background-color: #d32f2f;
+    }
+
+    button.logout:hover {
+      background-color: #b71c1c;
+    }
+
+    button:hover {
+      background-color: #00695c;
+    }
+
+    #message {
+      margin-top: 10px;
+      font-size: 14px;
+      color: green;
+      min-height: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="profile-box">
+  <h2>پروفایل کاربر</h2>
+  <div id="user-info" class="info">در حال بارگذاری...</div>
+
+  <button onclick="resetPassword()">تغییر رمز عبور</button>
+  <button class="logout" onclick="logout()">خروج</button>
+
+  <div id="message"></div>
+</div>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCSzCeCL_9jT_y9qqJhu8D5pZNpAyi0x0Q",
+    authDomain: "kar-aval.firebaseapp.com",
+    projectId: "kar-aval",
+    appId: "1:349367654007:web:8a5d8b786f87bacc8d1872"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const info = document.getElementById("user-info");
+  const messageBox = document.getElementById("message");
+
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      info.innerText = `ایمیل: ${user.email}`;
+    } else {
+      window.location.href = "log.html"; // اگر وارد نشده بود
+    }
+  });
+
+  function resetPassword() {
+    const user = auth.currentUser;
+    if (user && user.email) {
+      firebase.auth().sendPasswordResetEmail(user.email)
+        .then(() => {
+          messageBox.style.color = "green";
+          messageBox.innerText = "لینک تغییر رمز عبور به ایمیل شما ارسال شد.";
+        })
+        .catch(error => {
+          messageBox.style.color = "red";
+          messageBox.innerText = "خطا در ارسال ایمیل: " + error.message;
+        });
+    }
+  }
+
+  function logout() {
+    auth.signOut().then(() => {
+      window.location.href = "log.html";
+    });
+  }
+</script>
+
+</body>
+</html>

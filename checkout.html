@@ -3,144 +3,202 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ثبت سفارش</title>
+  <title>صفحه پرداخت</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
     body {
       font-family: 'Vazirmatn', sans-serif;
       background: #f4f7fb;
-      padding: 30px;
       margin: 0;
+      padding: 20px;
+      color: #2c3e50;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    h1 {
+      text-align: center;
+      width: 100%;
+      margin-bottom: 20px;
+      color: #34495e;
+    }
+    .summary, .checkout-form {
+      background: white;
+      border-radius: 15px;
+      padding: 25px 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      width: 350px;
+    }
+    .summary h2, .checkout-form h2 {
+      margin-top: 0;
+      color: #34495e;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+    }
+    .item-name {
+      font-weight: 600;
       color: #2c3e50;
     }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: white;
-      padding: 25px 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    .item-qty-price {
+      color: #27ae60;
+      font-weight: 600;
     }
-    h2 {
-      text-align: center;
-      color: #34495e;
-      margin-bottom: 25px;
+    .total-price {
+      margin-top: 15px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-align: right;
+      color: #2c3e50;
     }
-    label {
+    form label {
       display: block;
       margin-top: 15px;
-      font-weight: bold;
-      color: #2c3e50;
+      font-weight: 600;
+      color: #34495e;
     }
-    input, textarea {
+    form input, form textarea {
       width: 100%;
-      padding: 10px;
+      padding: 8px 10px;
+      margin-top: 6px;
       border-radius: 8px;
       border: 1px solid #ccc;
-      margin-top: 8px;
       font-size: 1rem;
-      font-family: inherit;
+      font-family: 'Vazirmatn', sans-serif;
     }
-    textarea {
+    form textarea {
       resize: vertical;
+      min-height: 60px;
     }
-    .summary {
-      margin-top: 25px;
-      padding: 15px;
-      background: #ecf0f1;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      line-height: 1.7;
-    }
-    .btn-submit {
+    form button {
       margin-top: 25px;
       background: #27ae60;
       color: white;
       border: none;
-      padding: 12px;
-      width: 100%;
+      padding: 12px 0;
       border-radius: 10px;
-      font-weight: bold;
+      font-weight: 700;
       font-size: 1.1rem;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background-color 0.3s;
+      width: 100%;
     }
-    .btn-submit:hover {
-      background: #1e8449;
+    form button:hover {
+      background: #219150;
     }
-    .back-link {
-      display: block;
+    .empty-message {
+      color: #888;
       text-align: center;
-      margin-top: 20px;
-      text-decoration: none;
-      color: #2980b9;
-      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 30px 0;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h2>فرم ثبت سفارش</h2>
+  <h1>تکمیل خرید</h1>
 
-    <form onsubmit="handleSubmit(event)">
-      <label>نام کامل</label>
-      <input type="text" id="fullName" required />
-
-      <label>شماره تماس</label>
-      <input type="tel" id="phone" required />
-
-      <label>آدرس</label>
-      <textarea id="address" rows="3" required></textarea>
-
-      <label>توضیحات اضافی (اختیاری)</label>
-      <textarea id="notes" rows="2"></textarea>
-
-      <div class="summary">
-        <div id="itemCount">تعداد کالا: ۰</div>
-        <div id="totalPrice">مبلغ کل: ۰ تومان</div>
-      </div>
-
-      <button type="submit" class="btn-submit">تایید و ثبت سفارش</button>
-    </form>
-
-    <a href="cart.html" class="back-link">⬅ بازگشت به سبد خرید</a>
+  <div class="summary" id="summary">
+    <h2>خلاصه سفارش</h2>
+    <div id="summary-items">
+      <!-- کالاها اینجا نمایش داده میشن -->
+    </div>
+    <div class="total-price" id="summary-total">جمع کل: ۰ تومان</div>
   </div>
 
+  <form class="checkout-form" id="checkout-form">
+    <h2>اطلاعات خریدار</h2>
+    <label for="name">نام کامل</label>
+    <input type="text" id="name" required placeholder="نام خود را وارد کنید" />
+
+    <label for="phone">تلفن همراه</label>
+    <input type="tel" id="phone" required placeholder="مثلاً 09xxxxxxxxx" pattern="09\d{9}" />
+
+    <label for="address">آدرس</label>
+    <textarea id="address" required placeholder="آدرس کامل خود را وارد کنید"></textarea>
+
+    <label for="note">توضیحات سفارش (اختیاری)</label>
+    <textarea id="note" placeholder=" نکات خاص و غیره..."></textarea>
+
+    <label for="delivery-time">زمان تحویل</label>
+<input type="text" id="delivery-time" placeholder="مثلاً ساعت ۵ بعدازظهر یا هر زمان دلخواه" />
+
+
+    <button type="submit">ثبت سفارش</button>
+  </form>
+
   <script>
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const summaryItems = document.getElementById('summary-items');
+    const summaryTotal = document.getElementById('summary-total');
+    const checkoutForm = document.getElementById('checkout-form');
 
     function formatPrice(num) {
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' تومان';
     }
 
-    function updateSummary() {
-      const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-      const count = cart.reduce((acc, item) => acc + item.quantity, 0);
-
-      document.getElementById('itemCount').textContent = `تعداد کالا: ${count}`;
-      document.getElementById('totalPrice').textContent = `مبلغ کل: ${formatPrice(total)}`;
-    }
-
-    function handleSubmit(event) {
-      event.preventDefault();
-      const name = document.getElementById('fullName').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const address = document.getElementById('address').value.trim();
-
-      if (!name || !phone || !address) {
-        alert('لطفاً همه فیلدهای ضروری را پر کنید.');
+    function renderSummary() {
+      summaryItems.innerHTML = '';
+      if (cart.length === 0) {
+        summaryItems.innerHTML = '<p class="empty-message">سبد خرید شما خالی است.</p>';
+        summaryTotal.textContent = 'جمع کل: ۰ تومان';
         return;
       }
 
-      alert('✅ سفارش با موفقیت ثبت شد!\nبا شما تماس خواهیم گرفت.');
-      localStorage.removeItem('cart');
-      window.location.href = 'index.html';
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+        const div = document.createElement('div');
+        div.className = 'item-row';
+        div.innerHTML = `
+          <div class="item-name">${item.name} × ${item.quantity}</div>
+          <div class="item-qty-price">${formatPrice(item.price * item.quantity)}</div>
+        `;
+        summaryItems.appendChild(div);
+      });
+
+      summaryTotal.textContent = 'جمع کل: ' + formatPrice(total);
     }
 
-    updateSummary();
-  </script>
+    renderSummary();
 
+    checkoutForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      if (cart.length === 0) {
+        alert('سبد خرید شما خالی است!');
+        return;
+      }
+
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+      const note = document.getElementById('note').value.trim();
+
+      if (!name || !phone || !address) {
+        alert('لطفاً تمام فیلدهای ضروری را پر کنید.');
+        return;
+      }
+
+      // ارسال اطلاعات به سرور یا هر پردازش دلخواه اینجا
+
+      alert(`سپاس از خرید شما، ${name}! سفارش شما ثبت شد.`);
+      localStorage.removeItem('cart');
+      window.location.href = 'index.html'; 
+    });
+    const deliveryTime = document.getElementById('delivery-time').value.trim();
+
+  </script>
 </body>
 </html>

@@ -615,111 +615,33 @@ header {
   <ul id="cart-items"></ul>
   <button id="close-cart">بستن</button>
 </div>
+
 <!-- بریا ورود -->
  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase.js"></script>
-<script>
-  // پیکربندی firebase
-  const firebaseConfig = {
-    apiKey: "API_KEY",
-    authDomain: "kar-aval.firebaseapp.com",
-    projectId: "kar-aval",
-    storageBucket: "kar-aval.appspot.com",
-    messagingSenderId: "349367654007",
-    appId: "1:349367654007:web:8a5d8b786f87bacc8d1872",
-    measurementId: "G-L3WZYC96EP"
-  };
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
 
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      // کاربر وارد شده، مثلا نمایش پیام خوش آمد
-      document.getElementById('welcomeMsg').innerText = `خوش آمدی ${user.email}`;
-    } else {
-      // کاربر وارد نشده، هدایت به صفحه ورود
-      window.location.href = 'log.html';
-    }
-  });
-</script>
-
-<div id="welcomeMsg"></div>
-<script>
-  // برای منوی کار بر
-  const userButton = document.getElementById('user-button');
-  const userMenu = document.getElementById('user-menu');
-
-  // باز و بسته کردن منو با کلیک دکمه
-  userButton.addEventListener('click', e => {
-    e.preventDefault();
-    const isHidden = userMenu.getAttribute('aria-hidden') === 'true';
-    userMenu.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
-  });
-
-  // بستن منو هنگام کلیک بیرون
-  document.addEventListener('click', e => {
-    if (!userButton.contains(e.target) && !userMenu.contains(e.target)) {
-      userMenu.setAttribute('aria-hidden', 'true');
-    }
-  });
-
-  // حذف کد های مربوط به هاور برای جلوگیری از تداخل
-</script>
-<script>
-  const mainNav = document.getElementById("main-nav");
-  const mobileMenu = document.getElementById("mobileMenu");
-
-  function cloneMenuItems() {
-    mobileMenu.innerHTML = mainNav.innerHTML;
-  }
-
-  function toggleMenu() {
-    mobileMenu.classList.toggle("show");
-  }
-
-  // اجرای اولیه برای کپی‌کردن منو
-  cloneMenuItems();
-</script>
+<div id="product-list"></div>
 
 <script>
-  
-  // باز و بسته کردن پنجره جستجو
-  const searchToggle = document.getElementById('search-toggle');
-  const searchPopup = document.querySelector('.search-popup');
-  const closeSearch = document.getElementById('close-search');
-  const searchInput = document.getElementById('search-input');
-  const mainNav = document.getElementById('main-nav');
-  const links = mainNav.getElementsByTagName('a');
-
-  searchToggle.addEventListener('click', () => {
-    searchPopup.style.display = 'block';
-    searchInput.focus();
-  });
-
-  closeSearch.addEventListener('click', () => {
-    searchPopup.style.display = 'none';
-    searchInput.value = '';
-    // نمایش همه لینک‌ها وقتی جستجو بسته شد
-    for (let link of links) {
-      link.style.display = '';
-    }
-  });
-
-  // جستجوی زنده در منو
-  searchInput.addEventListener('input', () => {
-    const filter = searchInput.value.trim().toLowerCase();
-
-    for (let link of links) {
-      const text = link.textContent.toLowerCase();
-      if (text.includes(filter)) {
-        link.style.display = '';
-      } else {
-        link.style.display = 'none';
+  // ساخت داده‌ی نمونه اگر چیزی تو localStorage نیست
+  if (!localStorage.getItem('products')) {
+    const sampleProducts = [
+      {
+        name: "مک‌بوک پرو",
+        price: 120000000,
+        image: "https://via.placeholder.com/300x200?text=MacBook",
+        description: "مناسب برای طراحی، توسعه نرم‌افزار و تدوین."
+      },
+      {
+        name: "آیفون 14",
+        price: 45000000,
+        image: "https://via.placeholder.com/300x200?text=iPhone+14",
+        description: "گوشی پرچم‌دار اپل با دوربین قدرتمند و چیپ A15."
       }
-    }
-  });
-</script>
-<script>
+    ];
+    localStorage.setItem('products', JSON.stringify(sampleProducts));
+  }
+
   function renderProductsFromStorage() {
     const container = document.getElementById('product-list');
     const products = JSON.parse(localStorage.getItem('products')) || [];
@@ -734,13 +656,30 @@ header {
     products.forEach(product => {
       const card = document.createElement('div');
       card.className = 'apple-card';
+      card.style = `
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px;
+        width: 300px;
+        display: inline-block;
+        vertical-align: top;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      `;
+
       card.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" />
-        <div class="apple-card-content">
-          <h3>${product.name}</h3>
-          <p class="product-price">قیمت: ${product.price.toLocaleString()} تومان</p>
-          <div class="card-actions">
-            <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}">افزودن به سبد خرید</button>
+        <img src="${product.image}" alt="${product.name}" style="width:100%; border-radius: 8px;" />
+        <div class="apple-card-content" style="padding: 10px 0;">
+          <h3 style="font-size: 18px; margin: 5px 0;">${product.name}</h3>
+          <p class="product-price" style="color: green; font-weight: bold;">قیمت: ${product.price.toLocaleString()} تومان</p>
+          <p class="product-description" style="font-size: 14px; color: #666;">${product.description || ''}</p>
+          <div class="card-actions" style="margin-top: 10px;">
+            <button class="add-to-cart" 
+                    data-name="${product.name}" 
+                    data-price="${product.price}"
+                    style="padding: 8px 12px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
+              افزودن به سبد خرید
+            </button>
           </div>
         </div>
       `;
@@ -780,92 +719,11 @@ header {
     });
   }
 
-  // جستجوی زنده محصولات (اختیاری)
-  function enableLiveSearch() {
-    const searchInput = document.querySelector('.search-popup input');
-    if (!searchInput) return;
-    searchInput.addEventListener('input', () => {
-      const keyword = searchInput.value.trim().toLowerCase();
-      const cards = document.querySelectorAll('.apple-card');
-      cards.forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        card.style.display = title.includes(keyword) ? 'block' : 'none';
-      });
-    });
-  }
-
+  // اجرای اولیه
   renderProductsFromStorage();
   updateCartCounter();
-  enableLiveSearch();
 </script>
-<script>
-  function renderProductsFromStorage() {
-    const container = document.getElementById('product-list');
-    const products = JSON.parse(localStorage.getItem('products')) || [];
 
-    if (products.length === 0) {
-      container.innerHTML = '<p style="text-align:center;color:#777;">محصولی برای نمایش وجود ندارد.</p>';
-      return;
-    }
-
-    container.innerHTML = '';
-
-    products.forEach(product => {
-      const card = document.createElement('div');
-      card.className = 'apple-card';
-      card.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" />
-        <div class="apple-card-content">
-          <h3>${product.name}</h3>
-          <p class="product-price">قیمت: ${product.price.toLocaleString()} تومان</p>
-          <div class="card-actions">
-            <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}">افزودن به سبد خرید</button>
-          </div>
-        </div>
-      `;
-      container.appendChild(card);
-    });
-
-    // فعال‌سازی دکمه‌های افزودن به سبد
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-      button.addEventListener('click', function () {
-        const name = this.getAttribute('data-name');
-        const price = parseInt(this.getAttribute('data-price'));
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        const existingProduct = cart.find(item => item.name === name);
-        if (existingProduct) {
-          existingProduct.quantity++;
-        } else {
-          cart.push({ name, price, quantity: 1 });
-        }
-
-        localStorage.setItem('cart', JSON.stringify(cart));
-        alert(`${name} به سبد خرید اضافه شد.`);
-      });
-    });
-  }
-
-  renderProductsFromStorage();
-  const searchToggle = document.getElementById('search-toggle');
-const searchPopup = document.querySelector('.search-popup');
-const closeSearch = document.getElementById('close-search');
-
-searchToggle.addEventListener('click', () => {
-  searchPopup.style.display = 'block';
-  document.getElementById('search-input').focus();
-});
-
-closeSearch.addEventListener('click', () => {
-  searchPopup.style.display = 'none';
-  document.getElementById('search-input').value = '';
-  
-  // برای نمایش همه لینک‌ها وقتی جستجو بسته شد:
-  const links = document.querySelectorAll('#main-nav a');
-  links.forEach(link => link.style.display = '');
-});
-
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ثبت سفارش</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: #f4f7fb;
+      padding: 30px;
+      margin: 0;
+      color: #2c3e50;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 25px 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #34495e;
+      margin-bottom: 25px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .summary {
+      margin-top: 25px;
+      padding: 15px;
+      background: #ecf0f1;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+    .btn-submit {
+      margin-top: 25px;
+      background: #27ae60;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-submit:hover {
+      background: #1e8449;
+    }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #2980b9;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>فرم ثبت سفارش</h2>
+
+    <form onsubmit="handleSubmit(event)">
+      <label>نام کامل</label>
+      <input type="text" id="fullName" required />
+
+      <label>شماره تماس</label>
+      <input type="tel" id="phone" required />
+
+      <label>آدرس</label>
+      <textarea id="address" rows="3" required></textarea>
+
+      <label>توضیحات اضافی (اختیاری)</label>
+      <textarea id="notes" rows="2"></textarea>
+
+      <div class="summary">
+        <div id="itemCount">تعداد کالا: ۰</div>
+        <div id="totalPrice">مبلغ کل: ۰ تومان</div>
+      </div>
+
+      <button type="submit" class="btn-submit">تایید و ثبت سفارش</button>
+    </form>
+
+    <a href="cart.html" class="back-link">⬅ بازگشت به سبد خرید</a>
+  </div>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function formatPrice(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' تومان';
+    }
+
+    function updateSummary() {
+      const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+      document.getElementById('itemCount').textContent = `تعداد کالا: ${count}`;
+      document.getElementById('totalPrice').textContent = `مبلغ کل: ${formatPrice(total)}`;
+    }
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('fullName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+
+      if (!name || !phone || !address) {
+        alert('لطفاً همه فیلدهای ضروری را پر کنید.');
+        return;
+      }
+
+      alert('✅ سفارش با موفقیت ثبت شد!\nبا شما تماس خواهیم گرفت.');
+      localStorage.removeItem('cart');
+      window.location.href = 'index.html';
+    }
+
+    updateSummary();
+  </script>
+
+</body>
+</html>

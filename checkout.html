@@ -133,9 +133,32 @@
     <label for="delivery-time">زمان تحویل</label>
 <input type="text" id="delivery-time" placeholder="مثلاً ساعت ۵ بعدازظهر یا هر زمان دلخواه" />
 
+<button type="submit" id="pay-btn">پرداخت آنلاین</button>
 
-    <button type="submit">ثبت سفارش</button>
   </form>
+<script>
+  document.getElementById('pay-btn').addEventListener('click', function() {
+    // این مقدار را باید با مجموع قیمت سفارش جایگزین کنی
+    const totalAmount = 400000; // مبلغ به تومان
+
+    fetch('create-payment.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'amount=' + totalAmount
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.status === 'success') {
+        window.location.href = data.url;  // انتقال به درگاه پرداخت
+      } else {
+        alert('خطا در ایجاد تراکنش: ' + data.message);
+      }
+    })
+    .catch(err => {
+      alert('خطا در اتصال به سرور پرداخت');
+    });
+  });
+</script>
 
   <script>
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -198,6 +221,64 @@
       window.location.href = 'index.html'; 
     });
     const deliveryTime = document.getElementById('delivery-time').value.trim();
+
+// پزداخت   
+document.getElementById('pay-btn').addEventListener('click', () => {
+  // 1. گرفتن متن جمع کل
+  const priceText = document.getElementById('total-price').textContent;
+  
+  // 2. حذف همه چیز به جز اعداد انگلیسی (یا فارسی)
+  // \d فقط اعداد انگلیسی رو میگیره، اما چون اعداد فارسی هست، باید اول تبدیل کنیم یا یک روش دقیق‌تر استفاده کنیم:
+  
+  // تبدیل اعداد فارسی به انگلیسی (چون اعداد فارسی ۰۱۲۳۴۵۶۷۸۹ با اعداد انگلیسی فرق دارن)
+  function persianToEnglishNumbers(str) {
+    const persianNumbers = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+    const englishNumbers = ['0','1','2','3','4','5','6','7','8','9'];
+    let result = '';
+    for(let i=0; i<str.length; i++) {
+      const index = persianNumbers.indexOf(str[i]);
+      if(index > -1) {
+        result += englishNumbers[index];
+      } else {
+        result += str[i];
+      }
+    }
+    return result;
+  }
+
+  const priceEnglish = persianToEnglishNumbers(priceText);
+  
+  // حذف همه چیز غیر عدد و کاما (برای اطمینان)
+  const onlyNumbers = priceEnglish.replace(/[^0-9]/g, '');
+
+  // تبدیل به عدد
+  const totalAmount = Number(onlyNumbers);
+
+  console.log('مبلغ کل به عدد:', totalAmount);
+
+  if(totalAmount <= 0) {
+    alert('مبلغ پرداختی نامعتبر است!');
+    return;
+  }
+
+  // ارسال به سرور پرداخت
+  fetch('create-payment.php', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: 'amount=' + totalAmount
+  })
+  .then(res => res.json())
+  .then(data => {
+    if(data && data.paymentUrl) {
+      window.location.href = data.paymentUrl;  // انتقال به صفحه پرداخت
+    } else {
+      alert('خطا در دریافت لینک پرداخت');
+    }
+  })
+  .catch(() => {
+    alert('خطا در برقراری ارتباط با سرور پرداخت');
+  });
+});
 
   </script>
 </body>

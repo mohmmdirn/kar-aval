@@ -149,6 +149,14 @@
   </style>
 </head>
 <body>
+<h2>مدیریت تصاویر اسلایدر</h2>
+
+<form id="carousel-form">
+  <input type="text" id="carousel-image-url" placeholder="آدرس تصویر (مثلاً: banner1.jpg)" required />
+  <button type="submit">افزودن به اسلایدر</button>
+</form>
+
+<ul id="carousel-list" style="margin-top:20px;"></ul>
 
   <h1>پنل مدیریت محصولات</h1>
 
@@ -165,8 +173,8 @@
   <tr>
     <th>نام</th>
     <th>قیمت</th>
-    <th>تصویر</th>
     <th>توضیح</th> <!-- ستون جدید -->
+    <th>تصویر</th>
     <th>عملیات</th>
   </tr>
 </thead>
@@ -196,7 +204,53 @@
   </div>
 
   <button onclick="logout()" style="margin-top: 20px; padding: 10px 15px; font-size: 16px;">خروج از حساب</button>
-<!-- ... تا ابتدای <script> هیچ تغییری نیاز نیست -->
+<!-- کارت ها اسلایدی -->
+ <script>
+  let carouselImages = JSON.parse(localStorage.getItem("carouselImages")) || [];
+
+  const carouselForm = document.getElementById("carousel-form");
+  const imageInput = document.getElementById("carousel-image-url");
+  const carouselList = document.getElementById("carousel-list");
+
+  function renderCarouselList() {
+    carouselList.innerHTML = '';
+    if (carouselImages.length === 0) {
+      carouselList.innerHTML = '<li style="color:#888;">تصویری ثبت نشده است.</li>';
+      return;
+    }
+
+    carouselImages.forEach((img, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <img src="${img}" alt="carousel" style="width:100px;height:60px;object-fit:cover;border-radius:5px;margin-left:10px;">
+        <button onclick="removeCarouselImage(${index})">حذف</button>
+      `;
+      carouselList.appendChild(li);
+    });
+  }
+
+  function removeCarouselImage(index) {
+    if (confirm("آیا مطمئن هستید؟")) {
+      carouselImages.splice(index, 1);
+      localStorage.setItem("carouselImages", JSON.stringify(carouselImages));
+      renderCarouselList();
+    }
+  }
+
+  carouselForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const url = imageInput.value.trim();
+    if (!url) return;
+    carouselImages.push(url);
+    localStorage.setItem("carouselImages", JSON.stringify(carouselImages));
+    imageInput.value = '';
+    renderCarouselList();
+  });
+
+  renderCarouselList();
+</script>
+
+  <!-- ... تا ابتدای <script> هیچ تغییری نیاز نیست -->
 
 <!-- اسکریپت واحد و نهایی -->
 <!-- اسکریپت نهایی مدیریت محصولات با توضیحات -->

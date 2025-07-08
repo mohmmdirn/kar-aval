@@ -683,18 +683,7 @@ header {
   // ساخت داده‌ی نمونه اگر چیزی تو localStorage نیست
   if (!localStorage.getItem('products')) {
     const sampleProducts = [
-      {
-        name: "مک‌بوک پرو",
-        price: 120000000,
-        image: "https://via.placeholder.com/300x200?text=MacBook",
-        description: "مناسب برای طراحی، توسعه نرم‌افزار و تدوین."
-      },
-      {
-        name: "آیفون 14",
-        price: 45000000,
-        image: "https://via.placeholder.com/300x200?text=iPhone+14",
-        description: "گوشی پرچم‌دار اپل با دوربین قدرتمند و چیپ A15."
-      }
+      
     ];
     localStorage.setItem('products', JSON.stringify(sampleProducts));
   }

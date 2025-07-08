@@ -740,10 +740,11 @@ header {
     attachCartButtons();
   }
 function attachCartButtons() {
-document.querySelectorAll('.add-to-cart').forEach(button => {
-
-
-
+  document.querySelectorAll('.add-to-cart').forEach(button => {
+    button.addEventListener('click', function () {
+      const name = this.getAttribute('data-name');
+      const price = parseInt(this.getAttribute('data-price'));
+      
       // پیدا کردن محصول اصلی از products
       const products = JSON.parse(localStorage.getItem('products')) || [];
       const product = products.find(p => p.name === name);
@@ -762,12 +763,39 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
       updateCartCounter();
       alert(`${name} به سبد خرید اضافه شد.`);
     });
-  };
+  });
+}
 
 
   // اجرای اولیه
   renderProductsFromStorage();
+  
+  function updateCartCounter() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartLinks = document.querySelectorAll('a[href="cart.html"]');
+    cartLinks.forEach(link => {
+      link.textContent = `سبد خرید (${count})`;
+    });
+  }
+  
   updateCartCounter();
+  
+  // جستجوی زنده محصولات (اختیاری)
+  function enableLiveSearch() {
+    const searchInput = document.querySelector('.search-popup input');
+    if (!searchInput) return;
+    searchInput.addEventListener('input', () => {
+      const keyword = searchInput.value.trim().toLowerCase();
+      const cards = document.querySelectorAll('.apple-card');
+      cards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        card.style.display = title.includes(keyword) ? 'block' : 'none';
+      });
+    });
+  }
+  
+  enableLiveSearch();
 </script>
 <script>
   // پیکربندی firebase
@@ -969,64 +997,7 @@ document.addEventListener('DOMContentLoaded', function () {
   updateCartCounter();
   enableLiveSearch();
 </script>
-<script>
-  function renderProductsFromStorage() {
-    const container = document.getElementById('product-list');
-    const products = JSON.parse(localStorage.getItem('products')) || [];
 
-    if (products.length === 0) {
-      container.innerHTML = '<p style="text-align:center;color:#777;">محصولی برای نمایش وجود ندارد.</p>';
-      return;
-    }
-
-    container.innerHTML = '';
-
-products.forEach(product => {
-  const card = document.createElement('div');
-  card.className = 'apple-card';
-  card.innerHTML = `
-    <img src="${product.image}" alt="${product.name}" />
-    <div class="apple-card-content">
-      <h3>${product.name}</h3>
-      <p class="product-price">قیمت: ${product.price.toLocaleString()} تومان</p>
-      <!-- اینجا باید دکمه اضافه بشه -->
-      <div class="card-actions">
-        <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">
-          افزودن به سبد خرید
-        </button>
-      </div>
-    </div>
-  `;
-  container.appendChild(card);
-});
-
-
-    // فعال‌سازی دکمه‌های افزودن به سبد
-document.querySelectorAll('.add-to-cart').forEach(button => {
-
-
-
-
-  renderProductsFromStorage();
-  const searchToggle = document.getElementById('search-toggle');
-const searchPopup = document.querySelector('.search-popup');
-const closeSearch = document.getElementById('close-search');
-
-searchToggle.addEventListener('click', () => {
-  searchPopup.style.display = 'block';
-  document.getElementById('search-input').focus();
-});
-
-closeSearch.addEventListener('click', () => {
-  searchPopup.style.display = 'none';
-  document.getElementById('search-input').value = '';
-
-  // برای نمایش همه لینک‌ها وقتی جستجو بسته شد:
-  const links = document.querySelectorAll('#main-nav a');
-  links.forEach(link => link.style.display = '');
-});
-
-</script>
 <script>
   // اگر داده carouselImages موجود نیست، مقدار نمونه قرار بده
   if (!localStorage.getItem("carouselImages")) {
@@ -1039,7 +1010,6 @@ closeSearch.addEventListener('click', () => {
   }
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

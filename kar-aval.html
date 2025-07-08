@@ -606,7 +606,6 @@ header {
 </div>
 
 
-
 </div>
 
 <!-- پنجره جستجو -->
@@ -615,7 +614,11 @@ header {
   <button type="button" id="close-search" aria-label="بستن جستجو">&times;</button>
 </div>
 
-
+  <!-- پنجره جستجو -->
+  <div class="search-popup" role="search">
+    <input type="text" id="search-input" placeholder="جستجو..." aria-label="جستجو در منو" />
+    <button type="button" id="close-search" aria-label="بستن جستجو">&times;</button>
+  </div>
 
 </header>
 <!-- کارت های اصلایدی -->
@@ -759,8 +762,8 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
       updateCartCounter();
       alert(`${name} به سبد خرید اضافه شد.`);
     });
-  });
-}
+  };
+
 
   // اجرای اولیه
   renderProductsFromStorage();
@@ -815,7 +818,7 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
   // حذف کد های مربوط به هاور برای جلوگیری از تداخل
 </script>
 <script>
-  const mainNav = document.getElementById("main-nav");
+;
   const mobileMenu = document.getElementById("mobileMenu");
 
   function cloneMenuItems() {

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تست پنل ادمین</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      direction: rtl;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .btn-success {
+      background: #27ae60;
+      color: white;
+    }
+    
+    .btn-danger {
+      background: #e74c3c;
+      color: white;
+    }
+    
+    .info-box {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      border-right: 4px solid #667eea;
+    }
+    
+    .product-list {
+      margin-top: 20px;
+    }
+    
+    .product-item {
+      background: #f8f9fa;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #e1e5e9;
+    }
+    
+    .product-actions {
+      margin-top: 10px;
+    }
+    
+    .product-actions button {
+      margin: 5px;
+      padding: 8px 16px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>تست پنل ادمین</h1>
+    
+    <div class="info-box">
+      <h3>وضعیت فعلی:</h3>
+      <p>تعداد محصولات: <span id="productCount">0</span></p>
+      <p>محصولات در localStorage: <span id="localStorageStatus">بررسی...</span></p>
+    </div>
+    
+    <div>
+      <button class="btn btn-primary" onclick="addSampleProducts()">افزودن محصولات نمونه</button>
+      <button class="btn btn-success" onclick="showProducts()">نمایش محصولات</button>
+      <button class="btn btn-danger" onclick="clearProducts()">پاک کردن همه محصولات</button>
+    </div>
+    
+    <div class="product-list" id="productList">
+      <!-- محصولات اینجا نمایش داده می‌شوند -->
+    </div>
+    
+    <div class="info-box">
+      <h3>راهنمای تست:</h3>
+      <ol>
+        <li>ابتدا روی "افزودن محصولات نمونه" کلیک کنید</li>
+        <li>سپس روی "نمایش محصولات" کلیک کنید</li>
+        <li>برای هر محصول می‌توانید ویرایش یا حذف کنید</li>
+        <li>بعد از تست، به پنل ادمین اصلی بروید</li>
+      </ol>
+    </div>
+    
+    <div style="margin-top: 30px;">
+      <a href="admin.html" class="btn btn-primary">برو به پنل ادمین اصلی</a>
+    </div>
+  </div>
+
+  <script>
+    // بررسی وضعیت localStorage
+    function checkLocalStorage() {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      document.getElementById('productCount').textContent = products.length;
+      document.getElementById('localStorageStatus').textContent = 
+        products.length > 0 ? 'موجود' : 'خالی';
+    }
+    
+    // افزودن محصولات نمونه
+    function addSampleProducts() {
+      const sampleProducts = [
+        {
+          id: Date.now(),
+          name: "لپ‌تاپ اپل مک‌بوک پرو",
+          price: 85000000,
+          discount: 15,
+          stock: 5,
+          rating: 4.8,
+          category: "الکترونیک",
+          image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300",
+          description: "لپ‌تاپ قدرتمند اپل با پردازنده M2",
+          isNew: true,
+          isPopular: true
+        },
+        {
+          id: Date.now() + 1,
+          name: "کفش ورزشی نایک",
+          price: 1200000,
+          discount: 0,
+          stock: 20,
+          rating: 4.5,
+          category: "ورزشی",
+          image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300",
+          description: "کفش ورزشی راحت و سبک",
+          isNew: false,
+          isPopular: true
+        },
+        {
+          id: Date.now() + 2,
+          name: "کتاب برنامه‌نویسی JavaScript",
+          price: 450000,
+          discount: 10,
+          stock: 15,
+          rating: 4.2,
+          category: "کتاب",
+          image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300",
+          description: "کتاب جامع آموزش JavaScript",
+          isNew: true,
+          isPopular: false
+        }
+      ];
+      
+      const existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+      const allProducts = [...existingProducts, ...sampleProducts];
+      localStorage.setItem('products', JSON.stringify(allProducts));
+      
+      checkLocalStorage();
+      showProducts();
+      alert('محصولات نمونه اضافه شدند!');
+    }
+    
+    // نمایش محصولات
+    function showProducts() {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const container = document.getElementById('productList');
+      
+      if (products.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666;">هیچ محصولی موجود نیست</p>';
+        return;
+      }
+      
+      container.innerHTML = '<h3>محصولات موجود:</h3>';
+      
+      products.forEach(product => {
+        const badges = [];
+        if (product.discount > 0) badges.push(`<span style="background: #ff6b6b; color: white; padding: 2px 6px; border-radius: 4px; font-size: 11px;">${product.discount}% تخفیف</span>`);
+        if (product.isNew) badges.push('<span style="background: #2ed573; color: white; padding: 2px 6px; border-radius: 4px; font-size: 11px;">جدید</span>');
+        if (product.isPopular) badges.push('<span style="background: #ffa502; color: white; padding: 2px 6px; border-radius: 4px; font-size: 11px;">محبوب</span>');
+        
+        const productDiv = document.createElement('div');
+        productDiv.className = 'product-item';
+        productDiv.innerHTML = `
+          <h4>${product.name}</h4>
+          <p>قیمت: ${product.price.toLocaleString()} تومان</p>
+          <p>موجودی: ${product.stock} عدد</p>
+          <p>امتیاز: ${product.rating} ⭐</p>
+          <p>دسته‌بندی: ${product.category}</p>
+          <div>${badges.join(' ')}</div>
+          <div class="product-actions">
+            <button class="btn btn-success" onclick="editProduct(${product.id})">ویرایش</button>
+            <button class="btn btn-danger" onclick="deleteProduct(${product.id})">حذف</button>
+          </div>
+        `;
+        container.appendChild(productDiv);
+      });
+    }
+    
+    // حذف محصول
+    function deleteProduct(id) {
+      if (confirm('آیا از حذف این محصول اطمینان دارید؟')) {
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+        const filteredProducts = products.filter(p => p.id !== id);
+        localStorage.setItem('products', JSON.stringify(filteredProducts));
+        
+        checkLocalStorage();
+        showProducts();
+        alert('محصول حذف شد!');
+      }
+    }
+    
+    // ویرایش محصول (ساده)
+    function editProduct(id) {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const product = products.find(p => p.id === id);
+      
+      if (product) {
+        const newName = prompt('نام جدید محصول:', product.name);
+        const newPrice = prompt('قیمت جدید (تومان):', product.price);
+        const newStock = prompt('موجودی جدید:', product.stock);
+        
+        if (newName && newPrice && newStock) {
+          product.name = newName;
+          product.price = parseInt(newPrice);
+          product.stock = parseInt(newStock);
+          
+          localStorage.setItem('products', JSON.stringify(products));
+          checkLocalStorage();
+          showProducts();
+          alert('محصول ویرایش شد!');
+        }
+      }
+    }
+    
+    // پاک کردن همه محصولات
+    function clearProducts() {
+      if (confirm('آیا از پاک کردن همه محصولات اطمینان دارید؟')) {
+        localStorage.removeItem('products');
+        checkLocalStorage();
+        showProducts();
+        alert('همه محصولات پاک شدند!');
+      }
+    }
+    
+    // بارگذاری اولیه
+    document.addEventListener('DOMContentLoaded', function() {
+      checkLocalStorage();
+      showProducts();
+    });
+  </script>
+</body>
+</html> 

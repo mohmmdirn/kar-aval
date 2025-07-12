@@ -236,10 +236,7 @@
   const totalPriceElement = document.getElementById('total-price');
   const clearCartBtn = document.getElementById('clear-cart');
 
-let cart = JSON.parse(localStorage.getItem('cart')) || [
-  { id: 1, name: "کلاه مدرن", price: 250000, quantity: 2, image: "images/کلاه.webp" },
-  { id: 2, name: "تیشرت راحت", price: 150000, quantity: 1, image: "images/تیشرت.webp" }
-];
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   function formatPrice(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' تومان';

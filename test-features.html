@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تست قابلیت‌های جدید - کار اول</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    
+    .test-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 2px solid #e1e5e9;
+      border-radius: 10px;
+    }
+    
+    .test-section h3 {
+      color: #667eea;
+      margin-bottom: 15px;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 5px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .btn-success {
+      background: #27ae60;
+      color: white;
+    }
+    
+    .btn-warning {
+      background: #f39c12;
+      color: white;
+    }
+    
+    .btn-danger {
+      background: #e74c3c;
+      color: white;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .info-box {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+      border-left: 4px solid #667eea;
+    }
+    
+    .status {
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      margin: 5px;
+      display: inline-block;
+    }
+    
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status.warning {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .feature-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .feature-list li:before {
+      content: "✅ ";
+      margin-left: 10px;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .stat-card {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
+    }
+    
+    .stat-label {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧪 تست قابلیت‌های جدید کار اول</h1>
+    
+    <div class="test-section">
+      <h3>📦 مدیریت محصولات</h3>
+      <div class="info-box">
+        <p>برای تست قابلیت‌های جدید، ابتدا محصولات نمونه را اضافه کنید:</p>
+      </div>
+      
+      <button class="btn btn-primary" onclick="addSampleProducts()">➕ اضافه کردن محصولات نمونه</button>
+      <button class="btn btn-warning" onclick="showProductsInfo()">📊 نمایش اطلاعات محصولات</button>
+      <button class="btn btn-danger" onclick="clearAllProducts()">🗑️ پاک کردن تمام محصولات</button>
+      
+      <div id="products-status"></div>
+    </div>
+    
+    <div class="test-section">
+      <h3>🎯 قابلیت‌های جدید کارت‌های محصول</h3>
+      <ul class="feature-list">
+        <li>برچسب‌های ویژه (تخفیف، جدید، محبوب)</li>
+        <li>سیستم امتیازدهی با ستاره‌ها</li>
+        <li>مدیریت موجودی و وضعیت</li>
+        <li>سیستم تخفیف و قیمت نهایی</li>
+        <li>دسته‌بندی محصولات</li>
+        <li>مشاهده سریع با مودال</li>
+        <li>انیمیشن‌های زیبا</li>
+      </ul>
+    </div>
+    
+    <div class="test-section">
+      <h3>🎛️ قابلیت‌های جدید پنل ادمین</h3>
+      <ul class="feature-list">
+        <li>فرم پیشرفته افزودن محصول</li>
+        <li>جدول مدیریت محصولات</li>
+        <li>آمار کلی فروشگاه</li>
+        <li>مدیریت تصاویر اسلایدر</li>
+        <li>جدول سفارشات</li>
+        <li>طراحی مدرن و واکنش‌گرا</li>
+      </ul>
+    </div>
+    
+    <div class="test-section">
+      <h3>📊 آمار فعلی</h3>
+      <div id="stats-container" class="stats-grid">
+        <!-- آمار اینجا نمایش داده می‌شود -->
+      </div>
+    </div>
+    
+    <div class="test-section">
+      <h3>🔗 لینک‌های مفید</h3>
+      <button class="btn btn-success" onclick="window.open('kar-aval.html', '_blank')">🏪 مشاهده فروشگاه</button>
+      <button class="btn btn-success" onclick="window.open('admin.html', '_blank')">⚙️ پنل مدیریت</button>
+      <button class="btn btn-success" onclick="window.open('login.html', '_blank')">🔐 صفحه ورود</button>
+    </div>
+  </div>
+
+  <script>
+    // بارگذاری اولیه
+    document.addEventListener('DOMContentLoaded', function() {
+      updateStats();
+      updateProductsStatus();
+    });
+
+    // اضافه کردن محصولات نمونه
+    function addSampleProducts() {
+      const sampleProducts = [
+        {
+          id: 1,
+          name: "لپ‌تاپ اپل مک‌بوک پرو",
+          price: 85000000,
+          discount: 15,
+          stock: 5,
+          rating: 4.8,
+          category: "الکترونیک",
+          image: "https://via.placeholder.com/300x200/007AFF/FFFFFF?text=MacBook+Pro",
+          description: "لپ‌تاپ حرفه‌ای اپل با پردازنده M2 و 16 گیگابایت رم",
+          isNew: true,
+          isPopular: true
+        },
+        {
+          id: 2,
+          name: "گوشی سامسونگ گلکسی S24",
+          price: 45000000,
+          discount: 10,
+          stock: 12,
+          rating: 4.6,
+          category: "الکترونیک",
+          image: "https://via.placeholder.com/300x200/1428A0/FFFFFF?text=Galaxy+S24",
+          description: "گوشی هوشمند سامسونگ با دوربین 200 مگاپیکسل",
+          isNew: true,
+          isPopular: false
+        },
+        {
+          id: 3,
+          name: "کتاب رمان صد سال تنهایی",
+          price: 850000,
+          discount: 0,
+          stock: 25,
+          rating: 4.9,
+          category: "کتاب",
+          image: "https://via.placeholder.com/300x200/8B4513/FFFFFF?text=کتاب+رمان",
+          description: "رمان مشهور گابریل گارسیا مارکز",
+          isNew: false,
+          isPopular: true
+        },
+        {
+          id: 4,
+          name: "کفش ورزشی نایک",
+          price: 2800000,
+          discount: 20,
+          stock: 8,
+          rating: 4.4,
+          category: "ورزشی",
+          image: "https://via.placeholder.com/300x200/FF6B35/FFFFFF?text=Nike+Shoes",
+          description: "کفش ورزشی نایک برای دویدن و تمرین",
+          isNew: false,
+          isPopular: true
+        },
+        {
+          id: 5,
+          name: "ساعت هوشمند اپل واچ",
+          price: 18000000,
+          discount: 5,
+          stock: 3,
+          rating: 4.7,
+          category: "الکترونیک",
+          image: "https://via.placeholder.com/300x200/000000/FFFFFF?text=Apple+Watch",
+          description: "ساعت هوشمند اپل با قابلیت‌های سلامتی",
+          isNew: true,
+          isPopular: false
+        },
+        {
+          id: 6,
+          name: "پنل خورشیدی خانگی",
+          price: 35000000,
+          discount: 0,
+          stock: 0,
+          rating: 4.5,
+          category: "خانگی",
+          image: "https://via.placeholder.com/300x200/FFD700/000000?text=Solar+Panel",
+          description: "پنل خورشیدی برای تولید انرژی پاک",
+          isNew: false,
+          isPopular: false
+        }
+      ];
+
+      const existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+      
+      // بررسی اینکه آیا محصولات نمونه قبلاً اضافه شده‌اند
+      if (existingProducts.length > 0) {
+        const hasSampleProducts = existingProducts.some(product => 
+          sampleProducts.some(sample => sample.name === product.name)
+        );
+        
+        if (hasSampleProducts) {
+          alert('محصولات نمونه قبلاً اضافه شده‌اند!');
+          return;
+        }
+      }
+      
+      // اضافه کردن محصولات نمونه
+      const allProducts = [...existingProducts, ...sampleProducts];
+      localStorage.setItem('products', JSON.stringify(allProducts));
+      
+      alert(`${sampleProducts.length} محصول نمونه با موفقیت اضافه شد!`);
+      
+      updateStats();
+      updateProductsStatus();
+    }
+
+    // نمایش اطلاعات محصولات
+    function showProductsInfo() {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      
+      console.log('=== اطلاعات محصولات ===');
+      console.log(`تعداد کل محصولات: ${products.length}`);
+      
+      const categories = {};
+      const withDiscount = products.filter(p => p.discount > 0).length;
+      const outOfStock = products.filter(p => p.stock === 0).length;
+      const newProducts = products.filter(p => p.isNew).length;
+      const popularProducts = products.filter(p => p.isPopular).length;
+      
+      products.forEach(product => {
+        if (categories[product.category]) {
+          categories[product.category]++;
+        } else {
+          categories[product.category] = 1;
+        }
+      });
+      
+      console.log(`محصولات با تخفیف: ${withDiscount}`);
+      console.log(`محصولات ناموجود: ${outOfStock}`);
+      console.log(`محصولات جدید: ${newProducts}`);
+      console.log(`محصولات محبوب: ${popularProducts}`);
+      console.log('دسته‌بندی‌ها:', categories);
+      
+      alert(`تعداد کل محصولات: ${products.length}\nمحصولات با تخفیف: ${withDiscount}\nمحصولات ناموجود: ${outOfStock}\nمحصولات جدید: ${newProducts}\nمحصولات محبوب: ${popularProducts}`);
+      
+      return {
+        total: products.length,
+        withDiscount,
+        outOfStock,
+        newProducts,
+        popularProducts,
+        categories
+      };
+    }
+
+    // پاک کردن تمام محصولات
+    function clearAllProducts() {
+      if (confirm('آیا از حذف تمام محصولات اطمینان دارید؟')) {
+        localStorage.removeItem('products');
+        alert('تمام محصولات حذف شدند!');
+        
+        updateStats();
+        updateProductsStatus();
+      }
+    }
+
+    // بروزرسانی آمار
+    function updateStats() {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      const withDiscount = products.filter(p => p.discount > 0).length;
+      const outOfStock = products.filter(p => p.stock === 0).length;
+      const newProducts = products.filter(p => p.isNew).length;
+      const popularProducts = products.filter(p => p.isPopular).length;
+      
+      const statsContainer = document.getElementById('stats-container');
+      statsContainer.innerHTML = `
+        <div class="stat-card">
+          <div class="stat-number">${products.length}</div>
+          <div class="stat-label">کل محصولات</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">${withDiscount}</div>
+          <div class="stat-label">با تخفیف</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">${outOfStock}</div>
+          <div class="stat-label">ناموجود</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">${newProducts}</div>
+          <div class="stat-label">جدید</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">${popularProducts}</div>
+          <div class="stat-label">محبوب</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">${cart.length}</div>
+          <div class="stat-label">سفارشات</div>
+        </div>
+      `;
+    }
+
+    // بروزرسانی وضعیت محصولات
+    function updateProductsStatus() {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const statusContainer = document.getElementById('products-status');
+      
+      if (products.length === 0) {
+        statusContainer.innerHTML = '<div class="status warning">هیچ محصولی وجود ندارد. لطفاً محصولات نمونه را اضافه کنید.</div>';
+      } else {
+        const hasSampleProducts = products.some(product => 
+          ['لپ‌تاپ اپل مک‌بوک پرو', 'گوشی سامسونگ گلکسی S24', 'کتاب رمان صد سال تنهایی'].includes(product.name)
+        );
+        
+        if (hasSampleProducts) {
+          statusContainer.innerHTML = '<div class="status success">محصولات نمونه اضافه شده‌اند. می‌توانید فروشگاه را مشاهده کنید.</div>';
+        } else {
+          statusContainer.innerHTML = '<div class="status warning">محصولات موجود هستند اما محصولات نمونه اضافه نشده‌اند.</div>';
+        }
+      }
+    }
+  </script>
+</body>
+</html> 

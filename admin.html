@@ -3,423 +3,848 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>پنل مدیریت</title>
+  <title>پنل مدیریت - کار اول</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
-      font-family: sans-serif;
-      background: #f0f2f5;
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
       direction: rtl;
     }
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
+    
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
     }
-    form {
+    
+    .admin-header {
       background: white;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
       margin-bottom: 30px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
+      text-align: center;
     }
-    form input, form button {
-      padding: 10px;
-      font-size: 16px;
+    
+    .admin-header h1 {
+      color: #333;
+      margin-bottom: 10px;
     }
-    form input[type="text"], form input[type="number"] {
-      width: 200px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      transition: border-color 0.3s;
+    
+    .admin-header p {
+      color: #666;
     }
-    form input[type="text"]:focus, form input[type="number"]:focus {
-      border-color: #007bff;
+    
+    .admin-sections {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .section-card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .section-title {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 10px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e1e5e9;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+      background: #f8f9fa;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
       outline: none;
+      border-color: #667eea;
+      background: white;
     }
-    form button {
-      cursor: pointer;
-      background-color: #28a745;
-      color: white;
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .checkbox-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .checkbox-item input[type="checkbox"] {
+      width: auto;
+    }
+    
+    .btn {
+      padding: 12px 24px;
       border: none;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-      min-width: 120px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-right: 10px;
     }
-    form button:hover {
-      background-color: #218838;
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
     }
+    
+    .btn-primary:hover {
+      background: #5a6fd8;
+    }
+    
+    .btn-success {
+      background: #27ae60;
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background: #229954;
+    }
+    
+    .btn-warning {
+      background: #f39c12;
+      color: white;
+    }
+    
+    .btn-warning:hover {
+      background: #e67e22;
+    }
+    
+    .btn-danger {
+      background: #e74c3c;
+      color: white;
+    }
+    
+    .btn-danger:hover {
+      background: #c0392b;
+    }
+    
+    .products-table {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+    
+    .table-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+    }
+    
+    .table-header h2 {
+      margin: 0;
+    }
+    
+    .table-container {
+      overflow-x: auto;
+    }
+    
     table {
       width: 100%;
       border-collapse: collapse;
-      background: white;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 40px;
-      direction: rtl;
     }
+    
     th, td {
-      text-align: center;
-      padding: 12px;
-      border-bottom: 1px solid #ddd;
-      vertical-align: middle;
+      padding: 15px;
+      text-align: right;
+      border-bottom: 1px solid #eee;
     }
+    
     th {
-      background-color: #007bff;
-      color: white;
-      user-select: none;
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #333;
     }
+    
     tr:hover {
-      background-color: #f1f1f1;
+      background: #f8f9fa;
     }
-    button.action-btn {
-      padding: 6px 12px;
-      margin: 0 5px;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      color: white;
-      user-select: none;
-      transition: background-color 0.3s;
-    }
-    button.delete-btn {
-      background-color: #dc3545;
-    }
-    button.delete-btn:hover {
-      background-color: #a71d2a;
-    }
-    button.edit-btn {
-      background-color: #ffc107;
-      color: black;
-    }
-    button.edit-btn:hover {
-      background-color: #e0a800;
-    }
-    button.save-btn {
-      background-color: #28a745;
-      color: white;
-    }
-    button.save-btn:hover {
-      background-color: #218838;
-    }
-    button.cancel-btn {
-      background-color: #6c757d;
-      color: white;
-    }
-    button.cancel-btn:hover {
-      background-color: #565e64;
-    }
-    .link-back {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .link-back a {
-      color: #007bff;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 16px;
-      margin: 0 10px;
-      user-select: none;
-    }
-    .link-back a:hover {
-      text-decoration: underline;
-    }
-    input.edit-input {
-      width: 90%;
-      padding: 6px 8px;
-      font-size: 14px;
-      border-radius: 3px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-    img.product-img {
-      width: 50px;
-      height: 50px;
+    
+    .product-image {
+      width: 60px;
+      height: 60px;
       object-fit: cover;
-      border-radius: 5px;
-      user-select: none;
+      border-radius: 8px;
+    }
+    
+    .badge {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: bold;
+      color: white;
+      margin: 2px;
+      display: inline-block;
+    }
+    
+    .badge.discount {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    }
+    
+    .badge.new {
+      background: linear-gradient(45deg, #2ed573, #1e90ff);
+    }
+    
+    .badge.popular {
+      background: linear-gradient(45deg, #ffa502, #ff6348);
+    }
+    
+    .stock-status {
+      padding: 4px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    .stock-status.in-stock {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .stock-status.out-of-stock {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .stat-card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 32px;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+    
+    .stat-label {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    @media (max-width: 768px) {
+      .admin-sections {
+        grid-template-columns: 1fr;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .table-container {
+        font-size: 12px;
+      }
+      
+      th, td {
+        padding: 8px;
+      }
     }
   </style>
 </head>
 <body>
-<h2>مدیریت تصاویر اسلایدر</h2>
+  <div class="admin-container">
+    <div class="admin-header">
+      <h1>پنل مدیریت کار اول</h1>
+      <p>مدیریت محصولات، سفارشات و تنظیمات فروشگاه</p>
+      <div style="margin-top: 15px;">
+        <button class="btn btn-success" onclick="addSampleProducts()">افزودن محصولات نمونه</button>
+        <button class="btn btn-primary" onclick="refreshData()">بروزرسانی داده‌ها</button>
+      </div>
+    </div>
 
-<form id="carousel-form">
-  <input type="text" id="carousel-image-url" placeholder="آدرس تصویر (مثلاً: banner1.jpg)" required />
-  <button type="submit">افزودن به اسلایدر</button>
-</form>
+    <!-- آمار کلی -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number" id="totalProducts">0</div>
+        <div class="stat-label">کل محصولات</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="totalOrders">0</div>
+        <div class="stat-label">کل سفارشات</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="totalRevenue">0</div>
+        <div class="stat-label">درآمد کل (تومان)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="lowStock">0</div>
+        <div class="stat-label">محصولات کم‌موجود</div>
+      </div>
+    </div>
 
-<ul id="carousel-list" style="margin-top:20px;"></ul>
+    <div class="admin-sections">
+      <!-- فرم افزودن محصول -->
+      <div class="section-card">
+        <h3 class="section-title">افزودن محصول جدید</h3>
+        <form id="product-form">
+          <div class="form-group">
+            <label for="product-name">نام محصول *</label>
+            <input type="text" id="product-name" required />
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="product-price">قیمت (تومان) *</label>
+              <input type="number" id="product-price" required min="0" />
+            </div>
+            <div class="form-group">
+              <label for="product-discount">تخفیف (%)</label>
+              <input type="number" id="product-discount" min="0" max="100" value="0" />
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="product-stock">موجودی *</label>
+              <input type="number" id="product-stock" required min="0" value="10" />
+            </div>
+            <div class="form-group">
+              <label for="product-rating">امتیاز (1-5)</label>
+              <input type="number" id="product-rating" min="0" max="5" step="0.1" value="0" />
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-category">دسته‌بندی</label>
+            <select id="product-category">
+              <option value="الکترونیک">الکترونیک</option>
+              <option value="پوشاک">پوشاک</option>
+              <option value="کتاب">کتاب</option>
+              <option value="ورزشی">ورزشی</option>
+              <option value="خانگی">خانگی</option>
+              <option value="عمومی">عمومی</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-image">آدرس تصویر *</label>
+            <input type="url" id="product-image" required placeholder="https://example.com/image.jpg" />
+          </div>
+          
+          <div class="form-group">
+            <label for="product-description">توضیحات</label>
+            <textarea id="product-description" rows="3" placeholder="توضیحات محصول را وارد کنید..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label>برچسب‌های ویژه</label>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input type="checkbox" id="product-new" />
+                <label for="product-new">محصول جدید</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="product-popular" />
+                <label for="product-popular">محصول محبوب</label>
+              </div>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">افزودن محصول</button>
+          <button type="button" class="btn btn-warning" onclick="cancelEdit()" id="cancel-edit-btn" style="display: none;">لغو ویرایش</button>
+        </form>
+      </div>
 
-  <h1>پنل مدیریت محصولات</h1>
-
-  <form id="product-form" autocomplete="off">
-    <input type="text" id="product-name" placeholder="نام محصول" required />
-    <input type="number" id="product-price" placeholder="قیمت (تومان)" required min="1" />
-    <input type="text" id="product-description" placeholder="توضیح محصول" required />
-    <input type="text" id="product-image" placeholder="آدرس تصویر (مثلاً: hat.webp)" required />
-    <button type="submit">افزودن محصول</button>
+      <!-- مدیریت تصاویر اسلایدر -->
+      <div class="section-card">
+        <h3 class="section-title">مدیریت تصاویر اسلایدر</h3>
+        <form id="carousel-form">
+          <div class="form-group">
+            <label for="carousel-image-url">آدرس تصویر</label>
+            <input type="url" id="carousel-image-url" placeholder="https://example.com/banner.jpg" />
+          </div>
+          <button type="submit" class="btn btn-success">افزودن به اسلایدر</button>
   </form>
 
-  <table id="products-table" aria-label="لیست محصولات">
+        <div style="margin-top: 20px;">
+          <h4>تصاویر فعلی اسلایدر:</h4>
+          <ul id="carousel-list" style="list-style: none; padding: 0;"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- جدول محصولات -->
+    <div class="products-table">
+      <div class="table-header">
+        <h2>مدیریت محصولات</h2>
+      </div>
+      <div class="table-container">
+        <table id="products-table">
 <thead>
   <tr>
-    <th>نام</th>
+              <th>تصویر</th>
+              <th>نام محصول</th>
+              <th>دسته‌بندی</th>
     <th>قیمت</th>
-    <th>توضیح</th> <!-- ستون جدید -->
-    <th>تصویر</th>
+              <th>موجودی</th>
+              <th>امتیاز</th>
+              <th>برچسب‌ها</th>
     <th>عملیات</th>
   </tr>
 </thead>
-    <tbody>
-      <!-- محصولات اینجا رندر میشن -->
+          <tbody id="products-tbody">
+            <!-- محصولات اینجا رندر می‌شوند -->
     </tbody>
   </table>
+      </div>
+    </div>
 
-  <h2 style="margin-top:40px;">سبد خرید فعلی</h2>
-  <table id="cart-table" aria-label="سبد خرید">
+    <!-- جدول سفارشات -->
+    <div class="products-table">
+      <div class="table-header">
+        <h2>سفارشات اخیر</h2>
+      </div>
+      <div class="table-container">
+        <table id="orders-table">
     <thead>
       <tr>
-        <th>نام محصول</th>
-        <th>تعداد</th>
-        <th>قیمت واحد (تومان)</th>
-        <th>جمع (تومان)</th>
+              <th>شماره سفارش</th>
+              <th>محصولات</th>
+              <th>مبلغ کل</th>
+              <th>تاریخ</th>
+              <th>وضعیت</th>
       </tr>
     </thead>
-    <tbody>
-      <!-- آیتم های سبد خرید اینجا -->
+          <tbody id="orders-tbody">
+            <!-- سفارشات اینجا رندر می‌شوند -->
     </tbody>
   </table>
-
-  <div class="link-back">
-    <a href="kar-aval.html" aria-label="بازگشت به فروشگاه">بازگشت به فروشگاه</a> | 
-    <a href="cart.html" aria-label="رفتن به سبد خرید">رفتن به سبد خرید</a>
+      </div>
+    </div>
   </div>
 
-  <button onclick="logout()" style="margin-top: 20px; padding: 10px 15px; font-size: 16px;">خروج از حساب</button>
-<!-- کارت ها اسلایدی -->
  <script>
-  let carouselImages = JSON.parse(localStorage.getItem("carouselImages")) || [];
+    // بارگذاری اولیه
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Admin panel loaded');
+      loadProducts();
+      loadOrders();
+      loadCarouselImages();
+      updateStats();
+    });
 
-  const carouselForm = document.getElementById("carousel-form");
-  const imageInput = document.getElementById("carousel-image-url");
-  const carouselList = document.getElementById("carousel-list");
+    // فرم افزودن محصول
+    document.getElementById('product-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const product = {
+        id: Date.now(),
+        name: document.getElementById('product-name').value,
+        price: parseInt(document.getElementById('product-price').value),
+        discount: parseInt(document.getElementById('product-discount').value) || 0,
+        stock: parseInt(document.getElementById('product-stock').value),
+        rating: parseFloat(document.getElementById('product-rating').value) || 0,
+        category: document.getElementById('product-category').value,
+        image: document.getElementById('product-image').value,
+        description: document.getElementById('product-description').value,
+        isNew: document.getElementById('product-new').checked,
+        isPopular: document.getElementById('product-popular').checked
+      };
+      
+      addProduct(product);
+      this.reset();
+      
+      // بازگرداندن دکمه به حالت عادی
+      const submitBtn = this.querySelector('button[type="submit"]');
+      submitBtn.textContent = 'افزودن محصول';
+      
+      // مخفی کردن دکمه لغو
+      document.getElementById('cancel-edit-btn').style.display = 'none';
+    });
 
-  function renderCarouselList() {
-    carouselList.innerHTML = '';
-    if (carouselImages.length === 0) {
-      carouselList.innerHTML = '<li style="color:#888;">تصویری ثبت نشده است.</li>';
-      return;
+    // فرم افزودن تصویر اسلایدر
+    document.getElementById('carousel-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const imageUrl = document.getElementById('carousel-image-url').value;
+      if (imageUrl) {
+        addCarouselImage(imageUrl);
+        this.reset();
+      }
+    });
+
+    // افزودن محصول
+    function addProduct(product) {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      products.push(product);
+      localStorage.setItem('products', JSON.stringify(products));
+      
+      loadProducts();
+      updateStats();
+      alert('محصول با موفقیت اضافه شد!');
     }
 
-    carouselImages.forEach((img, index) => {
-      const li = document.createElement("li");
-      li.innerHTML = `
-        <img src="${img}" alt="carousel" style="width:100px;height:60px;object-fit:cover;border-radius:5px;margin-left:10px;">
-        <button onclick="removeCarouselImage(${index})">حذف</button>
-      `;
-      carouselList.appendChild(li);
-    });
-  }
-
-  function removeCarouselImage(index) {
-    if (confirm("آیا مطمئن هستید؟")) {
-      carouselImages.splice(index, 1);
-      localStorage.setItem("carouselImages", JSON.stringify(carouselImages));
-      renderCarouselList();
-    }
-  }
-
-  carouselForm.addEventListener("submit", function(e) {
-    e.preventDefault();
-    const url = imageInput.value.trim();
-    if (!url) return;
-    carouselImages.push(url);
-    localStorage.setItem("carouselImages", JSON.stringify(carouselImages));
-    imageInput.value = '';
-    renderCarouselList();
-  });
-
-  renderCarouselList();
-</script>
-
-  <!-- ... تا ابتدای <script> هیچ تغییری نیاز نیست -->
-
-<!-- اسکریپت واحد و نهایی -->
-<!-- اسکریپت نهایی مدیریت محصولات با توضیحات -->
-<script>
-  // کنترل دسترسی ادمین
-  const currentUser = localStorage.getItem('currentUser');
-  if (currentUser !== 'admin') {
-    alert("دسترسی غیرمجاز. فقط مدیر می‌تواند وارد شود.");
-    window.location.href = 'login.html';
-  }
-
-  function logout() {
-    localStorage.removeItem('currentUser');
-    window.location.href = 'login.html';
-  }
-
-  // داده‌ها
-  let products = JSON.parse(localStorage.getItem('products')) || [];
-  let cartKey = `cart_${currentUser}`;
-  let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
-
-  const productsTableBody = document.querySelector('#products-table tbody');
-  const cartTableBody = document.querySelector('#cart-table tbody');
-  const productForm = document.getElementById('product-form');
-
-  // ایمن‌سازی خروجی
-  function escapeHtml(text) {
-    return text.replace(/[&<>"']/g, function(m) {
-      return ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;'
-      })[m];
-    });
-  }
-
-  // رندر محصولات
-  function renderProducts() {
-    productsTableBody.innerHTML = '';
+    // بارگذاری محصولات
+    function loadProducts() {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const tbody = document.getElementById('products-tbody');
+      
+      console.log('Loading products:', products.length);
+      
+      tbody.innerHTML = '';
+      
     if (products.length === 0) {
-      productsTableBody.innerHTML = `<tr><td colspan="5" style="color:#888;">هیچ محصولی وجود ندارد.</td></tr>`;
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 20px;">هیچ محصولی موجود نیست</td></tr>';
       return;
     }
 
-    products.forEach((product, index) => {
+      products.forEach(product => {
       const row = document.createElement('tr');
-      row.setAttribute('data-index', index);
+        
+        const badges = [];
+        if (product.discount > 0) badges.push(`<span class="badge discount">${product.discount}% تخفیف</span>`);
+        if (product.isNew) badges.push('<span class="badge new">جدید</span>');
+        if (product.isPopular) badges.push('<span class="badge popular">محبوب</span>');
+        
+        const stockClass = product.stock > 0 ? 'in-stock' : 'out-of-stock';
+        const stockText = product.stock > 0 ? `${product.stock} عدد` : 'ناموجود';
 
       row.innerHTML = `
-        <td class="name-cell">${escapeHtml(product.name)}</td>
-        <td class="price-cell">${Number(product.price).toLocaleString()}</td>
-        <td class="desc-cell">${escapeHtml(product.description || '')}</td>
-        <td class="image-cell"><img class="product-img" src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}"></td>
-        <td>
-          <button class="action-btn edit-btn" data-index="${index}">ویرایش</button>
-          <button class="action-btn delete-btn" data-index="${index}">حذف</button>
+          <td><img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/60x60?text=تصویر'" /></td>
+          <td>${product.name}</td>
+          <td>${product.category || 'عمومی'}</td>
+          <td>${product.price.toLocaleString()} تومان</td>
+          <td><span class="stock-status ${stockClass}">${stockText}</span></td>
+          <td>${product.rating ? product.rating.toFixed(1) : '0.0'} ⭐</td>
+          <td>${badges.join(' ')}</td>
+          <td>
+            <button class="btn btn-warning" onclick="editProduct(${product.id})">ویرایش</button>
+            <button class="btn btn-danger" onclick="deleteProduct(${product.id})">حذف</button>
         </td>
       `;
-      productsTableBody.appendChild(row);
-    });
+        
+        tbody.appendChild(row);
+      });
+    }
 
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const index = parseInt(btn.getAttribute('data-index'));
-        if (confirm(`آیا از حذف "${products[index].name}" مطمئن هستید؟`)) {
-          products.splice(index, 1);
-          localStorage.setItem('products', JSON.stringify(products));
-          renderProducts();
+    // حذف محصول
+    function deleteProduct(id) {
+      if (confirm('آیا از حذف این محصول اطمینان دارید؟')) {
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+        const filteredProducts = products.filter(p => p.id !== id);
+        localStorage.setItem('products', JSON.stringify(filteredProducts));
+        
+        loadProducts();
+        updateStats();
+        alert('محصول حذف شد!');
+      }
+    }
+
+    // ویرایش محصول
+    function editProduct(id) {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const product = products.find(p => p.id === id);
+      
+      if (product) {
+        console.log('Editing product:', product);
+        
+        // پر کردن فرم با اطلاعات محصول
+        document.getElementById('product-name').value = product.name;
+        document.getElementById('product-price').value = product.price;
+        document.getElementById('product-discount').value = product.discount || 0;
+        document.getElementById('product-stock').value = product.stock;
+        document.getElementById('product-rating').value = product.rating || 0;
+        document.getElementById('product-category').value = product.category || 'عمومی';
+        document.getElementById('product-image').value = product.image;
+        document.getElementById('product-description').value = product.description || '';
+        document.getElementById('product-new').checked = product.isNew || false;
+        document.getElementById('product-popular').checked = product.isPopular || false;
+        
+        // تغییر متن دکمه فرم
+        const submitBtn = document.querySelector('#product-form button[type="submit"]');
+        submitBtn.textContent = 'ویرایش محصول';
+        submitBtn.onclick = function(e) {
+          e.preventDefault();
+          updateProduct(id);
+        };
+        
+        // نمایش دکمه لغو
+        document.getElementById('cancel-edit-btn').style.display = 'inline-block';
+        
+        // اسکرول به فرم (بدون انیمیشن)
+        document.getElementById('product-form').scrollIntoView();
+        
+        alert('اطلاعات محصول در فرم قرار گرفت. پس از ویرایش، روی "ویرایش محصول" کلیک کنید یا برای لغو روی "لغو ویرایش" کلیک کنید.');
+      } else {
+        alert('محصول مورد نظر یافت نشد!');
+      }
+    }
+
+    // بروزرسانی محصول
+    function updateProduct(id) {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const productIndex = products.findIndex(p => p.id === id);
+      
+      if (productIndex !== -1) {
+        const updatedProduct = {
+          id: id,
+          name: document.getElementById('product-name').value,
+          price: parseInt(document.getElementById('product-price').value),
+          discount: parseInt(document.getElementById('product-discount').value) || 0,
+          stock: parseInt(document.getElementById('product-stock').value),
+          rating: parseFloat(document.getElementById('product-rating').value) || 0,
+          category: document.getElementById('product-category').value,
+          image: document.getElementById('product-image').value,
+          description: document.getElementById('product-description').value,
+          isNew: document.getElementById('product-new').checked,
+          isPopular: document.getElementById('product-popular').checked
+        };
+        
+        products[productIndex] = updatedProduct;
+    localStorage.setItem('products', JSON.stringify(products));
+        
+        // بازگرداندن دکمه به حالت عادی
+        const submitBtn = document.querySelector('#product-form button[type="submit"]');
+        submitBtn.textContent = 'افزودن محصول';
+        submitBtn.onclick = null;
+        
+        // مخفی کردن دکمه لغو
+        document.getElementById('cancel-edit-btn').style.display = 'none';
+        
+        // پاک کردن فرم
+        document.getElementById('product-form').reset();
+        
+        loadProducts();
+        updateStats();
+        alert('محصول با موفقیت ویرایش شد!');
+      } else {
+        alert('محصول مورد نظر یافت نشد!');
+      }
+    }
+
+    // لغو ویرایش
+    function cancelEdit() {
+      // بازگرداندن دکمه به حالت عادی
+      const submitBtn = document.querySelector('#product-form button[type="submit"]');
+      submitBtn.textContent = 'افزودن محصول';
+      submitBtn.onclick = null;
+      
+      // مخفی کردن دکمه لغو
+      document.getElementById('cancel-edit-btn').style.display = 'none';
+      
+      // پاک کردن فرم
+      document.getElementById('product-form').reset();
+      
+      alert('ویرایش لغو شد!');
+    }
+
+    // بارگذاری سفارشات
+    function loadOrders() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const tbody = document.getElementById('orders-tbody');
+      
+      tbody.innerHTML = '';
+      
+    if (cart.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">سفارشی موجود نیست</td></tr>';
+      return;
+    }
+
+      // گروه‌بندی محصولات بر اساس نام
+      const groupedCart = {};
+    cart.forEach(item => {
+        if (groupedCart[item.name]) {
+          groupedCart[item.name].quantity += item.quantity;
+        } else {
+          groupedCart[item.name] = { ...item };
         }
       });
-    });
-
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const index = parseInt(btn.getAttribute('data-index'));
-        enterEditMode(index);
-      });
-    });
-  }
-
-  // ورود به حالت ویرایش
-  function enterEditMode(index) {
-    const row = productsTableBody.querySelector(`tr[data-index="${index}"]`);
-    if (!row) return;
-    const product = products[index];
-
-    row.innerHTML = `
-      <td><input class="edit-input" type="text" value="${product.name}" id="edit-name-${index}"></td>
-      <td><input class="edit-input" type="number" value="${product.price}" id="edit-price-${index}" min="1"></td>
-      <td><input class="edit-input" type="text" value="${product.description || ''}" id="edit-desc-${index}"></td>
-      <td><input class="edit-input" type="text" value="${product.image}" id="edit-image-${index}"></td>
-      <td>
-        <button class="action-btn save-btn" data-index="${index}">ذخیره</button>
-        <button class="action-btn cancel-btn" data-index="${index}">انصراف</button>
-      </td>
-    `;
-
-    row.querySelector('.save-btn').addEventListener('click', () => saveEdit(index));
-    row.querySelector('.cancel-btn').addEventListener('click', () => renderProducts());
-  }
-
-  // ذخیره تغییرات ویرایش
-  function saveEdit(index) {
-    const name = document.getElementById(`edit-name-${index}`).value.trim();
-    const price = Number(document.getElementById(`edit-price-${index}`).value);
-    const desc = document.getElementById(`edit-desc-${index}`).value.trim();
-    const image = document.getElementById(`edit-image-${index}`).value.trim();
-
-    if (name === '' || price <= 0 || image === '') {
-      alert('لطفاً همه فیلدها را به درستی پر کنید.');
-      return;
-    }
-
-    products[index] = { name, price, description: desc, image };
-    localStorage.setItem('products', JSON.stringify(products));
-    renderProducts();
-  }
-
-  // افزودن محصول جدید
-  productForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById('product-name').value.trim();
-    const price = Number(document.getElementById('product-price').value);
-    const desc = document.getElementById('product-description').value.trim();
-    const image = document.getElementById('product-image').value.trim();
-
-    if (name === '' || price <= 0 || image === '') {
-      alert('لطفاً همه فیلدها را به درستی پر کنید.');
-      return;
-    }
-
-    products.push({ name, price, description: desc, image });
-    localStorage.setItem('products', JSON.stringify(products));
-    renderProducts();
-    productForm.reset();
-  });
-
-  // رندر سبد خرید
-  function renderCart() {
-    cartTableBody.innerHTML = '';
-    if (cart.length === 0) {
-      cartTableBody.innerHTML = `<tr><td colspan="4" style="color:#888;">سبد خرید خالی است.</td></tr>`;
-      return;
-    }
-
-    cart.forEach(item => {
-      const product = products.find(p => p.name === item.name);
-      if (!product) return;
-
+      
+      Object.values(groupedCart).forEach((item, index) => {
       const row = document.createElement('tr');
+        const totalPrice = item.price * item.quantity;
+        
       row.innerHTML = `
-        <td>${escapeHtml(item.name)}</td>
-        <td>${item.quantity}</td>
-        <td>${Number(product.price).toLocaleString()}</td>
-        <td>${(product.price * item.quantity).toLocaleString()}</td>
-      `;
-      cartTableBody.appendChild(row);
-    });
-  }
+          <td>#${index + 1}</td>
+          <td>${item.name} (${item.quantity} عدد)</td>
+          <td>${totalPrice.toLocaleString()} تومان</td>
+          <td>${new Date().toLocaleDateString('fa-IR')}</td>
+          <td><span style="color: #27ae60;">در انتظار پرداخت</span></td>
+        `;
+        
+        tbody.appendChild(row);
+      });
+    }
 
-  // اجرا
-  renderProducts();
-  renderCart();
-</script>
+    // بارگذاری تصاویر اسلایدر
+    function loadCarouselImages() {
+      const images = JSON.parse(localStorage.getItem('carouselImages')) || [];
+      const list = document.getElementById('carousel-list');
+      
+      list.innerHTML = '';
+      
+      images.forEach((image, index) => {
+        const li = document.createElement('li');
+        li.style.marginBottom = '10px';
+        li.innerHTML = `
+          <img src="${image}" alt="اسلایدر ${index + 1}" style="width: 100px; height: 60px; object-fit: cover; border-radius: 5px; margin-left: 10px;" />
+          <span>تصویر ${index + 1}</span>
+          <button class="btn btn-danger" onclick="removeCarouselImage(${index})" style="margin-right: 10px;">حذف</button>
+        `;
+        list.appendChild(li);
+      });
+    }
 
+    // افزودن تصویر اسلایدر
+    function addCarouselImage(url) {
+      const images = JSON.parse(localStorage.getItem('carouselImages')) || [];
+      images.push(url);
+      localStorage.setItem('carouselImages', JSON.stringify(images));
+      
+      loadCarouselImages();
+      alert('تصویر به اسلایدر اضافه شد!');
+    }
 
+    // حذف تصویر اسلایدر
+    function removeCarouselImage(index) {
+      if (confirm('آیا از حذف این تصویر اطمینان دارید؟')) {
+        const images = JSON.parse(localStorage.getItem('carouselImages')) || [];
+        images.splice(index, 1);
+        localStorage.setItem('carouselImages', JSON.stringify(images));
+        
+        loadCarouselImages();
+        alert('تصویر حذف شد!');
+      }
+    }
 
+    // بروزرسانی آمار
+    function updateStats() {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      
+      console.log('Updating stats - Products:', products.length, 'Orders:', cart.length);
+      
+      document.getElementById('totalProducts').textContent = products.length;
+      document.getElementById('totalOrders').textContent = cart.length;
+      
+      const totalRevenue = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      document.getElementById('totalRevenue').textContent = totalRevenue.toLocaleString();
+      
+      const lowStockCount = products.filter(p => p.stock > 0 && p.stock <= 5).length;
+      document.getElementById('lowStock').textContent = lowStockCount;
+    }
+
+    // افزودن محصولات نمونه
+    function addSampleProducts() {
+      const sampleProducts = [
+        {
+          id: Date.now(),
+          name: "لپ‌تاپ اپل مک‌بوک پرو",
+          price: 85000000,
+          discount: 15,
+          stock: 5,
+          rating: 4.8,
+          category: "الکترونیک",
+          image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=300",
+          description: "لپ‌تاپ قدرتمند اپل با پردازنده M2",
+          isNew: true,
+          isPopular: true
+        },
+        {
+          id: Date.now() + 1,
+          name: "کفش ورزشی نایک",
+          price: 1200000,
+          discount: 0,
+          stock: 20,
+          rating: 4.5,
+          category: "ورزشی",
+          image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300",
+          description: "کفش ورزشی راحت و سبک",
+          isNew: false,
+          isPopular: true
+        },
+        {
+          id: Date.now() + 2,
+          name: "کتاب برنامه‌نویسی JavaScript",
+          price: 450000,
+          discount: 10,
+          stock: 15,
+          rating: 4.2,
+          category: "کتاب",
+          image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300",
+          description: "کتاب جامع آموزش JavaScript",
+          isNew: true,
+          isPopular: false
+        }
+      ];
+      
+      const existingProducts = JSON.parse(localStorage.getItem('products')) || [];
+      const allProducts = [...existingProducts, ...sampleProducts];
+      localStorage.setItem('products', JSON.stringify(allProducts));
+      
+      loadProducts();
+      updateStats();
+      alert('محصولات نمونه اضافه شدند!');
+    }
+
+    // بروزرسانی داده‌ها
+    function refreshData() {
+      loadProducts();
+      loadOrders();
+      loadCarouselImages();
+      updateStats();
+      alert('داده‌ها بروزرسانی شدند!');
+    }
+  </script>
 </body>
 </html>

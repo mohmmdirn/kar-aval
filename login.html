@@ -1,69 +1,368 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>ورود به پنل مدیریت</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ورود به پنل مدیریت - کار اول</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
-      background: #f0f2f5;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      font-family: sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      direction: rtl;
     }
-    .login-box {
+    
+    .login-container {
       background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
       text-align: center;
+      max-width: 400px;
+      width: 90%;
     }
-    input {
+    
+    .logo {
+      margin-bottom: 30px;
+    }
+    
+    .logo h1 {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    
+    .logo p {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+    
+    .form-group label {
       display: block;
-      margin: 10px auto;
-      padding: 10px;
-      width: 200px;
-      font-size: 16px;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: 600;
+      font-size: 14px;
     }
-    button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      border: none;
+    
+    .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e1e5e9;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+      background: #f8f9fa;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+    }
+    
+    .form-group input.error {
+      border-color: #e74c3c;
+    }
+    
+    .error-message {
+      color: #e74c3c;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+    
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      cursor: pointer;
+      border: none;
+      border-radius: 8px;
       font-size: 16px;
-      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      margin-top: 10px;
     }
-    button:hover {
-      background-color: #0056b3;
+    
+    .login-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .login-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .mode-switch {
+      margin-top: 20px;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    
+    .mode-switch button {
+      background: none;
+      border: none;
+      color: #667eea;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: underline;
+    }
+    
+    .mode-switch button:hover {
+      color: #764ba2;
+    }
+    
+    .loading {
+      display: none;
+      margin-left: 10px;
+    }
+    
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="login-box">
-    <h2>ورود به پنل</h2>
-    <input type="text" id="username" placeholder="نام کاربری" />
-    <input type="password" id="password" placeholder="رمز عبور" />
-    <button onclick="login()">ورود</button>
+  <div class="login-container">
+    <div class="logo">
+      <h1>کار اول</h1>
+      <p>پنل مدیریت فروشگاه</p>
+    </div>
+    
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="email">ایمیل</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="example@email.com" 
+          required
+          autocomplete="email"
+        />
+        <div class="error-message" id="emailError"></div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">رمز عبور</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          placeholder="رمز عبور خود را وارد کنید" 
+          required
+          autocomplete="current-password"
+        />
+        <div class="error-message" id="passwordError"></div>
+      </div>
+      
+      <button type="submit" class="login-btn" id="loginBtn">
+        ورود
+        <span class="loading" id="loading">⏳</span>
+      </button>
+    </form>
+    
+    <div class="mode-switch">
+      <button type="button" onclick="toggleMode()" id="modeBtn">
+        تغییر به حالت ثبت نام
+      </button>
+    </div>
   </div>
 
   <script>
-    function login() {
-      const user = document.getElementById('username').value.trim();
-      const pass = document.getElementById('password').value.trim();
-
-      // تعریف کاربران
-      if (user === "admin" && pass === "1234") {
-        localStorage.setItem("currentUser", "admin");
-        window.location.href = "admin.html";
-      } else if (user === "user1" && pass === "1111") {
-        localStorage.setItem("currentUser", "user1");
-        window.location.href = "shop.html"; // صفحه کاربران معمولی
-      } else {
-        alert("نام کاربری یا رمز عبور اشتباه است.");
+    let isSignUpMode = false;
+    
+    // Validate email format
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+    
+    // Validate password strength
+    function validatePassword(password) {
+      return password.length >= 6;
+    }
+    
+    // Show error message
+    function showError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      const errorDiv = document.getElementById(fieldId + 'Error');
+      
+      field.classList.add('error');
+      errorDiv.textContent = message;
+      errorDiv.style.display = 'block';
+    }
+    
+    // Clear error message
+    function clearError(fieldId) {
+      const field = document.getElementById(fieldId);
+      const errorDiv = document.getElementById(fieldId + 'Error');
+      
+      field.classList.remove('error');
+      errorDiv.style.display = 'none';
+    }
+    
+    // Validate form
+    function validateForm() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      let isValid = true;
+      
+      // Clear previous errors
+      clearError('email');
+      clearError('password');
+      
+      // Validate email
+      if (!email) {
+        showError('email', 'ایمیل الزامی است');
+        isValid = false;
+      } else if (!validateEmail(email)) {
+        showError('email', 'فرمت ایمیل نامعتبر است');
+        isValid = false;
+      }
+      
+      // Validate password
+      if (!password) {
+        showError('password', 'رمز عبور الزامی است');
+        isValid = false;
+      } else if (!validatePassword(password)) {
+        showError('password', 'رمز عبور باید حداقل ۶ کاراکتر باشد');
+        isValid = false;
+      }
+      
+      return isValid;
+    }
+    
+    // Handle login/signup
+    async function handleLogin(event) {
+      event.preventDefault();
+      
+      if (!validateForm()) {
+        return;
+      }
+      
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const loginBtn = document.getElementById('loginBtn');
+      const loading = document.getElementById('loading');
+      
+      // Show loading state
+      loginBtn.disabled = true;
+      loading.style.display = 'inline';
+      
+      try {
+        // In a real application, you would send this to your server
+        // For demo purposes, we'll simulate authentication
+        
+        // Simulate API call delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Demo authentication logic
+        if (isSignUpMode) {
+          // Simulate signup
+          if (email === 'admin@karaval.com' && password === 'admin123') {
+            localStorage.setItem('user', JSON.stringify({
+              email: email,
+              role: 'admin',
+              token: 'demo-token-' + Date.now()
+            }));
+            window.location.href = 'admin.html';
+          } else {
+            alert('ثبت نام ناموفق بود. لطفاً اطلاعات را بررسی کنید.');
+          }
+        } else {
+          // Simulate login
+          if (email === 'admin@karaval.com' && password === 'admin123') {
+            localStorage.setItem('user', JSON.stringify({
+              email: email,
+              role: 'admin',
+              token: 'demo-token-' + Date.now()
+            }));
+            window.location.href = 'admin.html';
+          } else if (email === 'user@karaval.com' && password === 'user123') {
+            localStorage.setItem('user', JSON.stringify({
+              email: email,
+              role: 'user',
+              token: 'demo-token-' + Date.now()
+            }));
+            window.location.href = 'kar-aval.html';
+          } else {
+            alert('ورود ناموفق بود. لطفاً نام کاربری و رمز عبور را بررسی کنید.');
+          }
+        }
+        
+      } catch (error) {
+        console.error('Login error:', error);
+        alert('خطا در ورود. لطفاً دوباره تلاش کنید.');
+      } finally {
+        // Reset loading state
+        loginBtn.disabled = false;
+        loading.style.display = 'none';
       }
     }
+    
+    // Toggle between login and signup modes
+    function toggleMode() {
+      isSignUpMode = !isSignUpMode;
+      const modeBtn = document.getElementById('modeBtn');
+      const loginBtn = document.getElementById('loginBtn');
+      
+      if (isSignUpMode) {
+        modeBtn.textContent = 'تغییر به حالت ورود';
+        loginBtn.textContent = 'ثبت نام';
+      } else {
+        modeBtn.textContent = 'تغییر به حالت ثبت نام';
+        loginBtn.textContent = 'ورود';
+      }
+      
+      // Clear form
+      document.getElementById('loginForm').reset();
+      clearError('email');
+      clearError('password');
+    }
+    
+    // Add input event listeners for real-time validation
+    document.getElementById('email').addEventListener('input', function() {
+      clearError('email');
+    });
+    
+    document.getElementById('password').addEventListener('input', function() {
+      clearError('password');
+    });
+    
+    // Check if user is already logged in
+    window.addEventListener('load', function() {
+      const user = localStorage.getItem('user');
+      if (user) {
+        const userData = JSON.parse(user);
+        if (userData.role === 'admin') {
+          window.location.href = 'admin.html';
+        } else {
+          window.location.href = 'kar-aval.html';
+        }
+      }
+    });
   </script>
 </body>
 </html>

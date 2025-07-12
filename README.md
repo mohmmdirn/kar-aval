@@ -54,30 +54,30 @@ kar-aval/
    ```
 
 2. **نصب وابستگی‌های Node.js**
-   ```bash
-   npm install
+```bash
+npm install
    cd firebase-proxy
    npm install
    cd ..
-   ```
+```
 
 3. **تنظیم متغیرهای محیطی**
-   
+
    فایل `.env` را در ریشه پروژه ایجاد کنید:
-   ```env
+```env
    FIREBASE_API_KEY=your_firebase_api_key
    ZARINPAL_MERCHANT_ID=your_zarinpal_merchant_id
-   CALLBACK_URL=https://yourdomain.com/verify-payment.php
+CALLBACK_URL=https://yourdomain.com/verify-payment.php
    NODE_ENV=development
-   ```
+```
 
 4. **راه‌اندازی سرورها**
-   
+
    در ترمینال اول:
-   ```bash
-   npm start
-   ```
-   
+```bash
+npm start
+```
+
    در ترمینال دوم:
    ```bash
    cd firebase-proxy

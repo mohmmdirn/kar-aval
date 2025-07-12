@@ -551,9 +551,8 @@ header {
 <nav class="main-nav" id="main-nav" aria-label="منوی اصلی">
   <!-- سبد خرید -->
 <a href="cart.html" class="cart-button" aria-label="سبد خرید">
-  <img src="cart.png" alt="سبد خرید">
-  <span class="cart-badge">3</span> <!-- اختیاری: برای تعداد -->
-</a>
+      🛒
+    </a>
   <a href="#">تمام‌محصولات</a>
   <a href="#">کلاه</a>
   <a href="#">شلوارک</a>
@@ -567,14 +566,14 @@ header {
 </nav>
 
 <!-- دکمه همبرگر -->
-<div class="hamburger" onclick="toggleMenu()">
-  <div></div>
-  <div></div>
-  <div></div>
-</div>
+<button class="hamburger" id="hamburger" aria-label="باز کردن منو" type="button">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
 
-<!-- منوی موبایل (کپی خودکار) -->
-<div class="mobile-menu" id="mobileMenu"></div>
+<!-- منوی موبایل -->
+<nav class="mobile-menu" id="mobileMenu" aria-label="منوی موبایل"></nav>
 
     <!-- آیکون‌ها و دکمه‌ها -->
     <div class="icons-group">
@@ -846,18 +845,36 @@ function attachCartButtons() {
   // حذف کد های مربوط به هاور برای جلوگیری از تداخل
 </script>
 <script>
-;
-  const mobileMenu = document.getElementById("mobileMenu");
+  // منوی موبایل
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  // const mainNav = document.getElementById('main-nav'); // حذف این خط چون قبلاً تعریف شده
 
   function cloneMenuItems() {
-    mobileMenu.innerHTML = mainNav.innerHTML;
+    // کپی کردن آیتم‌های منوی اصلی به منوی موبایل
+    mobileMenu.innerHTML = '';
+    Array.from(mainNav.children).forEach(item => {
+      if (item.tagName === 'A') {
+        const clone = item.cloneNode(true);
+        clone.onclick = () => { mobileMenu.classList.remove('show'); };
+        mobileMenu.appendChild(clone);
+      }
+    });
   }
 
-  function toggleMenu() {
-    mobileMenu.classList.toggle("show");
-  }
+  // باز و بسته کردن منوی موبایل
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('show');
+  });
 
-  // اجرای اولیه برای کپی‌کردن منو
+  // بستن منوی موبایل با کلیک بیرون
+  window.addEventListener('click', e => {
+    if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+      mobileMenu.classList.remove('show');
+    }
+  });
+
+  // اجرای اولیه
   cloneMenuItems();
 </script>
 

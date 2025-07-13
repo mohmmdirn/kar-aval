@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نشان‌ها و دستاوردها - کار آوال</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      direction: rtl;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .badges-header {
+      text-align: center;
+      margin-bottom: 50px;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .badges-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #333;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .badges-subtitle {
+      color: #666;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    .badges-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    
+    .stat-card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .stat-icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #667eea;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .badge-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .badge-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .badge-header {
+      padding: 30px;
+      text-align: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      position: relative;
+    }
+    
+    .badge-icon {
+      font-size: 4rem;
+      margin-bottom: 15px;
+    }
+    
+    .badge-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .badge-category {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .badge-content {
+      padding: 25px;
+    }
+    
+    .badge-description {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    
+    .badge-requirements {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .requirements-title {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .requirement-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .requirement-icon {
+      color: #27ae60;
+    }
+    
+    .badge-progress {
+      margin-bottom: 20px;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e1e5e9;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+      transition: width 0.3s ease;
+    }
+    
+    .progress-text {
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+    }
+    
+    .badge-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .claim-btn {
+      flex: 1;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .claim-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
+    }
+    
+    .claim-btn:disabled {
+      background: #bdc3c7;
+      cursor: not-allowed;
+    }
+    
+    .badge-status {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .status-unlocked {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status-locked {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .status-progress {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+    }
+    
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+    
+    .filter-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      padding: 10px 20px;
+      border: 2px solid #e1e5e9;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+    
+    .filter-btn.active {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+    
+    .filter-btn:hover {
+      border-color: #667eea;
+    }
+    
+    @media (max-width: 768px) {
+      .badges-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .badges-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .filter-controls {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .badges-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- دکمه بازگشت -->
+    <a href="kar-aval.html" class="back-button">
+      ← بازگشت به صفحه اصلی
+    </a>
+    
+    <!-- هدر نشان‌ها -->
+    <div class="badges-header">
+      <h1 class="badges-title">نشان‌ها و دستاوردها</h1>
+      <p class="badges-subtitle">
+        با انجام فعالیت‌های مختلف، نشان‌های ویژه کسب کنید و دستاوردهای خود را به نمایش بگذارید
+      </p>
+    </div>
+    
+    <!-- آمار نشان‌ها -->
+    <div class="badges-stats">
+      <div class="stat-card">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-number" id="totalBadges">0</div>
+        <div class="stat-label">کل نشان‌ها</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔓</div>
+        <div class="stat-number" id="unlockedBadges">0</div>
+        <div class="stat-label">نشان‌های باز شده</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔒</div>
+        <div class="stat-number" id="lockedBadges">0</div>
+        <div class="stat-label">نشان‌های قفل شده</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📈</div>
+        <div class="stat-number" id="progressBadges">0</div>
+        <div class="stat-label">در حال پیشرفت</div>
+      </div>
+    </div>
+    
+    <!-- فیلترهای نشان‌ها -->
+    <div class="filter-controls">
+      <button class="filter-btn active" data-filter="all">همه نشان‌ها</button>
+      <button class="filter-btn" data-filter="unlocked">باز شده</button>
+      <button class="filter-btn" data-filter="locked">قفل شده</button>
+      <button class="filter-btn" data-filter="progress">در حال پیشرفت</button>
+      <button class="filter-btn" data-filter="shopping">خرید</button>
+      <button class="filter-btn" data-filter="social">اجتماعی</button>
+      <button class="filter-btn" data-filter="special">ویژه</button>
+    </div>
+    
+    <!-- گرید نشان‌ها -->
+    <div class="badges-grid" id="badgesGrid">
+      <!-- نشان‌ها اینجا رندر می‌شوند -->
+    </div>
+  </div>
+  
+  <script>
+    // داده‌های نشان‌ها
+    const badgesData = [
+      {
+        id: 1,
+        title: "خریدار اول",
+        category: "shopping",
+        icon: "🛒",
+        description: "اولین خرید خود را انجام دهید",
+        requirements: ["انجام حداقل 1 خرید"],
+        progress: 0,
+        maxProgress: 1,
+        unlocked: false,
+        reward: "تخفیف 10% برای خرید بعدی"
+      },
+      {
+        id: 2,
+        title: "خریدار وفادار",
+        category: "shopping",
+        icon: "💎",
+        description: "10 خرید انجام دهید",
+        requirements: ["انجام حداقل 10 خرید"],
+        progress: 0,
+        maxProgress: 10,
+        unlocked: false,
+        reward: "تخفیف 15% دائمی"
+      },
+      {
+        id: 3,
+        title: "نظردهنده فعال",
+        category: "social",
+        icon: "⭐",
+        description: "برای 5 محصول نظر بگذارید",
+        requirements: ["نظر دادن برای 5 محصول مختلف"],
+        progress: 0,
+        maxProgress: 5,
+        unlocked: false,
+        reward: "امتیاز ویژه در سیستم"
+      },
+      {
+        id: 4,
+        title: "مشتری VIP",
+        category: "special",
+        icon: "👑",
+        description: "مبلغ 1 میلیون تومان خرید کنید",
+        requirements: ["خرید به ارزش 1 میلیون تومان"],
+        progress: 0,
+        maxProgress: 1000000,
+        unlocked: false,
+        reward: "عضویت در باشگاه مشتریان VIP"
+      },
+      {
+        id: 5,
+        title: "بازدیدکننده منظم",
+        category: "social",
+        icon: "👀",
+        description: "7 روز متوالی از سایت بازدید کنید",
+        requirements: ["بازدید روزانه به مدت 7 روز"],
+        progress: 0,
+        maxProgress: 7,
+        unlocked: false,
+        reward: "کوپن تخفیف 20%"
+      },
+      {
+        id: 6,
+        title: "معرفی کننده",
+        category: "social",
+        icon: "🤝",
+        description: "3 دوست را به سایت معرفی کنید",
+        requirements: ["معرفی 3 کاربر جدید"],
+        progress: 0,
+        maxProgress: 3,
+        unlocked: false,
+        reward: "پاداش ویژه برای هر معرفی"
+      },
+      {
+        id: 7,
+        title: "جستجوگر حرفه‌ای",
+        category: "special",
+        icon: "🔍",
+        description: "100 جستجو انجام دهید",
+        requirements: ["انجام 100 جستجو در سایت"],
+        progress: 0,
+        maxProgress: 100,
+        unlocked: false,
+        reward: "دسترسی به محصولات ویژه"
+      },
+      {
+        id: 8,
+        title: "نظرسنجی‌کننده",
+        category: "social",
+        icon: "📊",
+        description: "در 5 نظرسنجی شرکت کنید",
+        requirements: ["شرکت در 5 نظرسنجی مختلف"],
+        progress: 0,
+        maxProgress: 5,
+        unlocked: false,
+        reward: "دسترسی به آمار ویژه"
+      }
+    ];
+    
+    // تابع رندر نشان‌ها
+    function renderBadges(filter = 'all') {
+      const container = document.getElementById('badgesGrid');
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      
+      if (!currentUser) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div style="font-size: 4rem; margin-bottom: 20px;">🔐</div>
+            <h3 style="color: #666; margin-bottom: 10px;">برای مشاهده نشان‌ها وارد شوید</h3>
+            <p style="color: #999;">لطفاً ابتدا وارد حساب کاربری خود شوید</p>
+            <a href="auth.html" style="display: inline-block; margin-top: 20px; padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">ورود به حساب</a>
+          </div>
+        `;
+        return;
+      }
+      
+      // دریافت پیشرفت کاربر
+      const userProgress = JSON.parse(localStorage.getItem(`userProgress_${currentUser.email}`)) || {};
+      
+      // فیلتر کردن نشان‌ها
+      let filteredBadges = badgesData;
+      if (filter !== 'all') {
+        filteredBadges = badgesData.filter(badge => {
+          if (filter === 'unlocked') return userProgress[badge.id]?.unlocked;
+          if (filter === 'locked') return !userProgress[badge.id]?.unlocked;
+          if (filter === 'progress') return userProgress[badge.id]?.progress > 0 && !userProgress[badge.id]?.unlocked;
+          return badge.category === filter;
+        });
+      }
+      
+      // به‌روزرسانی آمار
+      updateBadgesStats(userProgress);
+      
+      container.innerHTML = '';
+      
+      filteredBadges.forEach(badge => {
+        const userBadgeProgress = userProgress[badge.id] || { progress: 0, unlocked: false };
+        const progressPercent = Math.min((userBadgeProgress.progress / badge.maxProgress) * 100, 100);
+        
+        const card = document.createElement('div');
+        card.className = 'badge-card';
+        
+        let statusClass = 'status-locked';
+        let statusText = 'قفل شده';
+        
+        if (userBadgeProgress.unlocked) {
+          statusClass = 'status-unlocked';
+          statusText = 'باز شده';
+        } else if (userBadgeProgress.progress > 0) {
+          statusClass = 'status-progress';
+          statusText = 'در حال پیشرفت';
+        }
+        
+        card.innerHTML = `
+          <div class="badge-status ${statusClass}">${statusText}</div>
+          <div class="badge-header">
+            <div class="badge-icon">${badge.icon}</div>
+            <div class="badge-title">${badge.title}</div>
+            <div class="badge-category">${getCategoryName(badge.category)}</div>
+          </div>
+          <div class="badge-content">
+            <p class="badge-description">${badge.description}</p>
+            
+            <div class="badge-requirements">
+              <div class="requirements-title">شرایط کسب:</div>
+              ${badge.requirements.map(req => `
+                <div class="requirement-item">
+                  <span class="requirement-icon">✓</span>
+                  <span>${req}</span>
+                </div>
+              `).join('')}
+            </div>
+            
+            ${!userBadgeProgress.unlocked ? `
+              <div class="badge-progress">
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: ${progressPercent}%"></div>
+                </div>
+                <div class="progress-text">${userBadgeProgress.progress} از ${badge.maxProgress}</div>
+              </div>
+            ` : ''}
+            
+            <div class="badge-actions">
+              ${userBadgeProgress.unlocked ? `
+                <button class="claim-btn" disabled>کسب شده</button>
+              ` : `
+                <button class="claim-btn" onclick="claimBadge(${badge.id})" ${userBadgeProgress.progress >= badge.maxProgress ? '' : 'disabled'}>
+                  ${userBadgeProgress.progress >= badge.maxProgress ? 'دریافت پاداش' : 'هنوز آماده نیست'}
+                </button>
+              `}
+            </div>
+          </div>
+        `;
+        
+        container.appendChild(card);
+      });
+    }
+    
+    // تابع به‌روزرسانی آمار
+    function updateBadgesStats(userProgress) {
+      const totalBadges = badgesData.length;
+      const unlockedBadges = Object.values(userProgress).filter(p => p.unlocked).length;
+      const lockedBadges = totalBadges - unlockedBadges;
+      const progressBadges = Object.values(userProgress).filter(p => p.progress > 0 && !p.unlocked).length;
+      
+      document.getElementById('totalBadges').textContent = totalBadges;
+      document.getElementById('unlockedBadges').textContent = unlockedBadges;
+      document.getElementById('lockedBadges').textContent = lockedBadges;
+      document.getElementById('progressBadges').textContent = progressBadges;
+    }
+    
+    // تابع دریافت نام دسته‌بندی
+    function getCategoryName(category) {
+      const categories = {
+        shopping: 'خرید',
+        social: 'اجتماعی',
+        special: 'ویژه'
+      };
+      return categories[category] || category;
+    }
+    
+    // تابع دریافت نشان
+    function claimBadge(badgeId) {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (!currentUser) {
+        alert('لطفاً ابتدا وارد حساب کاربری خود شوید.');
+        return;
+      }
+      
+      const userProgress = JSON.parse(localStorage.getItem(`userProgress_${currentUser.email}`)) || {};
+      const badge = badgesData.find(b => b.id === badgeId);
+      
+      if (!badge) return;
+      
+      const userBadgeProgress = userProgress[badgeId] || { progress: 0, unlocked: false };
+      
+      if (userBadgeProgress.progress >= badge.maxProgress && !userBadgeProgress.unlocked) {
+        userBadgeProgress.unlocked = true;
+        userProgress[badgeId] = userBadgeProgress;
+        localStorage.setItem(`userProgress_${currentUser.email}`, JSON.stringify(userProgress));
+        
+        // نمایش پیام موفقیت
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.8);
+          z-index: 10000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        `;
+        
+        modal.innerHTML = `
+          <div style="background: white; padding: 40px; border-radius: 20px; text-align: center; max-width: 400px; width: 90%;">
+            <div style="font-size: 4rem; margin-bottom: 20px;">🎉</div>
+            <h2 style="color: #333; margin-bottom: 15px;">تبریک!</h2>
+            <p style="color: #666; margin-bottom: 20px;">شما نشان <strong>${badge.title}</strong> را کسب کردید!</p>
+            <p style="color: #27ae60; font-weight: 600; margin-bottom: 20px;">پاداش: ${badge.reward}</p>
+            <button onclick="this.parentElement.parentElement.remove()" style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">باشه</button>
+          </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // رندر مجدد
+        renderBadges(document.querySelector('.filter-btn.active').getAttribute('data-filter'));
+      }
+    }
+    
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // فیلترهای نشان‌ها
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          renderBadges(this.getAttribute('data-filter'));
+        });
+      });
+      
+      // رندر اولیه
+      renderBadges();
+    });
+  </script>
+</body>
+</html> 

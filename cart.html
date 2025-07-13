@@ -3,240 +3,1074 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>سبد خرید حرفه‌ای</title>
+  <title>سبد خرید پیشرفته</title>
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     rel="stylesheet"
   />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
 
     * {
       box-sizing: border-box;
     }
+    
     body {
       font-family: 'Vazirmatn', sans-serif;
-      background: #f4f7fb;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       margin: 0;
       padding: 20px;
       color: #2c3e50;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #34495e;
     }
 
-    .cart-wrapper {
-      max-width: 600px;
-      width: 100%;
-      background: white;
-      border-radius: 15px;
-      padding: 25px 30px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 30px;
+      align-items: start;
     }
+
+    .cart-section {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+    }
+
     .cart-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #f8f9fa;
     }
+
     .cart-header h2 {
       margin: 0;
       color: #34495e;
       font-weight: 700;
-    }
-    .btn-clear {
-      background: #e74c3c;
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 700;
-      transition: background-color 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-clear:hover {
-      background: #c0392b;
-    }
-
-    .cart-container {
-      max-height: 400px;
-      overflow-y: auto;
-      margin-bottom: 20px;
-    }
-    .cart-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #eee;
-      padding: 15px 0;
-      gap: 15px;
-    }
-    .cart-item img {
-      width: 70px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-    .item-info {
-      flex-grow: 1;
-    }
-    .item-name {
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-      color: #34495e;
-    }
-    .item-price {
-      font-size: 0.9rem;
-      color: #27ae60;
-      margin-bottom: 8px;
-    }
-    .quantity-controls {
+      font-size: 1.8rem;
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    .quantity-controls button {
-      background: #2980b9;
+
+    .cart-stats {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 10px 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      min-width: 80px;
+    }
+
+    .stat-number {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #2ecc71;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: #7f8c8d;
+      margin-top: 2px;
+    }
+
+    .btn-clear {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
       color: white;
       border: none;
-      border-radius: 5px;
-      width: 30px;
-      height: 30px;
-      font-weight: bold;
+      padding: 12px 20px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: background-color 0.3s;
-      user-select: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
     }
-    .quantity-controls button:hover {
-      background: #1f6391;
+
+    .btn-clear:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
     }
-    .quantity-count {
-      min-width: 28px;
-      text-align: center;
-      font-size: 1rem;
-      user-select: none;
+
+    .cart-container {
+      max-height: 500px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      padding-right: 10px;
+    }
+
+    .cart-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .cart-container::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .cart-container::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 10px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #e9ecef;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 15px;
+      background: white;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cart-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .cart-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      border-color: #667eea;
+    }
+
+    .cart-item:hover::before {
+      opacity: 1;
+    }
+
+    .item-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .item-info {
+      flex-grow: 1;
+      margin: 0 20px;
+    }
+
+    .item-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
       color: #34495e;
     }
+
+    .item-price {
+      font-size: 0.95rem;
+      color: #27ae60;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .item-total {
+      font-size: 1rem;
+      color: #2ecc71;
+      font-weight: 700;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin: 10px 0;
+    }
+
+    .quantity-controls button {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      width: 35px;
+      height: 35px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+    }
+
+    .quantity-controls button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .quantity-count {
+      min-width: 40px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      user-select: none;
+      color: #34495e;
+      background: #f8f9fa;
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
     .btn-remove {
-      background: #c0392b;
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
       border: none;
       color: white;
-      padding: 8px 14px;
-      border-radius: 10px;
+      padding: 10px 16px;
+      border-radius: 12px;
       cursor: pointer;
-      font-weight: 700;
-      transition: background-color 0.3s;
+      font-weight: 600;
+      transition: all 0.3s ease;
       flex-shrink: 0;
       display: flex;
       align-items: center;
-      gap: 6px;
-    }
-    .btn-remove:hover {
-      background: #992d22;
-    }
-    .total {
-      text-align: right;
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-top: 10px;
-      color: #2c3e50;
-    }
-    .empty-message {
-      text-align: center;
-      color: #888;
-      font-size: 1.2rem;
-      margin: 40px 0;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
     }
 
-    @media (max-width: 700px) {
-      .cart-wrapper {
-        max-width: 100%;
-        padding: 20px;
+    .btn-remove:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 60px 20px;
+      color: #7f8c8d;
+    }
+
+    .empty-cart i {
+      font-size: 4rem;
+      color: #bdc3c7;
+      margin-bottom: 20px;
+    }
+
+    .empty-cart h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #34495e;
+    }
+
+    .empty-cart p {
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+
+    .btn-shop {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-shop:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .summary-card {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .summary-card h3 {
+      margin: 0 0 20px 0;
+      color: #34495e;
+      font-weight: 700;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f1f1;
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #2ecc71;
+      margin-top: 10px;
+      padding-top: 20px;
+      border-top: 2px solid #f1f1f1;
+    }
+
+    .btn-checkout {
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: white;
+      border: none;
+      padding: 15px 0;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 20px;
+      box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+    }
+
+    .btn-checkout:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+    }
+
+    .btn-checkout:disabled {
+      background: #bdc3c7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Recommendations */
+    .recommendations {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .recommendations h3 {
+      margin: 0 0 20px 0;
+      color: #34495e;
+      font-weight: 700;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .recommendation-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      border: 1px solid #e9ecef;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .recommendation-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-color: #667eea;
+    }
+
+    .recommendation-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .recommendation-info {
+      flex-grow: 1;
+    }
+
+    .recommendation-name {
+      font-weight: 600;
+      color: #34495e;
+      margin-bottom: 5px;
+    }
+
+    .recommendation-price {
+      color: #27ae60;
+      font-weight: 600;
+    }
+
+    .btn-add-recommendation {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-add-recommendation:hover {
+      transform: scale(1.05);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 12px;
+      font-weight: 600;
+      display: none;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      z-index: 1000;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .toast.error {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+    }
+
+    .toast.warning {
+      background: linear-gradient(135deg, #f39c12, #e67e22);
+    }
+
+    /* Animations */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
       }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cart-item {
+      animation: slideIn 0.5s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .cart-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+      
+      .cart-stats {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    /* Loading animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Loyalty System */
+    .loyalty-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loyalty-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(180deg); }
+    }
+
+    .loyalty-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .loyalty-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .loyalty-level {
+      background: rgba(255,255,255,0.2);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .loyalty-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .loyalty-stat {
+      text-align: center;
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .loyalty-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: block;
+    }
+
+    .loyalty-label {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .discount-tiers {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .discount-tier {
+      flex: 1;
+      background: rgba(255,255,255,0.1);
+      padding: 8px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.8rem;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .discount-tier.active {
+      background: rgba(46, 204, 113, 0.3);
+      transform: scale(1.05);
+    }
+
+    .discount-tier.unlocked {
+      background: rgba(52, 152, 219, 0.3);
+    }
+
+    .loyalty-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-loyalty {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex: 1;
+    }
+
+    .btn-loyalty:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+
+    .smart-offers {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      margin-bottom: 20px;
+    }
+
+    .smart-offers h3 {
+      margin: 0 0 20px 0;
+      color: #34495e;
+      font-weight: 700;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .offer-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      border: 1px solid #e9ecef;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .offer-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-color: #667eea;
+    }
+
+    .offer-badge {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: bold;
+    }
+
+    .offer-info {
+      flex-grow: 1;
+    }
+
+    .offer-title {
+      font-weight: 600;
+      color: #34495e;
+      margin-bottom: 5px;
+      }
+
+    .offer-description {
+      font-size: 0.8rem;
+      color: #7f8c8d;
+    }
+
+    .btn-apply-offer {
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-apply-offer:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-apply-offer.applied {
+      background: #95a5a6;
+      cursor: not-allowed;
     }
   </style>
 </head>
 <body>
 
-  <h1 id="cart-title">🛒 سبد خرید حرفه‌ای</h1>
-
-  <section class="cart-wrapper">
+  <div class="container">
+    <div class="cart-section">
     <div class="cart-header">
-      <h2>سبد خرید شما</h2>
-      <button class="btn-clear" id="clear-cart"><i class="fas fa-trash-alt"></i> حذف همه</button>
+        <h2>
+          <i class="fas fa-shopping-cart"></i>
+          سبد خرید پیشرفته
+        </h2>
+        <div class="cart-stats">
+          <div class="stat-item">
+            <div class="stat-number" id="total-items">0</div>
+            <div class="stat-label">کالا</div>
     </div>
-    <div class="cart-container" id="cart-container">
-      <!-- کالاها -->
-    </div>
-    <div class="total" id="total-price">جمع کل: ۰ تومان</div>
-    <div style="text-align: right; margin-top: 8px; font-weight: bold; color: #34495e" id="item-count"></div>
+          <div class="stat-item">
+            <div class="stat-number" id="total-price">0</div>
+            <div class="stat-label">تومان</div>
+          </div>
+          <button class="btn-clear" id="clear-cart">
+            <i class="fas fa-trash-alt"></i>
+            حذف همه
+          </button>
+        </div>
+      </div>
 
-    <!-- ✅ دکمه ثبت سفارش -->
-    <div style="text-align: right; margin-top: 15px;">
-      <button id="checkout-btn" style="
-        background: #2ecc71;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background 0.3s;
-      " onmouseover="this.style.background='#27ae60'" onmouseout="this.style.background='#2ecc71'">
-        ثبت سفارش ✅
+    <div class="cart-container" id="cart-container">
+        <!-- کالاها اینجا نمایش داده می‌شوند -->
+    </div>
+    </div>
+
+    <div class="sidebar">
+      <!-- Loyalty Card -->
+      <div class="loyalty-card">
+        <div class="loyalty-header">
+          <h3 class="loyalty-title">
+            <i class="fas fa-crown"></i>
+            کارت وفاداری
+          </h3>
+          <div class="loyalty-level" id="loyalty-level">برنزی</div>
+        </div>
+        
+        <div class="loyalty-stats">
+          <div class="loyalty-stat">
+            <span class="loyalty-number" id="loyalty-points">0</span>
+            <span class="loyalty-label">امتیاز</span>
+          </div>
+          <div class="loyalty-stat">
+            <span class="loyalty-number" id="loyalty-savings">0</span>
+            <span class="loyalty-label">تومان صرفه‌جویی</span>
+          </div>
+        </div>
+        
+        <div class="discount-tiers">
+          <div class="discount-tier" id="tier-5">
+            <div>5%</div>
+            <div style="font-size: 0.7rem;">50K</div>
+          </div>
+          <div class="discount-tier" id="tier-10">
+            <div>10%</div>
+            <div style="font-size: 0.7rem;">200K</div>
+          </div>
+          <div class="discount-tier" id="tier-15">
+            <div>15%</div>
+            <div style="font-size: 0.7rem;">500K</div>
+          </div>
+          <div class="discount-tier" id="tier-20">
+            <div>20%</div>
+            <div style="font-size: 0.7rem;">1M</div>
+          </div>
+        </div>
+        
+        <div class="loyalty-actions">
+          <button class="btn-loyalty" id="claim-points">
+            <i class="fas fa-gift"></i>
+            دریافت امتیاز
+          </button>
+          <button class="btn-loyalty" id="view-history">
+            <i class="fas fa-history"></i>
+            تاریخچه
       </button>
     </div>
-  </section>
+      </div>
 
-  <!-- ادامه خرید -->
-  <div style="margin-top: 15px; text-align: center">
-    <a href="index.html" style="
-      background: #3498db;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
-      display: inline-block;
-    " onmouseover="this.style.background='#2980b9'" onmouseout="this.style.background='#3498db'">
-      ادامه خرید ⬅
-    </a>
+      <!-- Smart Offers -->
+      <div class="smart-offers">
+        <h3><i class="fas fa-magic"></i> پیشنهادات هوشمند</h3>
+        <div id="smart-offers-container">
+          <!-- Smart offers will be loaded here -->
+        </div>
+      </div>
+
+      <!-- Summary Card -->
+      <div class="summary-card">
+        <h3><i class="fas fa-receipt"></i> خلاصه سفارش</h3>
+        <div class="summary-row">
+          <span>تعداد کالاها:</span>
+          <span id="summary-items">0</span>
+        </div>
+        <div class="summary-row">
+          <span>جمع کل:</span>
+          <span id="summary-total">0 تومان</span>
+        </div>
+        <div class="summary-row">
+          <span>تخفیف:</span>
+          <span id="summary-discount">0 تومان</span>
+        </div>
+        <div class="summary-row">
+          <span>مبلغ نهایی:</span>
+          <span id="summary-final">0 تومان</span>
+        </div>
+        <button class="btn-checkout" id="checkout-btn" disabled>
+          <i class="fas fa-credit-card"></i>
+          تکمیل خرید
+        </button>
+      </div>
+
+      <!-- Recommendations -->
+      <div class="recommendations">
+        <h3><i class="fas fa-lightbulb"></i> پیشنهادات ویژه</h3>
+        <div id="recommendations-container">
+          <!-- Recommendations will be loaded here -->
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Toast -->
-  <div id="toast" style="
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #2ecc71;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-weight: bold;
-    display: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    z-index: 1000;
-    transition: opacity 0.4s;
-  "></div>
+  <div class="toast" id="toast"></div>
 
 <script>
-  
-  const cartContainer = document.getElementById('cart-container');
-  const totalPriceElement = document.getElementById('total-price');
-  const clearCartBtn = document.getElementById('clear-cart');
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let loyaltyData = JSON.parse(localStorage.getItem('loyaltyData')) || {
+      points: 0,
+      totalSpent: 0,
+      savings: 0,
+      level: 'برنزی',
+      tier: 0,
+      history: []
+    };
 
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    // Load recommendations from localStorage
+    function getRecommendations() {
+      return JSON.parse(localStorage.getItem('recommendations')) || [
+        {
+          id: 'rec1',
+          name: 'کتاب برنامه‌نویسی پیشرفته',
+          price: 85000,
+          image: 'https://via.placeholder.com/50x50/667eea/ffffff?text=📚'
+        },
+        {
+          id: 'rec2',
+          name: 'هدست بی‌سیم حرفه‌ای',
+          price: 120000,
+          image: 'https://via.placeholder.com/50x50/2ecc71/ffffff?text=🎧'
+        },
+        {
+          id: 'rec3',
+          name: 'ماوس گیمینگ RGB',
+          price: 95000,
+          image: 'https://via.placeholder.com/50x50/e74c3c/ffffff?text=🖱️'
+        },
+        {
+          id: 'rec4',
+          name: 'کیف لپ‌تاپ چرمی',
+          price: 180000,
+          image: 'https://via.placeholder.com/50x50/f39c12/ffffff?text=💼'
+        }
+      ];
+    }
+
+    // Loyalty System Functions
+    function updateLoyaltyData() {
+      const totalSpent = loyaltyData.totalSpent;
+      
+      // Update level based on total spent
+      if (totalSpent >= 1000000) {
+        loyaltyData.level = 'الماس';
+        loyaltyData.tier = 20;
+      } else if (totalSpent >= 500000) {
+        loyaltyData.level = 'طلایی';
+        loyaltyData.tier = 15;
+      } else if (totalSpent >= 200000) {
+        loyaltyData.level = 'نقره‌ای';
+        loyaltyData.tier = 10;
+      } else if (totalSpent >= 50000) {
+        loyaltyData.level = 'برنزی';
+        loyaltyData.tier = 5;
+      } else {
+        loyaltyData.level = 'جدید';
+        loyaltyData.tier = 0;
+      }
+      
+      localStorage.setItem('loyaltyData', JSON.stringify(loyaltyData));
+      renderLoyaltyCard();
+    }
+
+    function renderLoyaltyCard() {
+      document.getElementById('loyalty-level').textContent = loyaltyData.level;
+      document.getElementById('loyalty-points').textContent = loyaltyData.points.toLocaleString();
+      document.getElementById('loyalty-savings').textContent = formatPrice(loyaltyData.savings);
+      
+      // Update discount tiers
+      const tiers = [5, 10, 15, 20];
+      tiers.forEach(tier => {
+        const tierElement = document.getElementById(`tier-${tier}`);
+        if (loyaltyData.tier >= tier) {
+          tierElement.classList.add('active');
+          tierElement.classList.add('unlocked');
+        } else {
+          tierElement.classList.remove('active');
+          tierElement.classList.remove('unlocked');
+        }
+      });
+    }
+
+    function generateSmartOffers() {
+      const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+      const offers = [];
+      
+      // First purchase offer
+      if (loyaltyData.history.length === 0) {
+        offers.push({
+          id: 'first-purchase',
+          title: 'تخفیف خرید اول',
+          description: '20% تخفیف برای اولین خرید شما',
+          discount: 20,
+          type: 'first-purchase'
+        });
+      }
+      
+      // High value cart offer
+      if (totalPrice > 300000) {
+        offers.push({
+          id: 'high-value',
+          title: 'تخفیف خرید بزرگ',
+          description: '15% تخفیف برای خرید بالای 300 هزار تومان',
+          discount: 15,
+          type: 'high-value'
+        });
+      }
+      
+      // Electronics category offer
+      const electronicsCount = cart.filter(item => 
+        item.name.toLowerCase().includes('لپ‌تاپ') || 
+        item.name.toLowerCase().includes('کامپیوتر') ||
+        item.name.toLowerCase().includes('موبایل')
+      ).length;
+      
+      if (electronicsCount > 0) {
+        offers.push({
+          id: 'electronics',
+          title: 'تخفیف الکترونیک',
+          description: '10% تخفیف روی محصولات الکترونیکی',
+          discount: 10,
+          type: 'electronics'
+        });
+      }
+      
+      // Loyalty tier offer
+      if (loyaltyData.tier > 0) {
+        offers.push({
+          id: 'loyalty',
+          title: `تخفیف ${loyaltyData.tier}% وفاداری`,
+          description: `تخفیف ویژه سطح ${loyaltyData.level}`,
+          discount: loyaltyData.tier,
+          type: 'loyalty'
+        });
+      }
+      
+      return offers;
+    }
+
+    function renderSmartOffers() {
+      const container = document.getElementById('smart-offers-container');
+      const offers = generateSmartOffers();
+      
+      container.innerHTML = '';
+      
+      if (offers.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #7f8c8d;">هیچ پیشنهاد ویژه‌ای در دسترس نیست</p>';
+        return;
+      }
+      
+      offers.forEach(offer => {
+        const offerElement = document.createElement('div');
+        offerElement.className = 'offer-item';
+        offerElement.innerHTML = `
+          <div class="offer-badge">${offer.discount}%</div>
+          <div class="offer-info">
+            <div class="offer-title">${offer.title}</div>
+            <div class="offer-description">${offer.description}</div>
+          </div>
+          <button class="btn-apply-offer" data-offer-id="${offer.id}" data-discount="${offer.discount}">
+            اعمال
+          </button>
+        `;
+        container.appendChild(offerElement);
+      });
+    }
+
+    function applyOffer(offerId, discount) {
+      const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+      const discountAmount = Math.floor(totalPrice * (discount / 100));
+      
+      // Add to loyalty savings
+      loyaltyData.savings += discountAmount;
+      loyaltyData.points += Math.floor(discountAmount / 1000);
+      
+      // Add to history
+      loyaltyData.history.push({
+        date: new Date().toISOString(),
+        type: 'discount',
+        amount: discountAmount,
+        description: `تخفیف ${discount}%`
+      });
+      
+      localStorage.setItem('loyaltyData', JSON.stringify(loyaltyData));
+      
+      // Update UI
+      updateStats();
+      renderLoyaltyCard();
+      
+      // Disable the button
+      const button = document.querySelector(`[data-offer-id="${offerId}"]`);
+      button.classList.add('applied');
+      button.textContent = 'اعمال شد';
+      button.disabled = true;
+      
+      showToast(`تخفیف ${discount}% اعمال شد!`, 'success');
+    }
+
+    function claimPoints() {
+      const pointsToAdd = Math.floor(cart.reduce((acc, item) => acc + (item.price * item.quantity), 0) / 1000);
+      loyaltyData.points += pointsToAdd;
+      
+      loyaltyData.history.push({
+        date: new Date().toISOString(),
+        type: 'points',
+        amount: pointsToAdd,
+        description: 'امتیاز خرید'
+      });
+      
+      localStorage.setItem('loyaltyData', JSON.stringify(loyaltyData));
+      renderLoyaltyCard();
+      
+      showToast(`${pointsToAdd} امتیاز به حساب شما اضافه شد!`, 'success');
+    }
 
   function formatPrice(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' تومان';
@@ -244,55 +1078,121 @@ let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
   function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
+      updateStats();
+    }
+
+    function updateStats() {
+      const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+      const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+      
+      document.getElementById('total-items').textContent = totalItems;
+      document.getElementById('total-price').textContent = formatPrice(totalPrice);
+      document.getElementById('summary-items').textContent = totalItems;
+      document.getElementById('summary-total').textContent = formatPrice(totalPrice);
+      
+      // Calculate smart discount based on loyalty and offers
+      let discount = 0;
+      let discountReason = '';
+      
+      // Check for applied offers
+      const appliedOffers = document.querySelectorAll('.btn-apply-offer.applied');
+      appliedOffers.forEach(button => {
+        const discountPercent = parseInt(button.getAttribute('data-discount'));
+        discount += Math.floor(totalPrice * (discountPercent / 100));
+      });
+      
+      // Add loyalty tier discount
+      if (loyaltyData.tier > 0) {
+        const loyaltyDiscount = Math.floor(totalPrice * (loyaltyData.tier / 100));
+        discount += loyaltyDiscount;
+        discountReason = `تخفیف ${loyaltyData.tier}% وفاداری`;
+      }
+      
+      const finalPrice = totalPrice - discount;
+      
+      document.getElementById('summary-discount').textContent = formatPrice(discount);
+      document.getElementById('summary-final').textContent = formatPrice(finalPrice);
+      
+      // Enable/disable checkout button
+      const checkoutBtn = document.getElementById('checkout-btn');
+      checkoutBtn.disabled = totalItems === 0;
+      
+      // Update loyalty total spent
+      loyaltyData.totalSpent += totalPrice;
+      updateLoyaltyData();
   }
 
   function renderCart() {
+      const cartContainer = document.getElementById('cart-container');
     cartContainer.innerHTML = '';
+
     if (cart.length === 0) {
-      cartContainer.innerHTML = '<p class="empty-message">سبد خرید شما خالی است.</p>';
-      totalPriceElement.textContent = 'جمع کل: ۰ تومان';
-      updateItemCount();
+        cartContainer.innerHTML = `
+          <div class="empty-cart">
+            <i class="fas fa-shopping-basket"></i>
+            <h3>سبد خرید شما خالی است</h3>
+            <p>برای شروع خرید، محصولات مورد نظر خود را انتخاب کنید</p>
+            <a href="index.html" class="btn-shop">
+              <i class="fas fa-shopping-bag"></i>
+              شروع خرید
+            </a>
+          </div>
+        `;
+        updateStats();
       return;
     }
 
-    let total = 0;
-
     cart.forEach((item, index) => {
-      total += item.price * item.quantity;
-
       const cartItem = document.createElement('div');
       cartItem.className = 'cart-item';
-
 cartItem.innerHTML = `
-  <img src="${item.image}" alt="${item.name}" style="width:80px; height:80px; object-fit:cover; margin-left:10px;" />
+          <img src="${item.image}" alt="${item.name}" class="item-image" />
   <div class="item-info">
     <div class="item-name">${item.name}</div>
     <div class="item-price">قیمت واحد: ${formatPrice(item.price)}</div>
+            <div class="item-total">مجموع: ${formatPrice(item.price * item.quantity)}</div>
     <div class="quantity-controls">
-      <button class="btn-decrease" data-index="${index}"><i class="fas fa-minus"></i></button>
+              <button class="btn-decrease" data-index="${index}">
+                <i class="fas fa-minus"></i>
+              </button>
       <div class="quantity-count">${item.quantity}</div>
-      <button class="btn-increase" data-index="${index}"><i class="fas fa-plus"></i></button>
+              <button class="btn-increase" data-index="${index}">
+                <i class="fas fa-plus"></i>
+              </button>
     </div>
   </div>
   <button class="btn-remove" data-index="${index}">
-    <i class="fas fa-trash"></i> حذف
+            <i class="fas fa-trash"></i>
+            حذف
   </button>
 `;
-
-
-
-
       cartContainer.appendChild(cartItem);
     });
 
-    totalPriceElement.textContent = 'جمع کل: ' + formatPrice(total);
-    updateItemCount();
-  }
+      updateStats();
+    }
 
-  function updateItemCount() {
-    const count = cart.reduce((acc, item) => acc + item.quantity, 0);
-    document.getElementById("item-count").textContent = `تعداد کل کالاها: ${count}`;
-    document.getElementById("cart-title").textContent = `🛒 سبد خرید شما (${count} کالا)`;
+    function renderRecommendations() {
+      const container = document.getElementById('recommendations-container');
+      container.innerHTML = '';
+
+      const recommendations = getRecommendations();
+      
+      recommendations.forEach(item => {
+        const recItem = document.createElement('div');
+        recItem.className = 'recommendation-item';
+        recItem.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" />
+          <div class="recommendation-info">
+            <div class="recommendation-name">${item.name}</div>
+            <div class="recommendation-price">${formatPrice(item.price)}</div>
+          </div>
+          <button class="btn-add-recommendation" data-id="${item.id}">
+            <i class="fas fa-plus"></i>
+          </button>
+        `;
+        container.appendChild(recItem);
+      });
   }
 
   function changeQuantity(index, delta) {
@@ -300,14 +1200,15 @@ cartItem.innerHTML = `
     if (cart[index].quantity < 1) cart[index].quantity = 1;
     saveCart();
     renderCart();
-    showToast('تعداد کالا به‌روزرسانی شد');
+      showToast('تعداد کالا به‌روزرسانی شد', 'success');
   }
 
   function removeItem(index) {
+      const itemName = cart[index].name;
     cart.splice(index, 1);
     saveCart();
     renderCart();
-    showToast('کالا حذف شد');
+      showToast(`کالای "${itemName}" حذف شد`, 'success');
   }
 
   function clearCart() {
@@ -315,10 +1216,32 @@ cartItem.innerHTML = `
       cart = [];
       saveCart();
       renderCart();
-      showToast('سبد خرید خالی شد');
+        showToast('سبد خرید خالی شد', 'success');
     }
   }
 
+    function addRecommendation(itemId) {
+      const recommendations = getRecommendations();
+      const item = recommendations.find(rec => rec.id === itemId);
+      if (!item) return;
+
+      const existingItem = cart.find(cartItem => cartItem.name === item.name);
+      if (existingItem) {
+        existingItem.quantity += 1;
+        showToast(`تعداد "${item.name}" افزایش یافت`, 'success');
+      } else {
+        cart.push({
+          ...item,
+          quantity: 1
+        });
+        showToast(`"${item.name}" به سبد خرید اضافه شد`, 'success');
+      }
+
+      saveCart();
+      renderCart();
+    }
+
+    // Event Listeners
   document.body.addEventListener('click', e => {
     if (e.target.closest('.btn-increase')) {
       const index = parseInt(e.target.closest('.btn-increase').getAttribute('data-index'));
@@ -332,53 +1255,87 @@ cartItem.innerHTML = `
       const index = parseInt(e.target.closest('.btn-remove').getAttribute('data-index'));
       removeItem(index);
       animateButton(e.target.closest('.btn-remove'));
-    }
-  });
+      } else if (e.target.closest('.btn-add-recommendation')) {
+        const itemId = e.target.closest('.btn-add-recommendation').getAttribute('data-id');
+        addRecommendation(itemId);
+        animateButton(e.target.closest('.btn-add-recommendation'));
+      } else if (e.target.closest('.btn-apply-offer')) {
+        const button = e.target.closest('.btn-apply-offer');
+        const offerId = button.getAttribute('data-offer-id');
+        const discount = parseInt(button.getAttribute('data-discount'));
+        applyOffer(offerId, discount);
+        animateButton(button);
+      }
+    });
 
-  clearCartBtn.addEventListener('click', () => {
-    animateButton(clearCartBtn);
+    document.getElementById('clear-cart').addEventListener('click', () => {
+      animateButton(document.getElementById('clear-cart'));
     clearCart();
   });
 
-  // ✅ دکمه ثبت سفارش
-  document.getElementById("checkout-btn").addEventListener("click", () => {
+    document.getElementById('checkout-btn').addEventListener('click', () => {
     if (cart.length === 0) {
-      showToast("سبد خرید خالی است!");
+        showToast('سبد خرید خالی است!', 'error');
       return;
     }
-    showToast("در حال انتقال به مرحله پرداخت...");
-    window.location.href = 'checkout.html'; // ← این خط ریدایرکت به صفحه پرداخت هست
-  });
+      showToast('در حال انتقال به مرحله پرداخت...', 'success');
+      setTimeout(() => {
+        window.location.href = 'checkout.html';
+      }, 1000);
+    });
 
-  renderCart();
+    // Loyalty system event listeners
+    document.getElementById('claim-points').addEventListener('click', () => {
+      if (cart.length === 0) {
+        showToast('سبد خرید خالی است!', 'warning');
+        return;
+      }
+      claimPoints();
+      animateButton(document.getElementById('claim-points'));
+    });
+
+    document.getElementById('view-history').addEventListener('click', () => {
+      const history = loyaltyData.history;
+      if (history.length === 0) {
+        showToast('هیچ تاریخچه‌ای موجود نیست', 'warning');
+        return;
+      }
+      
+      const historyText = history.map(item => 
+        `${item.description}: ${formatPrice(item.amount)} - ${new Date(item.date).toLocaleDateString('fa-IR')}`
+      ).join('\n');
+      
+      alert(`تاریخچه فعالیت‌ها:\n\n${historyText}`);
+      animateButton(document.getElementById('view-history'));
+    });
 
   function animateButton(btn) {
-    
     btn.style.transform = 'scale(0.95)';
     setTimeout(() => {
       btn.style.transform = 'scale(1)';
     }, 150);
   }
 
+    function showToast(message, type = 'success') {
   const toast = document.getElementById('toast');
-  let toastTimeout;
-  function showToast(message) {
     toast.textContent = message;
+      toast.className = `toast ${type}`;
     toast.style.display = 'block';
     toast.style.opacity = '1';
-    clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => {
+      
+      setTimeout(() => {
       toast.style.opacity = '0';
       setTimeout(() => {
         toast.style.display = 'none';
       }, 400);
-    }, 2000);
+      }, 3000);
   }
-  // عکس
-  
 
+    // Initialize
+    renderCart();
+    renderRecommendations();
+    renderLoyaltyCard();
+    renderSmartOffers();
 </script>
-
-
 </body>
 </html>

@@ -232,7 +232,7 @@
       // Clear previous errors
       clearError('email');
       clearError('password');
-      
+
       // Validate email
       if (!email) {
         showError('email', 'ایمیل الزامی است');
@@ -307,7 +307,7 @@
               token: 'demo-token-' + Date.now()
             }));
             window.location.href = 'kar-aval.html';
-          } else {
+      } else {
             alert('ورود ناموفق بود. لطفاً نام کاربری و رمز عبور را بررسی کنید.');
           }
         }
@@ -340,7 +340,7 @@
       document.getElementById('loginForm').reset();
       clearError('email');
       clearError('password');
-    }
+      }
     
     // Add input event listeners for real-time validation
     document.getElementById('email').addEventListener('input', function() {

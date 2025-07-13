@@ -1,177 +1,468 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>صفحه پرداخت</title>
+  <title>تکمیل خرید - کار آوال</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
       font-family: 'Vazirmatn', sans-serif;
-      background: #f4f7fb;
-      margin: 0;
-      padding: 20px;
-      color: #2c3e50;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      padding: 40px 20px;
+      color: #2c3e50;
+    }
+    
+    .checkout-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 40px;
-      flex-wrap: wrap;
+      align-items: start;
     }
-    h1 {
+    
+    .page-header {
+      grid-column: 1 / -1;
       text-align: center;
-      width: 100%;
-      margin-bottom: 20px;
-      color: #34495e;
+      margin-bottom: 40px;
     }
+    
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #333;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .page-subtitle {
+      color: #666;
+      font-size: 1.1rem;
+    }
+    
     .summary, .checkout-form {
       background: white;
-      border-radius: 15px;
-      padding: 25px 30px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-      width: 350px;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
     }
+    
     .summary h2, .checkout-form h2 {
-      margin-top: 0;
-      color: #34495e;
+      font-size: 1.5rem;
       font-weight: 700;
-      margin-bottom: 15px;
+      color: #333;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
+    
+    .summary h2::before {
+      content: '🛒';
+      font-size: 1.2rem;
+    }
+    
+    .checkout-form h2::before {
+      content: '👤';
+      font-size: 1.2rem;
+    }
+    
     .item-row {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 8px;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      transition: all 0.3s ease;
     }
+    
+    .item-row:hover {
+      background: #e9ecef;
+      transform: translateX(5px);
+    }
+    
+    .item-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .item-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    
+    .item-details {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
     .item-name {
       font-weight: 600;
-      color: #2c3e50;
-    }
-    .item-qty-price {
-      color: #27ae60;
-      font-weight: 600;
-    }
-    .total-price {
-      margin-top: 15px;
-      font-size: 1.4rem;
-      font-weight: 700;
-      text-align: right;
-      color: #2c3e50;
-    }
-    form label {
-      display: block;
-      margin-top: 15px;
-      font-weight: 600;
-      color: #34495e;
-    }
-    form input, form textarea {
-      width: 100%;
-      padding: 8px 10px;
-      margin-top: 6px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+      color: #333;
       font-size: 1rem;
-      font-family: 'Vazirmatn', sans-serif;
     }
-    form textarea {
-      resize: vertical;
-      min-height: 60px;
+    
+    .item-quantity {
+      color: #666;
+      font-size: 0.9rem;
     }
-    form button {
-      margin-top: 25px;
-      background: #27ae60;
-      color: white;
-      border: none;
-      padding: 12px 0;
-      border-radius: 10px;
+    
+    .item-price {
+      color: #27ae60;
       font-weight: 700;
       font-size: 1.1rem;
-      cursor: pointer;
-      transition: background-color 0.3s;
+    }
+    
+    .total-section {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid #e9ecef;
+    }
+    
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+    
+    .total-label {
+      color: #666;
+    }
+    
+    .total-value {
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .final-total {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #667eea;
+      border-top: 2px solid #667eea;
+      padding-top: 15px;
+      margin-top: 15px;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+      font-size: 1rem;
+    }
+    
+    .form-input {
       width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: 'Vazirmatn', sans-serif;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
     }
-    form button:hover {
-      background: #219150;
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
-    .empty-message {
-      color: #888;
-      text-align: center;
+    
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    
+    .payment-methods {
+      margin: 30px 0;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 12px;
+    }
+    
+    .payment-title {
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    
+    .payment-options {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 15px;
+      background: white;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .payment-option:hover {
+      border-color: #667eea;
+      background: #f0f4ff;
+    }
+    
+    .payment-option.selected {
+      border-color: #667eea;
+      background: #667eea;
+      color: white;
+    }
+    
+    .pay-button {
+      width: 100%;
+      padding: 18px 30px;
+      background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
       font-size: 1.2rem;
-      padding: 30px 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .pay-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(39, 174, 96, 0.4);
+    }
+    
+    .pay-button:disabled {
+      background: #bdc3c7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .empty-message {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+    
+    .empty-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+    
+    .back-to-cart {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 25px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    .back-to-cart:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+    
+    /* Toast Notifications */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10000;
+    }
+    
+    .toast {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding: 15px 20px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideInRight 0.3s ease-out;
+    }
+    
+    .toast.success {
+      border-left: 4px solid #27ae60;
+    }
+    
+    .toast.error {
+      border-left: 4px solid #e74c3c;
+    }
+    
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .checkout-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .page-title {
+        font-size: 2rem;
+      }
+      
+      .summary, .checkout-form {
+        padding: 20px;
+      }
+      
+      .payment-options {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>تکمیل خرید</h1>
-
-  <div class="summary" id="summary">
-    <h2>خلاصه سفارش</h2>
-    <div id="summary-items">
-      <!-- کالاها اینجا نمایش داده میشن -->
+  <div class="checkout-container">
+    <div class="page-header">
+      <h1 class="page-title">تکمیل خرید</h1>
+      <p class="page-subtitle">اطلاعات خود را وارد کنید تا سفارش شما ثبت شود</p>
     </div>
-    <div class="total-price" id="summary-total">جمع کل: ۰ تومان</div>
+
+    <div class="summary" id="summary">
+      <h2>خلاصه سفارش</h2>
+      <div id="summary-items">
+        <!-- کالاها اینجا نمایش داده میشن -->
+      </div>
+      <div class="total-section" id="total-section">
+        <!-- جمع کل اینجا نمایش داده میشه -->
+      </div>
+    </div>
+
+    <form class="checkout-form" id="checkout-form">
+      <h2>اطلاعات خریدار</h2>
+      
+      <div class="form-group">
+        <label class="form-label" for="name">نام کامل</label>
+        <input type="text" id="name" class="form-input" required placeholder="نام و نام خانوادگی خود را وارد کنید" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="phone">تلفن همراه</label>
+        <input type="tel" id="phone" class="form-input" required placeholder="مثلاً 09xxxxxxxxx" pattern="09\d{9}" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="address">آدرس کامل</label>
+        <textarea id="address" class="form-input form-textarea" required placeholder="آدرس کامل خود را وارد کنید"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="note">توضیحات سفارش (اختیاری)</label>
+        <textarea id="note" class="form-input form-textarea" placeholder="نکات خاص، درخواست‌های ویژه و غیره..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="delivery-time">زمان تحویل ترجیحی</label>
+        <input type="text" id="delivery-time" class="form-input" placeholder="مثلاً ساعت ۵ بعدازظهر یا هر زمان دلخواه" />
+      </div>
+
+      <div class="payment-methods">
+        <div class="payment-title">روش پرداخت</div>
+        <div class="payment-options">
+          <div class="payment-option selected" data-method="online">
+            <span>💳</span>
+            <span>پرداخت آنلاین</span>
+          </div>
+          <div class="payment-option" data-method="cash">
+            <span>💵</span>
+            <span>پرداخت نقدی</span>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" id="pay-btn" class="pay-button">
+        <span>💳</span>
+        <span>پرداخت آنلاین</span>
+      </button>
+    </form>
   </div>
 
-  <form class="checkout-form" id="checkout-form">
-    <h2>اطلاعات خریدار</h2>
-    <label for="name">نام کامل</label>
-    <input type="text" id="name" required placeholder="نام خود را وارد کنید" />
-
-    <label for="phone">تلفن همراه</label>
-    <input type="tel" id="phone" required placeholder="مثلاً 09xxxxxxxxx" pattern="09\d{9}" />
-
-    <label for="address">آدرس</label>
-    <textarea id="address" required placeholder="آدرس کامل خود را وارد کنید"></textarea>
-
-    <label for="note">توضیحات سفارش (اختیاری)</label>
-    <textarea id="note" placeholder=" نکات خاص و غیره..."></textarea>
-
-    <label for="delivery-time">زمان تحویل</label>
-<input type="text" id="delivery-time" placeholder="مثلاً ساعت ۵ بعدازظهر یا هر زمان دلخواه" />
-
-<button type="submit" id="pay-btn">پرداخت آنلاین</button>
-
-  </form>
-<script>
-  document.getElementById('pay-btn').addEventListener('click', function() {
-    // محاسبه مبلغ کل از سبد خرید
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-    if (totalAmount <= 0) {
-      alert('سبد خرید شما خالی است!');
-      return;
-    }
-
-    fetch('firebase-proxy/create-payment.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: 'amount=' + totalAmount
-    })
-    .then(response => response.json())
-    .then(data => {
-      if(data.status === 'success') {
-        window.location.href = data.url;  // انتقال به درگاه پرداخت
-      } else {
-        alert('خطا در ایجاد تراکنش: ' + data.message);
-      }
-    })
-    .catch(err => {
-      alert('خطا در اتصال به سرور پرداخت');
-    });
-  });
-</script>
-
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
   <script>
+    // Enhanced Checkout JavaScript
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let selectedPaymentMethod = 'online';
 
     const summaryItems = document.getElementById('summary-items');
-    const summaryTotal = document.getElementById('summary-total');
+    const totalSection = document.getElementById('total-section');
     const checkoutForm = document.getElementById('checkout-form');
+    const payButton = document.getElementById('pay-btn');
+
+    // Toast notification function
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      
+      const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+      
+      toast.innerHTML = `
+        <span style="font-size: 18px;">${icon}</span>
+        <span>${message}</span>
+      `;
+      
+      container.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => {
+          container.removeChild(toast);
+        }, 300);
+      }, 3000);
+    }
 
     function formatPrice(num) {
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' تومان';
@@ -180,25 +471,205 @@
     function renderSummary() {
       summaryItems.innerHTML = '';
       if (cart.length === 0) {
-        summaryItems.innerHTML = '<p class="empty-message">سبد خرید شما خالی است.</p>';
-        summaryTotal.textContent = 'جمع کل: ۰ تومان';
+        summaryItems.innerHTML = `
+          <div class="empty-message">
+            <div class="empty-icon">🛒</div>
+            <h3>سبد خرید شما خالی است</h3>
+            <p>لطفاً ابتدا محصولی به سبد خرید اضافه کنید</p>
+            <a href="cart.html" class="back-to-cart">بازگشت به سبد خرید</a>
+          </div>
+        `;
+        totalSection.innerHTML = '';
+        payButton.disabled = true;
         return;
       }
 
-      let total = 0;
+      let subtotal = 0;
+      let shipping = 0;
+      let discount = 0;
+
       cart.forEach(item => {
-        total += item.price * item.quantity;
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        
         const div = document.createElement('div');
         div.className = 'item-row';
         div.innerHTML = `
-          <div class="item-name">${item.name} × ${item.quantity}</div>
-          <div class="item-qty-price">${formatPrice(item.price * item.quantity)}</div>
+          <div class="item-info">
+            <img src="${item.image || 'https://via.placeholder.com/50x50'}" alt="${item.name}" class="item-image" />
+            <div class="item-details">
+              <div class="item-name">${item.name}</div>
+              <div class="item-quantity">تعداد: ${item.quantity}</div>
+            </div>
+          </div>
+          <div class="item-price">${formatPrice(itemTotal)}</div>
         `;
         summaryItems.appendChild(div);
       });
 
-      summaryTotal.textContent = 'جمع کل: ' + formatPrice(total);
+      // Calculate shipping (free for orders over 500,000)
+      if (subtotal < 500000) {
+        shipping = 50000; // 50,000 تومان shipping
+      }
+
+      // Calculate discount (5% for orders over 1,000,000)
+      if (subtotal > 1000000) {
+        discount = subtotal * 0.05;
+      }
+
+      const total = subtotal + shipping - discount;
+
+      totalSection.innerHTML = `
+        <div class="total-row">
+          <span class="total-label">جمع جزء:</span>
+          <span class="total-value">${formatPrice(subtotal)}</span>
+        </div>
+        <div class="total-row">
+          <span class="total-label">هزینه ارسال:</span>
+          <span class="total-value">${shipping === 0 ? 'رایگان' : formatPrice(shipping)}</span>
+        </div>
+        ${discount > 0 ? `
+        <div class="total-row">
+          <span class="total-label">تخفیف:</span>
+          <span class="total-value" style="color: #27ae60;">-${formatPrice(discount)}</span>
+        </div>
+        ` : ''}
+        <div class="total-row final-total">
+          <span class="total-label">جمع کل:</span>
+          <span class="total-value">${formatPrice(total)}</span>
+        </div>
+      `;
+
+      payButton.disabled = false;
     }
+
+    // Payment method selection
+    document.querySelectorAll('.payment-option').forEach(option => {
+      option.addEventListener('click', function() {
+        // Remove selected class from all options
+        document.querySelectorAll('.payment-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        
+        // Add selected class to clicked option
+        this.classList.add('selected');
+        
+        // Update selected payment method
+        selectedPaymentMethod = this.getAttribute('data-method');
+        
+        // Update button text
+        const buttonText = selectedPaymentMethod === 'online' ? 'پرداخت آنلاین' : 'ثبت سفارش';
+        const buttonIcon = selectedPaymentMethod === 'online' ? '💳' : '💵';
+        
+        payButton.innerHTML = `
+          <span>${buttonIcon}</span>
+          <span>${buttonText}</span>
+        `;
+      });
+    });
+
+    // Form submission
+    checkoutForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if (cart.length === 0) {
+        showToast('سبد خرید شما خالی است!', 'error');
+        return;
+      }
+
+      const formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+        note: document.getElementById('note').value,
+        deliveryTime: document.getElementById('delivery-time').value,
+        paymentMethod: selectedPaymentMethod,
+        items: cart,
+        total: calculateTotal()
+      };
+
+      // Validate form
+      if (!formData.name || !formData.phone || !formData.address) {
+        showToast('لطفاً تمام فیلدهای ضروری را پر کنید', 'error');
+        return;
+      }
+
+      // Show loading state
+      payButton.disabled = true;
+      payButton.innerHTML = '<span class="loading-spinner"></span><span>در حال پردازش...</span>';
+
+      if (selectedPaymentMethod === 'online') {
+        // Online payment
+        const totalAmount = calculateTotal();
+        
+        fetch('firebase-proxy/create-payment.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: 'amount=' + totalAmount
+        })
+        .then(response => response.json())
+        .then(data => {
+          if(data.status === 'success') {
+            showToast('در حال انتقال به درگاه پرداخت...', 'success');
+            setTimeout(() => {
+              window.location.href = data.url;
+            }, 1000);
+          } else {
+            showToast('خطا در ایجاد تراکنش: ' + data.message, 'error');
+            payButton.disabled = false;
+            payButton.innerHTML = '<span>💳</span><span>پرداخت آنلاین</span>';
+          }
+        })
+        .catch(err => {
+          showToast('خطا در اتصال به سرور پرداخت', 'error');
+          payButton.disabled = false;
+          payButton.innerHTML = '<span>💳</span><span>پرداخت آنلاین</span>';
+        });
+      } else {
+        // Cash payment - simulate order placement
+        setTimeout(() => {
+          showToast('سفارش شما با موفقیت ثبت شد!', 'success');
+          
+          // Clear cart
+          localStorage.removeItem('cart');
+          
+          // Redirect to success page or home
+          setTimeout(() => {
+            window.location.href = 'kar-aval.html';
+          }, 2000);
+        }, 1500);
+      }
+    });
+
+    function calculateTotal() {
+      let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      let shipping = subtotal < 500000 ? 50000 : 0;
+      let discount = subtotal > 1000000 ? subtotal * 0.05 : 0;
+      return subtotal + shipping - discount;
+    }
+
+    // Initialize
+    renderSummary();
+    
+    // Add loading spinner style
+    const style = document.createElement('style');
+    style.textContent = `
+      .loading-spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 
     renderSummary();
 

@@ -1,9 +1,325 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="refresh" content="0; url=kar-aval.html" />
-  </head>
-  <body>
-    <p>در حال انتقال...</p>
-  </body>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>کار آوال - فروشگاه آنلاین</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      overflow: hidden;
+    }
+    
+    .loading-container {
+      text-align: center;
+      position: relative;
+    }
+    
+    .logo {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      animation: fadeInUp 1s ease-out;
+    }
+    
+    .loading-text {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+      animation: fadeInUp 1s ease-out 0.2s both;
+    }
+    
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255,255,255,0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 30px;
+    }
+    
+    .progress-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: white;
+      border-radius: 2px;
+      width: 0%;
+      animation: progress 2s ease-out forwards;
+    }
+    
+    .redirect-text {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-top: 20px;
+      animation: fadeInUp 1s ease-out 0.4s both;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
+    @keyframes progress {
+      to {
+        width: 100%;
+      }
+    }
+    
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+    .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+    .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+    .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+    .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+    .particle:nth-child(7) { left: 70%; animation-delay: 0s; }
+    .particle:nth-child(8) { left: 80%; animation-delay: 1s; }
+    .particle:nth-child(9) { left: 90%; animation-delay: 2s; }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+      50% {
+        transform: translateY(-100px) scale(1);
+        opacity: 1;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .logo {
+        font-size: 2.5rem;
+      }
+      
+      .loading-text {
+        font-size: 1rem;
+      }
+      
+      .progress-bar {
+        width: 150px;
+      }
+    }
+
+    /* سیستم اعلان‌های کاربران */
+    .user-notification-center {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 350px;
+      max-height: 400px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      z-index: 1000;
+      overflow-y: auto;
+      display: none;
+    }
+    
+    .user-notification-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 15px;
+      border-radius: 15px 15px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .user-notification-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .user-notification-item:hover {
+      background: #f8f9fa;
+    }
+    
+    .user-notification-item.unread {
+      background: #e3f2fd;
+      border-right: 4px solid #2196f3;
+    }
+    
+    .user-notification-time {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+    }
+    
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #e74c3c;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    .user-toast-notification {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 1001;
+      max-width: 300px;
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    .user-toast-notification.info {
+      border-right: 4px solid #3498db;
+    }
+    
+    .user-toast-notification.success {
+      border-right: 4px solid #27ae60;
+    }
+    
+    .user-toast-notification.warning {
+      border-right: 4px solid #f39c12;
+    }
+    
+    .user-toast-notification.promotion {
+      border-right: 4px solid #e74c3c;
+    }
+  </style>
+</head>
+<body>
+  <!-- مرکز اعلان‌های کاربران -->
+  <div class="user-notification-center" id="user-notification-center">
+    <div class="user-notification-header">
+      <h3>🔔 اعلان‌ها</h3>
+      <button onclick="toggleUserNotifications()" style="background: none; border: none; color: white; font-size: 20px;">×</button>
+    </div>
+    <div id="user-notification-list">
+      <!-- اعلان‌های کاربر اینجا نمایش داده می‌شوند -->
+    </div>
+  </div>
+
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+  
+  <div class="loading-container">
+    <div class="logo">کار آوال</div>
+    <div class="loading-text">در حال بارگذاری...</div>
+    <div class="loading-spinner"></div>
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+    </div>
+    <div class="redirect-text">در حال انتقال به صفحه اصلی</div>
+  </div>
+  
+  <script>
+    // Redirect after 2 seconds
+    setTimeout(() => {
+      window.location.href = 'kar-aval.html';
+    }, 2000);
+    
+    // Add some interactive effects
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.querySelector('.loading-container');
+      
+      // Add mouse move effect
+      document.addEventListener('mousemove', function(e) {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        
+        container.style.transform = `translate(${x * 10}px, ${y * 10}px)`;
+      });
+      
+      // Add click effect
+      document.addEventListener('click', function() {
+        container.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          container.style.transform = 'scale(1)';
+        }, 150);
+      });
+    });
+  </script>
+</body>
 </html>

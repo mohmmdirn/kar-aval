@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ورود و ثبت‌نام - کار اول</title>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      padding: 20px;
+      color: #2c3e50;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .auth-container {
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      overflow: hidden;
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      min-height: 600px;
+    }
+
+    .auth-sidebar {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-sidebar::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: shimmer 4s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(180deg); }
+    }
+
+    .auth-sidebar h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-sidebar p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-features li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .auth-features i {
+      background: rgba(255,255,255,0.2);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    .auth-content {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .auth-tabs {
+      display: flex;
+      margin-bottom: 30px;
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 5px;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 15px;
+      text-align: center;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      color: #7f8c8d;
+    }
+
+    .auth-tab.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .auth-form {
+      display: none;
+    }
+
+    .auth-form.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #34495e;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: 'Vazirmatn', sans-serif;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .password-field {
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #7f8c8d;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .password-field input {
+      padding-left: 50px;
+    }
+
+    .btn-auth {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+      background: #f8f9fa;
+      color: #34495e;
+      border: 2px solid #e9ecef;
+    }
+
+    .btn-secondary:hover {
+      background: #e9ecef;
+      transform: translateY(-2px);
+    }
+
+    .auth-divider {
+      text-align: center;
+      margin: 30px 0;
+      position: relative;
+      color: #7f8c8d;
+    }
+
+    .auth-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #e9ecef;
+    }
+
+    .auth-divider span {
+      background: white;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .social-login {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .btn-social {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      background: white;
+      color: #34495e;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .btn-social:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .btn-social.google {
+      color: #db4437;
+      border-color: #db4437;
+    }
+
+    .btn-social.facebook {
+      color: #4267B2;
+      border-color: #4267B2;
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #7f8c8d;
+      font-size: 0.9rem;
+    }
+
+    .auth-footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .auth-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .error-message {
+      background: #fee;
+      color: #c53030;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .success-message {
+      background: #f0fff4;
+      color: #38a169;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .auth-container {
+        flex-direction: column;
+        max-width: 400px;
+      }
+      
+      .auth-sidebar {
+        padding: 30px 20px;
+      }
+      
+      .auth-content {
+        padding: 30px 20px;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .social-login {
+        flex-direction: column;
+      }
+    }
+
+    /* Loading animation */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-sidebar">
+      <h2>خوش آمدید!</h2>
+      <p>به فروشگاه کار اول خوش آمدید</p>
+      <ul class="auth-features">
+        <li>
+          <i class="fas fa-shopping-cart"></i>
+          <span>خرید آسان و سریع</span>
+        </li>
+        <li>
+          <i class="fas fa-shield-alt"></i>
+          <span>امنیت کامل اطلاعات</span>
+        </li>
+        <li>
+          <i class="fas fa-gift"></i>
+          <span>پاداش و تخفیف ویژه</span>
+        </li>
+        <li>
+          <i class="fas fa-headset"></i>
+          <span>پشتیبانی 24/7</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="auth-content">
+      <div class="auth-tabs">
+        <div class="auth-tab active" data-tab="login">ورود</div>
+        <div class="auth-tab" data-tab="register">ثبت‌نام</div>
+      </div>
+
+      <!-- Login Form -->
+      <form class="auth-form active" id="login-form">
+        <div class="error-message" id="login-error"></div>
+        <div class="success-message" id="login-success"></div>
+        
+        <div class="form-group">
+          <label for="login-email">ایمیل</label>
+          <input type="email" id="login-email" required placeholder="example@email.com" />
+        </div>
+        
+        <div class="form-group">
+          <label for="login-password">رمز عبور</label>
+          <div class="password-field">
+            <input type="password" id="login-password" required placeholder="رمز عبور خود را وارد کنید" />
+            <button type="button" class="password-toggle" onclick="togglePassword('login-password')">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn-auth btn-primary">
+          <span class="btn-text">ورود</span>
+          <span class="loading" style="display: none;"></span>
+        </button>
+        
+        <div class="auth-divider">
+          <span>یا</span>
+        </div>
+        
+        <div class="social-login">
+          <button type="button" class="btn-social google">
+            <i class="fab fa-google"></i>
+            گوگل
+          </button>
+          <button type="button" class="btn-social facebook">
+            <i class="fab fa-facebook-f"></i>
+            فیسبوک
+          </button>
+        </div>
+        
+        <div class="auth-footer">
+          <a href="#" onclick="forgotPassword()">فراموشی رمز عبور</a>
+        </div>
+      </form>
+
+      <!-- Register Form -->
+      <form class="auth-form" id="register-form">
+        <div class="error-message" id="register-error"></div>
+        <div class="success-message" id="register-success"></div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="register-firstname">نام</label>
+            <input type="text" id="register-firstname" required placeholder="نام خود را وارد کنید" />
+          </div>
+          <div class="form-group">
+            <label for="register-lastname">نام خانوادگی</label>
+            <input type="text" id="register-lastname" required placeholder="نام خانوادگی خود را وارد کنید" />
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="register-email">ایمیل</label>
+          <input type="email" id="register-email" required placeholder="example@email.com" />
+        </div>
+        
+        <div class="form-group">
+          <label for="register-phone">شماره موبایل</label>
+          <input type="tel" id="register-phone" required placeholder="09xxxxxxxxx" />
+        </div>
+        
+        <div class="form-group">
+          <label for="register-password">رمز عبور</label>
+          <div class="password-field">
+            <input type="password" id="register-password" required placeholder="رمز عبور خود را وارد کنید" />
+            <button type="button" class="password-toggle" onclick="togglePassword('register-password')">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="register-confirm-password">تکرار رمز عبور</label>
+          <div class="password-field">
+            <input type="password" id="register-confirm-password" required placeholder="رمز عبور را تکرار کنید" />
+            <button type="button" class="password-toggle" onclick="togglePassword('register-confirm-password')">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        
+        <button type="submit" class="btn-auth btn-primary">
+          <span class="btn-text">ثبت‌نام</span>
+          <span class="loading" style="display: none;"></span>
+        </button>
+        
+        <div class="auth-divider">
+          <span>یا</span>
+        </div>
+        
+        <div class="social-login">
+          <button type="button" class="btn-social google">
+            <i class="fab fa-google"></i>
+            گوگل
+          </button>
+          <button type="button" class="btn-social facebook">
+            <i class="fab fa-facebook-f"></i>
+            فیسبوک
+          </button>
+        </div>
+        
+        <div class="auth-footer">
+          با ثبت‌نام، <a href="#" onclick="showTerms()">قوانین و شرایط</a> را می‌پذیرید
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.auth-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetTab = tab.getAttribute('data-tab');
+        
+        // Update active tab
+        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Update active form
+        document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+        document.getElementById(`${targetTab}-form`).classList.add('active');
+        
+        // Clear messages
+        clearMessages();
+      });
+    });
+
+    // Password toggle
+    function togglePassword(inputId) {
+      const input = document.getElementById(inputId);
+      const button = input.parentElement.querySelector('.password-toggle i');
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        button.className = 'fas fa-eye-slash';
+      } else {
+        input.type = 'password';
+        button.className = 'fas fa-eye';
+      }
+    }
+
+    // Clear messages
+    function clearMessages() {
+      document.querySelectorAll('.error-message, .success-message').forEach(msg => {
+        msg.style.display = 'none';
+        msg.textContent = '';
+      });
+    }
+
+    // Show message
+    function showMessage(type, message, formId) {
+      const messageElement = document.getElementById(`${formId}-${type}`);
+      messageElement.textContent = message;
+      messageElement.style.display = 'block';
+      
+      setTimeout(() => {
+        messageElement.style.display = 'none';
+      }, 5000);
+    }
+
+    // Loading state
+    function setLoading(button, loading) {
+      const btnText = button.querySelector('.btn-text');
+      const loadingSpinner = button.querySelector('.loading');
+      
+      if (loading) {
+        btnText.style.display = 'none';
+        loadingSpinner.style.display = 'inline-block';
+        button.disabled = true;
+      } else {
+        btnText.style.display = 'inline';
+        loadingSpinner.style.display = 'none';
+        button.disabled = false;
+      }
+    }
+
+    // Login form
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      
+      if (!email || !password) {
+        showMessage('error', 'لطفاً تمام فیلدها را پر کنید', 'login');
+        return;
+      }
+      
+      setLoading(submitBtn, true);
+      
+      try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Check if user exists
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u => u.email === email && u.password === password);
+        
+        if (user) {
+          // Store user session
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          showMessage('success', 'ورود موفقیت‌آمیز بود!', 'login');
+          
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1000);
+        } else {
+          showMessage('error', 'ایمیل یا رمز عبور اشتباه است', 'login');
+        }
+      } catch (error) {
+        showMessage('error', 'خطا در ورود. لطفاً دوباره تلاش کنید', 'login');
+      } finally {
+        setLoading(submitBtn, false);
+      }
+    });
+
+    // Register form
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const firstname = document.getElementById('register-firstname').value;
+      const lastname = document.getElementById('register-lastname').value;
+      const email = document.getElementById('register-email').value;
+      const phone = document.getElementById('register-phone').value;
+      const password = document.getElementById('register-password').value;
+      const confirmPassword = document.getElementById('register-confirm-password').value;
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      
+      if (!firstname || !lastname || !email || !phone || !password || !confirmPassword) {
+        showMessage('error', 'لطفاً تمام فیلدها را پر کنید', 'register');
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        showMessage('error', 'رمز عبور و تکرار آن یکسان نیستند', 'register');
+        return;
+      }
+      
+      if (password.length < 6) {
+        showMessage('error', 'رمز عبور باید حداقل 6 کاراکتر باشد', 'register');
+        return;
+      }
+      
+      setLoading(submitBtn, true);
+      
+      try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Check if user already exists
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const existingUser = users.find(u => u.email === email);
+        
+        if (existingUser) {
+          showMessage('error', 'این ایمیل قبلاً ثبت شده است', 'register');
+          return;
+        }
+        
+        // Create new user
+        const newUser = {
+          id: Date.now(),
+          firstname,
+          lastname,
+          email,
+          phone,
+          password,
+          createdAt: new Date().toISOString(),
+          loyaltyData: {
+            points: 0,
+            totalSpent: 0,
+            savings: 0,
+            level: 'جدید',
+            tier: 0,
+            history: []
+          }
+        };
+        
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        showMessage('success', 'ثبت‌نام موفقیت‌آمیز بود!', 'register');
+        
+        // Auto login
+        setTimeout(() => {
+          localStorage.setItem('currentUser', JSON.stringify(newUser));
+          window.location.href = 'index.html';
+        }, 1000);
+        
+      } catch (error) {
+        showMessage('error', 'خطا در ثبت‌نام. لطفاً دوباره تلاش کنید', 'register');
+      } finally {
+        setLoading(submitBtn, false);
+      }
+    });
+
+    // Social login handlers
+    document.querySelectorAll('.btn-social').forEach(btn => {
+      btn.addEventListener('click', () => {
+        showMessage('error', 'این قابلیت به زودی فعال خواهد شد', 'login');
+      });
+    });
+
+    // Utility functions
+    function forgotPassword() {
+      alert('برای بازیابی رمز عبور، با پشتیبانی تماس بگیرید');
+    }
+
+    function showTerms() {
+      alert('قوانین و شرایط استفاده از سایت');
+    }
+
+    // Check if user is already logged in
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html> 

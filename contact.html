@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تماس با ما - کار آوال</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      direction: rtl;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .contact-header {
+      text-align: center;
+      margin-bottom: 50px;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .contact-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #333;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .contact-subtitle {
+      color: #666;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .contact-info {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .contact-form {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+    }
+    
+    .info-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .info-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 20px;
+      font-size: 24px;
+      color: white;
+    }
+    
+    .info-content h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    
+    .info-content p {
+      color: #666;
+      line-height: 1.5;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e1e5e9;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+      background: #f8f9fa;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(39, 174, 96, 0.4);
+    }
+    
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+    }
+    
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+    
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+      display: none;
+    }
+    
+    .error-message {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+      display: none;
+    }
+    
+    .map-section {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-bottom: 50px;
+    }
+    
+    .map-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .map-container {
+      width: 100%;
+      height: 400px;
+      background: #f8f9fa;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 1.1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .contact-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .contact-header,
+      .contact-info,
+      .contact-form,
+      .map-section {
+        padding: 30px 20px;
+      }
+      
+      .contact-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- دکمه بازگشت -->
+    <a href="kar-aval.html" class="back-button">
+      ← بازگشت به صفحه اصلی
+    </a>
+    
+    <!-- هدر تماس -->
+    <div class="contact-header">
+      <h1 class="contact-title">تماس با ما</h1>
+      <p class="contact-subtitle">
+        ما آماده پاسخگویی به سوالات و پیشنهادات شما هستیم. 
+        از طریق فرم زیر یا اطلاعات تماس با ما در ارتباط باشید.
+      </p>
+    </div>
+    
+    <!-- محتوای اصلی -->
+    <div class="contact-content">
+      <!-- اطلاعات تماس -->
+      <div class="contact-info">
+        <h2 style="font-size: 1.8rem; font-weight: 700; color: #333; margin-bottom: 30px; text-align: center;">
+          اطلاعات تماس
+        </h2>
+        
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div class="info-content">
+            <h3>آدرس فروشگاه</h3>
+            <p>تهران، خیابان ولیعصر، پلاک ۱۲۳<br>طبقه همکف، واحد ۴</p>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div class="info-content">
+            <h3>شماره تماس</h3>
+            <p>۰۲۱-۱۲۳۴۵۶۷۸<br>۰۹۱۲-۳۴۵۶۷۸۹</p>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div class="info-content">
+            <h3>ایمیل</h3>
+            <p>info@karaval.com<br>support@karaval.com</p>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-icon">🕒</div>
+          <div class="info-content">
+            <h3>ساعات کاری</h3>
+            <p>شنبه تا چهارشنبه: ۹ صبح تا ۸ شب<br>پنجشنبه: ۹ صبح تا ۶ عصر</p>
+          </div>
+        </div>
+        
+        <div class="info-item">
+          <div class="info-icon">🚚</div>
+          <div class="info-content">
+            <h3>خرید حضوری</h3>
+            <p>می‌توانید برای خرید حضوری و مشاهده محصولات به فروشگاه ما مراجعه کنید</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- فرم تماس -->
+      <div class="contact-form">
+        <h2 style="font-size: 1.8rem; font-weight: 700; color: #333; margin-bottom: 30px; text-align: center;">
+          ارسال پیام
+        </h2>
+        
+        <div class="success-message" id="successMessage">
+          پیام شما با موفقیت ارسال شد. در اسرع وقت با شما تماس خواهیم گرفت.
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+          خطا در ارسال پیام. لطفاً دوباره تلاش کنید.
+        </div>
+        
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">نام و نام خانوادگی *</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">ایمیل *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">شماره تماس</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+          
+          <div class="form-group">
+            <label for="subject">موضوع *</label>
+            <select id="subject" name="subject" required>
+              <option value="">انتخاب کنید</option>
+              <option value="سوال">سوال</option>
+              <option value="پیشنهاد">پیشنهاد</option>
+              <option value="شکایت">شکایت</option>
+              <option value="خرید حضوری">خرید حضوری</option>
+              <option value="سایر">سایر</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="message">پیام *</label>
+            <textarea id="message" name="message" required placeholder="پیام خود را اینجا بنویسید..."></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">ارسال پیام</button>
+        </form>
+      </div>
+    </div>
+    
+    <!-- نقشه -->
+    <div class="map-section">
+      <h2 class="map-title">موقعیت فروشگاه</h2>
+      <div class="map-container">
+        <div style="text-align: center;">
+          <div style="font-size: 3rem; margin-bottom: 15px;">🗺️</div>
+          <div>نقشه فروشگاه</div>
+          <div style="font-size: 0.9rem; color: #999; margin-top: 10px;">
+            تهران، خیابان ولیعصر، پلاک ۱۲۳
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // تابع ارسال فرم
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const contactData = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+        date: new Date().toISOString()
+      };
+      
+      // ذخیره پیام در localStorage
+      const messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
+      messages.push(contactData);
+      localStorage.setItem('contactMessages', JSON.stringify(messages));
+      
+      // نمایش پیام موفقیت
+      document.getElementById('successMessage').style.display = 'block';
+      document.getElementById('errorMessage').style.display = 'none';
+      
+      // پاک کردن فرم
+      this.reset();
+      
+      // مخفی کردن پیام موفقیت بعد از 5 ثانیه
+      setTimeout(() => {
+        document.getElementById('successMessage').style.display = 'none';
+      }, 5000);
+    });
+    
+    // تابع اعتبارسنجی فرم
+    function validateForm() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      if (!name || !email || !subject || !message) {
+        document.getElementById('errorMessage').textContent = 'لطفاً تمام فیلدهای اجباری را پر کنید.';
+        document.getElementById('errorMessage').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+        return false;
+      }
+      
+      // اعتبارسنجی ایمیل
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        document.getElementById('errorMessage').textContent = 'لطفاً یک ایمیل معتبر وارد کنید.';
+        document.getElementById('errorMessage').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+        return false;
+      }
+      
+      return true;
+    }
+    
+    // اعتبارسنجی در زمان تایپ
+    document.getElementById('email').addEventListener('blur', function() {
+      const email = this.value;
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        this.style.borderColor = '#dc3545';
+      } else {
+        this.style.borderColor = '#e1e5e9';
+      }
+    });
+    
+    // اعتبارسنجی شماره تماس
+    document.getElementById('phone').addEventListener('input', function() {
+      const phone = this.value.replace(/\D/g, '');
+      if (phone.length > 11) {
+        this.value = phone.slice(0, 11);
+      }
+    });
+  </script>
+</body>
+</html> 

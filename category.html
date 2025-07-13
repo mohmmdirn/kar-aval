@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دسته‌بندی محصولات - کار آوال</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      direction: rtl;
+    }
+    
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .category-header {
+      text-align: center;
+      margin-bottom: 40px;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .category-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #333;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .category-subtitle {
+      color: #666;
+      font-size: 1.1rem;
+    }
+    
+    .category-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 30px 0;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #667eea;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 5px;
+    }
+    
+    .category-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    
+    .category-filters {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .filter-group label {
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+    
+    .filter-group select,
+    .filter-group input {
+      padding: 8px 12px;
+      border: 2px solid #e1e5e9;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #f8f9fa;
+      transition: border-color 0.3s ease;
+    }
+    
+    .filter-group select:focus,
+    .filter-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+    }
+    
+    .layout-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .layout-btn {
+      padding: 8px 12px;
+      border: 2px solid #e1e5e9;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .layout-btn.active {
+      background: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+    
+    .layout-btn:hover {
+      border-color: #667eea;
+      background: #f8f9fa;
+    }
+    
+    .layout-btn.active:hover {
+      background: #5a6fd8;
+    }
+    
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .products-grid.grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+    
+    .products-grid.grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+    
+    .products-grid.grid-4 {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    .products-grid.list-view {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .product-card.list-view {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+    }
+    
+    .product-card.list-view img {
+      width: 200px;
+      height: 150px;
+      margin-left: 20px;
+      flex-shrink: 0;
+    }
+    
+    .product-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover img {
+      transform: scale(1.05);
+    }
+    
+    .product-content {
+      padding: 25px;
+    }
+    
+    .product-content.list-view {
+      flex: 1;
+      padding: 0;
+    }
+    
+    .product-category {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .product-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin: 8px 0;
+    }
+    
+    .stars {
+      color: #ffd700;
+      font-size: 14px;
+    }
+    
+    .rating-text {
+      font-size: 12px;
+      color: #666;
+    }
+    
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #667eea;
+      margin-bottom: 15px;
+    }
+    
+    .product-description {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    
+    .product-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+      font-size: 12px;
+    }
+    
+    .stock-status {
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+    
+    .stock-status.in-stock {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .stock-status.out-of-stock {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .product-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .add-to-cart {
+      flex: 1;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .add-to-cart:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4);
+    }
+    
+    .add-to-cart:disabled {
+      background: #bdc3c7;
+      cursor: not-allowed;
+    }
+    
+    .quick-view {
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .quick-view:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+    
+    .product-badges {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 10;
+    }
+    
+    .badge {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+    }
+    
+    .badge.discount {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    }
+    
+    .badge.new {
+      background: linear-gradient(45deg, #2ed573, #1e90ff);
+    }
+    
+    .badge.popular {
+      background: linear-gradient(45deg, #ffa502, #ff6348);
+    }
+    
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+    
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+    
+    .no-products {
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .no-products-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+    
+    .no-products h3 {
+      color: #666;
+      margin-bottom: 10px;
+    }
+    
+    .no-products p {
+      color: #999;
+    }
+    
+    @media (max-width: 768px) {
+      .category-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .category-filters {
+        justify-content: center;
+      }
+      
+      .layout-controls {
+        justify-content: center;
+      }
+      
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .product-card.list-view {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .product-card.list-view img {
+        margin-left: 0;
+        margin-bottom: 15px;
+      }
+      
+      .category-stats {
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- دکمه بازگشت -->
+    <a href="kar-aval.html" class="back-button">
+      ← بازگشت به صفحه اصلی
+    </a>
+    
+    <!-- هدر دسته‌بندی -->
+    <div class="category-header">
+      <h1 class="category-title" id="categoryTitle">دسته‌بندی محصولات</h1>
+      <p class="category-subtitle" id="categorySubtitle">محصولات این دسته‌بندی</p>
+    </div>
+    
+    <!-- آمار دسته‌بندی -->
+    <div class="category-stats">
+      <div class="stat-item">
+        <div class="stat-number" id="totalProducts">0</div>
+        <div class="stat-label">کل محصولات</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="availableProducts">0</div>
+        <div class="stat-label">موجود</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="discountProducts">0</div>
+        <div class="stat-label">تخفیف دار</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" id="newProducts">0</div>
+        <div class="stat-label">محصولات جدید</div>
+      </div>
+    </div>
+    
+    <!-- کنترل‌های دسته‌بندی -->
+    <div class="category-controls">
+      <div class="category-filters">
+        <div class="filter-group">
+          <label for="price-filter">قیمت:</label>
+          <select id="price-filter">
+            <option value="">همه قیمت‌ها</option>
+            <option value="0-100000">تا ۱۰۰ هزار تومان</option>
+            <option value="100000-500000">۱۰۰ تا ۵۰۰ هزار تومان</option>
+            <option value="500000-1000000">۵۰۰ هزار تا ۱ میلیون تومان</option>
+            <option value="1000000+">بیش از ۱ میلیون تومان</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="sort-by">مرتب‌سازی:</label>
+          <select id="sort-by">
+            <option value="name">بر اساس نام</option>
+            <option value="price-low">قیمت (کم به زیاد)</option>
+            <option value="price-high">قیمت (زیاد به کم)</option>
+            <option value="rating">امتیاز</option>
+            <option value="newest">جدیدترین</option>
+            <option value="popular">محبوب‌ترین</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="search-products">جستجو:</label>
+          <input type="text" id="search-products" placeholder="نام محصول...">
+        </div>
+      </div>
+      
+      <div class="layout-controls">
+        <button class="layout-btn active" data-layout="grid-4" title="نمایش 4 ستونه">⊞</button>
+        <button class="layout-btn" data-layout="grid-3" title="نمایش 3 ستونه">⊞</button>
+        <button class="layout-btn" data-layout="grid-2" title="نمایش 2 ستونه">⊞</button>
+        <button class="layout-btn" data-layout="list-view" title="نمایش لیستی">☰</button>
+      </div>
+    </div>
+    
+    <!-- گرید محصولات -->
+    <div class="products-grid" id="productsGrid">
+      <!-- محصولات اینجا رندر می‌شوند -->
+    </div>
+  </div>
+  
+  <script>
+    // دریافت پارامتر دسته‌بندی از URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('cat') || 'عمومی';
+    
+    // به‌روزرسانی عنوان صفحه
+    document.getElementById('categoryTitle').textContent = category;
+    document.getElementById('categorySubtitle').textContent = `محصولات دسته‌بندی ${category}`;
+    document.title = `${category} - کار آوال`;
+    
+    // تابع رندر محصولات
+    function renderCategoryProducts() {
+      const products = JSON.parse(localStorage.getItem('products')) || [];
+      const container = document.getElementById('productsGrid');
+      
+      // فیلتر بر اساس دسته‌بندی
+      let filteredProducts = products.filter(product => {
+        const productCategory = product.category || 'عمومی';
+        return productCategory.toLowerCase().includes(category.toLowerCase());
+      });
+      
+      // اعمال فیلترهای اضافی
+      filteredProducts = applyFilters(filteredProducts);
+      filteredProducts = sortProducts(filteredProducts);
+      
+      // به‌روزرسانی آمار
+      updateCategoryStats(products, filteredProducts);
+      
+      // اعمال layout
+      const currentLayout = localStorage.getItem('categoryLayout') || 'grid-4';
+      applyLayout(currentLayout);
+      
+      if (filteredProducts.length === 0) {
+        container.innerHTML = `
+          <div class="no-products" style="grid-column: 1 / -1;">
+            <div class="no-products-icon">📦</div>
+            <h3>محصولی در این دسته‌بندی یافت نشد</h3>
+            <p>لطفاً دسته‌بندی دیگری انتخاب کنید یا محصولات جدید اضافه کنید</p>
+          </div>
+        `;
+        return;
+      }
+      
+      // نمایش تعداد نتایج
+      const searchQuery = document.getElementById('search-products').value;
+      const priceQuery = document.getElementById('price-filter').value;
+      if (searchQuery || priceQuery) {
+        const resultsInfo = document.createElement('div');
+        resultsInfo.style.cssText = 'text-align: center; margin-bottom: 20px; padding: 10px; background: #f8f9fa; border-radius: 8px; color: #666; grid-column: 1 / -1;';
+        resultsInfo.innerHTML = `نتایج فیلتر: <strong>${filteredProducts.length}</strong> محصول یافت شد`;
+        container.parentNode.insertBefore(resultsInfo, container);
+      }
+      
+      container.innerHTML = '';
+      
+      filteredProducts.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        
+        // محاسبه قیمت با تخفیف
+        const originalPrice = product.price || 0;
+        const discount = product.discount || 0;
+        const finalPrice = originalPrice - (originalPrice * discount / 100);
+        
+        // وضعیت موجودی
+        const stockStatus = product.stock > 0 ? 'موجود' : 'ناموجود';
+        const stockClass = product.stock > 0 ? 'in-stock' : 'out-of-stock';
+        
+        // نمایش ستاره‌ها
+        const rating = product.rating || 0;
+        const stars = '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));
+        
+        card.innerHTML = `
+          <div class="product-badges">
+            ${discount > 0 ? `<span class="badge discount">${discount}% تخفیف</span>` : ''}
+            ${product.isNew ? '<span class="badge new">جدید</span>' : ''}
+            ${product.isPopular ? '<span class="badge popular">محبوب</span>' : ''}
+          </div>
+          <img src="${product.image}" alt="${product.name}" />
+          <div class="product-content">
+            <div class="product-category">${product.category || 'عمومی'}</div>
+            <h3 class="product-title">${highlightSearchTerm(product.name, searchQuery)}</h3>
+            <div class="product-rating">
+              <span class="stars">${stars}</span>
+              <span class="rating-text">(${rating.toFixed(1)})</span>
+            </div>
+            <div class="product-price">${finalPrice.toLocaleString()} تومان</div>
+            <p class="product-description">${escapeHtml(product.description || '')}</p>
+            <div class="product-meta">
+              <span class="stock-status ${stockClass}">${stockStatus}</span>
+              ${product.stock > 0 ? `<span class="stock-count">موجودی: ${product.stock}</span>` : ''}
+            </div>
+            <div class="product-actions">
+              <button class="add-to-cart" onclick="addToCart('${product.name}', ${finalPrice}, '${product.image}')" ${product.stock <= 0 ? 'disabled' : ''}>
+                ${product.stock > 0 ? 'افزودن به سبد خرید' : 'ناموجود'}
+              </button>
+              <button class="quick-view" onclick="showQuickView(${JSON.stringify(product)})">مشاهده سریع</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+    
+    // تابع اعمال فیلترها
+    function applyFilters(products) {
+      const priceFilter = document.getElementById('price-filter');
+      const searchInput = document.getElementById('search-products');
+      
+      if (!priceFilter || !searchInput) {
+        return products;
+      }
+
+      const priceValue = priceFilter.value;
+      const searchQuery = searchInput.value.toLowerCase();
+
+      return products.filter(product => {
+        // فیلتر قیمت
+        if (priceValue && priceValue !== '') {
+          const price = product.price || 0;
+          const [min, max] = priceValue.split('-').map(p => p === '+' ? Infinity : parseInt(p));
+          if (price < min || (max !== Infinity && price > max)) {
+            return false;
+          }
+        }
+
+        // فیلتر جستجو
+        if (searchQuery && searchQuery !== '') {
+          const productName = product.name.toLowerCase();
+          const productCategory = (product.category || 'عمومی').toLowerCase();
+          if (!productName.includes(searchQuery) && !productCategory.includes(searchQuery)) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+    }
+    
+    // تابع مرتب‌سازی محصولات
+    function sortProducts(products) {
+      const sortBy = document.getElementById('sort-by').value;
+      
+      return products.sort((a, b) => {
+        switch (sortBy) {
+          case 'name':
+            return a.name.localeCompare(b.name, 'fa');
+          case 'price-low':
+            return (a.price || 0) - (b.price || 0);
+          case 'price-high':
+            return (b.price || 0) - (a.price || 0);
+          case 'rating':
+            return (b.rating || 0) - (a.rating || 0);
+          case 'newest':
+            return (b.id || 0) - (a.id || 0);
+          case 'popular':
+            return (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0);
+          default:
+            return 0;
+        }
+      });
+    }
+    
+    // تابع به‌روزرسانی آمار
+    function updateCategoryStats(allProducts, filteredProducts) {
+      const totalProducts = filteredProducts.length;
+      const availableProducts = filteredProducts.filter(p => p.stock > 0).length;
+      const discountProducts = filteredProducts.filter(p => p.discount > 0).length;
+      const newProducts = filteredProducts.filter(p => p.isNew).length;
+
+      document.getElementById('totalProducts').textContent = totalProducts;
+      document.getElementById('availableProducts').textContent = availableProducts;
+      document.getElementById('discountProducts').textContent = discountProducts;
+      document.getElementById('newProducts').textContent = newProducts;
+    }
+    
+    // تابع اعمال layout
+    function applyLayout(layout) {
+      const container = document.getElementById('productsGrid');
+      const layoutButtons = document.querySelectorAll('.layout-btn');
+      
+      // حذف کلاس‌های قبلی
+      container.className = 'products-grid';
+      layoutButtons.forEach(btn => btn.classList.remove('active'));
+      
+      // اعمال layout جدید
+      container.classList.add(layout);
+      const activeButton = document.querySelector(`[data-layout="${layout}"]`);
+      if (activeButton) {
+        activeButton.classList.add('active');
+      }
+      
+      // ذخیره در localStorage
+      localStorage.setItem('categoryLayout', layout);
+    }
+    
+    // تابع highlight کردن متن جستجو
+    function highlightSearchTerm(text, searchTerm) {
+      if (!searchTerm || searchTerm === '') {
+        return text;
+      }
+      
+      const regex = new RegExp(`(${searchTerm})`, 'gi');
+      return text.replace(regex, '<mark style="background: #ffeb3b; padding: 2px 4px; border-radius: 3px;">$1</mark>');
+    }
+    
+    // تابع escape HTML
+    function escapeHtml(text) {
+      return text.replace(/[&<>"']/g, function(m) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[m];
+      });
+    }
+    
+    // تابع افزودن به سبد خرید
+    function addToCart(name, price, image) {
+      // بررسی احراز هویت
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (!currentUser) {
+        if (confirm('برای افزودن به سبد خرید نیاز به ورود دارید. آیا می‌خواهید وارد شوید؟')) {
+          window.location.href = 'auth.html';
+        }
+        return;
+      }
+      
+      // سبد خرید جداگانه برای هر کاربر
+      const cartKey = `cart_${currentUser.email}`;
+      let cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+
+      const existingProduct = cart.find(item => item.name === name);
+      if (existingProduct) {
+        existingProduct.quantity++;
+      } else {
+        cart.push({ name, price, quantity: 1, image });
+      }
+
+      localStorage.setItem(cartKey, JSON.stringify(cart));
+      alert(`${name} به سبد خرید اضافه شد.`);
+    }
+    
+    // تابع نمایش مشاهده سریع
+    function showQuickView(product) {
+      const originalPrice = product.price || 0;
+      const discount = product.discount || 0;
+      const finalPrice = originalPrice - (originalPrice * discount / 100);
+      const rating = product.rating || 0;
+      const stars = '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));
+      
+      const modal = document.createElement('div');
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `;
+      
+      modal.innerHTML = `
+        <div style="background: white; padding: 30px; border-radius: 15px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>${product.name}</h2>
+            <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: none; border: none; font-size: 24px; cursor: pointer;">&times;</button>
+          </div>
+          <img src="${product.image}" alt="${product.name}" style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 20px;" />
+          <div class="product-rating">
+            <span class="stars">${stars}</span>
+            <span class="rating-text">(${rating.toFixed(1)})</span>
+          </div>
+          <div style="margin: 20px 0;">
+            <div style="font-size: 1.5rem; font-weight: bold; color: #667eea;">${finalPrice.toLocaleString()} تومان</div>
+            ${discount > 0 ? `<div style="text-decoration: line-through; color: #999;">${originalPrice.toLocaleString()} تومان</div>` : ''}
+          </div>
+          <p>${escapeHtml(product.description || '')}</p>
+          <div style="margin: 20px 0;">
+            <div><strong>دسته‌بندی:</strong> ${product.category || 'عمومی'}</div>
+            <div><strong>موجودی:</strong> ${product.stock || 0} عدد</div>
+            <div><strong>وضعیت:</strong> ${product.stock > 0 ? 'موجود' : 'ناموجود'}</div>
+          </div>
+          <button onclick="addToCart('${product.name}', ${finalPrice}, '${product.image}'); this.parentElement.parentElement.remove()" ${product.stock <= 0 ? 'disabled' : ''} style="width: 100%; padding: 12px; background: #27ae60; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+            ${product.stock > 0 ? 'افزودن به سبد خرید' : 'ناموجود'}
+          </button>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      
+      // بستن مودال با کلیک بیرون
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.remove();
+        }
+      });
+    }
+    
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Layout controls
+      document.querySelectorAll('.layout-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const layout = this.getAttribute('data-layout');
+          applyLayout(layout);
+        });
+      });
+
+      // Filter controls
+      document.getElementById('price-filter').addEventListener('change', renderCategoryProducts);
+      document.getElementById('sort-by').addEventListener('change', renderCategoryProducts);
+      
+      // Search input
+      document.getElementById('search-products').addEventListener('input', function() {
+        clearTimeout(this.searchTimeout);
+        this.searchTimeout = setTimeout(renderCategoryProducts, 300);
+      });
+
+      // اعمال layout ذخیره شده
+      const savedLayout = localStorage.getItem('categoryLayout') || 'grid-4';
+      applyLayout(savedLayout);
+      
+      // رندر اولیه
+      renderCategoryProducts();
+    });
+  </script>
+</body>
+</html> 

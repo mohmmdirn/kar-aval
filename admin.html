@@ -13,7 +13,7 @@
     
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #b2dfdb 0%, #009688 100%) !important;
       min-height: 100vh;
       direction: rtl;
     }
@@ -25,21 +25,21 @@
     }
     
     .admin-header {
-      background: white;
+      background: #e0f2f1 !important;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 30px rgba(0,150,136,0.1) !important;
       margin-bottom: 30px;
       text-align: center;
     }
     
     .admin-header h1 {
-      color: #333;
+      color: #004d40 !important;
       margin-bottom: 10px;
     }
     
     .admin-header p {
-      color: #666;
+      color: #009688 !important;
     }
     
     .admin-sections {
@@ -50,18 +50,18 @@
     }
     
     .section-card {
-      background: white;
+      background: #e0f2f1 !important;
       padding: 25px;
       border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 30px rgba(0,150,136,0.08) !important;
     }
     
     .section-title {
-      color: #333;
+      color: #009688 !important;
       margin-bottom: 20px;
       font-size: 18px;
       font-weight: bold;
-      border-bottom: 2px solid #667eea;
+      border-bottom: 2px solid #009688 !important;
       padding-bottom: 10px;
     }
     
@@ -72,7 +72,7 @@
     .form-group label {
       display: block;
       margin-bottom: 8px;
-      color: #333;
+      color: #004d40 !important;
       font-weight: 600;
       font-size: 14px;
     }
@@ -82,19 +82,19 @@
     .form-group textarea {
       width: 100%;
       padding: 12px 15px;
-      border: 2px solid #e1e5e9;
+      border: 2px solid #b2dfdb !important;
       border-radius: 8px;
       font-size: 14px;
       transition: border-color 0.3s ease;
-      background: #f8f9fa;
+      background: #f8f9fa !important;
     }
     
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: #667eea;
-      background: white;
+      border-color: #009688 !important;
+      background: #fff !important;
     }
     
     .form-row {
@@ -128,20 +128,16 @@
       cursor: pointer;
       transition: all 0.3s ease;
       margin-right: 10px;
+      background: linear-gradient(135deg, #009688 0%, #26a69a 100%) !important;
+      color: #fff !important;
     }
     
     .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-    }
-    
-    .btn-primary:hover {
-      background: #5a6fd8;
+      background: linear-gradient(135deg, #26a69a 0%, #009688 100%) !important;
     }
     
     .btn-success {
-      background: #27ae60;
-      color: white;
+      background: #009688 !important;
     }
     
     .btn-success:hover {
@@ -149,8 +145,8 @@
     }
     
     .btn-warning {
-      background: #f39c12;
-      color: white;
+      background: #b2dfdb !important;
+      color: #004d40 !important;
     }
     
     .btn-warning:hover {
@@ -158,8 +154,7 @@
     }
     
     .btn-danger {
-      background: #e74c3c;
-      color: white;
+      background: #e57373 !important;
     }
     
     .btn-danger:hover {
@@ -167,15 +162,15 @@
     }
     
     .products-table {
-      background: white;
+      background: #e0f2f1 !important;
       border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 30px rgba(0,150,136,0.08) !important;
       overflow: hidden;
       margin-bottom: 30px;
     }
     
     .table-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #009688 0%, #004d40 100%) !important;
       color: white;
       padding: 20px;
     }
@@ -196,7 +191,7 @@
     th, td {
       padding: 15px;
       text-align: right;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #b2dfdb !important;
     }
     
     th {
@@ -4903,6 +4898,42 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
       
       addNotification('اعلان زمان‌بندی شده', `اعلان "${notification.title}" ارسال شد`, 'success');
     }
+
+    // پیش‌نمایش و ذخیره تصویر اسلایدر در localStorage
+    const sliderImageInput = document.getElementById('sliderImageInput');
+    const sliderImagePreview = document.getElementById('sliderImagePreview');
+
+    if (sliderImageInput) {
+      sliderImageInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            sliderImagePreview.innerHTML = `<img src="${e.target.result}" alt="slider" style="max-width:300px; border-radius:12px; box-shadow:0 4px 15px #00968833;">`;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          sliderImagePreview.innerHTML = '';
+        }
+      });
+    }
+    function saveSliderImage() {
+      const file = sliderImageInput.files[0];
+      if (!file) { alert('لطفاً یک تصویر انتخاب کنید'); return; }
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        localStorage.setItem('sliderImage', e.target.result);
+        alert('تصویر اسلایدر ذخیره شد!');
+      };
+      reader.readAsDataURL(file);
+    }
+    // نمایش تصویر ذخیره‌شده در پیش‌نمایش (در صورت وجود)
+    document.addEventListener('DOMContentLoaded', function() {
+      const saved = localStorage.getItem('sliderImage');
+      if (saved) {
+        sliderImagePreview.innerHTML = `<img src="${saved}" alt="slider" style="max-width:300px; border-radius:12px; box-shadow:0 4px 15px #00968833;">`;
+      }
+    });
   </script>
 </body>
 </html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shopping Cart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #fbeedc;
+      color: #3e2b1c;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 50px auto;
+      background: #fff8f0;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 36px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #e6d3c2;
+    }
+
+    .cart-item img {
+      width: 70px;
+      border-radius: 10px;
+    }
+
+    .cart-details {
+      flex: 1;
+      margin-left: 15px;
+    }
+
+    .cart-details h4 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .cart-details p {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+    }
+
+    .quantity-control button {
+      background-color: #d6b08c;
+      border: none;
+      padding: 6px 12px;
+      margin: 0 5px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .price {
+      font-weight: bold;
+    }
+
+    .summary {
+      margin-top: 30px;
+      text-align: right;
+    }
+
+    .summary div {
+      margin: 5px 0;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-back {
+      background-color: #e4d2b0;
+      color: #3e2b1c;
+    }
+
+    .btn-cancel {
+      background-color: #c0392b;
+      color: white;
+    }
+
+    .btn-checkout {
+      background-color: #4CAF50;
+      color: white;
+      margin-top: 20px;
+    }
+
+    .coupon {
+      margin-top: 30px;
+    }
+
+    .coupon input {
+      padding: 10px;
+      width: 60%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .coupon button {
+      padding: 10px 15px;
+      margin-left: 10px;
+      border: none;
+      background-color: #b1906c;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Your Coffee Cart ☕</h2>
+
+    <div class="cart-item">
+      <img src="https://via.placeholder.com/70" alt="Coffee Image" />
+      <div class="cart-details">
+        <h4>Espresso Shot</h4>
+        <p>Strong and bold - Single Origin</p>
+      </div>
+      <div class="quantity-control">
+        <button>-</button>
+        <span>1</span>
+        <button>+</button>
+      </div>
+      <div class="price">$3.50</div>
+    </div>
+
+    <div class="cart-item">
+      <img src="https://via.placeholder.com/70" alt="Latte Image" />
+      <div class="cart-details">
+        <h4>Vanilla Latte</h4>
+        <p>With organic vanilla syrup</p>
+      </div>
+      <div class="quantity-control">
+        <button>-</button>
+        <span>2</span>
+        <button>+</button>
+      </div>
+      <div class="price">$5.00</div>
+    </div>
+
+    <div class="coupon">
+      <input type="text" placeholder="Enter Coupon Code" />
+      <button>Apply</button>
+    </div>
+
+    <div class="summary">
+      <div>Subtotal: $13.50</div>
+      <div>Tax: $0.90</div>
+      <div><strong>Total: $14.40</strong></div>
+    </div>
+
+    <button class="btn btn-checkout">Check Out</button>
+
+    <div class="actions">
+      <button class="btn btn-back">Back</button>
+      <button class="btn btn-cancel">Cancel Order</button>
+    </div>
+  </div>
+</body>
+</html>

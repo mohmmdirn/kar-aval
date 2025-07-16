@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>چت آنلاین - کار آوال</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Vazirmatn', Arial, sans-serif;
+            background: linear-gradient(135deg, #b9f6ca 0%, #43e97b 100%);
+            min-height: 100vh;
+            direction: rtl;
+        }
+        
+        .chat-header {
+            background: linear-gradient(135deg, #43e97b 0%, #00c853 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(67,233,123,0.3);
+        }
+        
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .chat-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .chat-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            height: calc(100vh - 120px);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-break: break-word;
+            line-height: 1.4;
+            position: relative;
+        }
+        
+        .message.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            border-bottom-right-radius: 6px;
+        }
+        
+        .message.bot {
+            align-self: flex-start;
+            background: white;
+            color: #333;
+            border: 1px solid #e0f7fa;
+            border-bottom-left-radius: 6px;
+        }
+        
+        .message.admin {
+            align-self: flex-start;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-left-radius: 6px;
+        }
+        
+        .message.waiting {
+            align-self: flex-start;
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+            border-bottom-left-radius: 6px;
+            font-style: italic;
+        }
+        
+        .message-time {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+        
+        .chat-input-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0f7fa;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .chat-input {
+            flex: 1;
+            border: 2px solid #e0f7fa;
+            border-radius: 25px;
+            padding: 12px 20px;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.3s;
+            font-family: inherit;
+        }
+        
+        .chat-input:focus {
+            border-color: #43e97b;
+        }
+        
+        .send-btn {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .send-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .send-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .typing-indicator {
+            align-self: flex-start;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 18px;
+            border: 1px solid #e0f7fa;
+            font-size: 14px;
+            color: #666;
+            display: none;
+        }
+        
+        .welcome-message {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .chat-container {
+                margin: 10px;
+                height: calc(100vh - 100px);
+            }
+            
+            .message {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-header">
+        <button class="back-btn" onclick="window.location.href='kar-aval.html'">← بازگشت</button>
+        <div class="chat-title">💬 چت آنلاین</div>
+    </div>
+    
+    <div class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+            <div class="welcome-message">
+                به چت آنلاین کار آوال خوش آمدید! 👋
+            </div>
+        </div>
+        
+        <div class="typing-indicator" id="typing-indicator">
+            در حال تایپ...
+        </div>
+        
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" id="chat-input" placeholder="پیام خود را بنویسید..." />
+            <button class="send-btn" id="send-btn">📤</button>
+        </div>
+    </div>
+
+    <script>
+        // المنت‌ها
+        const messagesContainer = document.getElementById('chat-messages');
+        const input = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const typingIndicator = document.getElementById('typing-indicator');
+
+        // تولید شناسه کاربر
+        function getUserId() {
+            let userId = localStorage.getItem('chatUserId');
+            if (!userId) {
+                userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('chatUserId', userId);
+            }
+            return userId;
+        }
+
+        // کلید ذخیره
+        function getChatKey() {
+            return `chatMessages_${getUserId()}`;
+        }
+
+        // بارگذاری پیام‌ها
+        function loadMessages() {
+            const key = getChatKey();
+            return JSON.parse(localStorage.getItem(key)) || [];
+        }
+
+        // ذخیره پیام‌ها
+        function saveMessages(msgs) {
+            const key = getChatKey();
+            localStorage.setItem(key, JSON.stringify(msgs));
+            
+            // ذخیره در لیست پیام‌های ادمین
+            const adminMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+            const lastMessage = msgs[msgs.length - 1];
+            if (lastMessage && lastMessage.sender === 'user') {
+                adminMessages.push({
+                    userId: getUserId(),
+                    userName: `کاربر ${getUserId().substr(-6)}`,
+                    message: lastMessage.text,
+                    time: lastMessage.time,
+                    status: 'pending'
+                });
+                localStorage.setItem('adminMessages', JSON.stringify(adminMessages));
+            }
+        }
+
+        // نمایش پیام‌ها
+        function renderMessages() {
+            const msgs = loadMessages();
+            messagesContainer.innerHTML = '<div class="welcome-message">به چت آنلاین کار آوال خوش آمدید! 👋<br>پیام شما برای ادمین ارسال خواهد شد.</div>';
+            
+            msgs.forEach(msg => {
+                addMessageToUI(msg.text, msg.sender, msg.time);
+            });
+            
+            scrollToBottom();
+        }
+
+        // افزودن پیام به UI
+        function addMessageToUI(text, sender, time = Date.now()) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const timeStr = new Date(time).toLocaleTimeString('fa-IR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            messageDiv.innerHTML = `
+                ${text}
+                <div class="message-time">${timeStr}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // افزودن پیام
+        function addMessage(text, sender) {
+            const msgs = loadMessages();
+            const newMsg = { text, sender, time: Date.now() };
+            msgs.push(newMsg);
+            saveMessages(msgs);
+            addMessageToUI(text, sender, newMsg.time);
+        }
+
+        // اسکرول به پایین
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // ارسال پیام
+        function sendMessage() {
+            const text = input.value.trim();
+            if (!text) return;
+            
+            addMessage(text, 'user');
+            input.value = '';
+            sendBtn.disabled = true;
+            
+            // نمایش پیام انتظار فقط برای اولین پیام
+            const msgs = loadMessages();
+            if (msgs.filter(msg => msg.sender === 'user').length === 1) {
+                setTimeout(() => {
+                    addMessage('پیام شما دریافت شد. ادمین به زودی پاسخ خواهد داد.', 'waiting');
+                    sendBtn.disabled = false;
+                }, 1000);
+            } else {
+                sendBtn.disabled = false;
+            }
+        }
+
+        // بررسی پاسخ‌های ادمین
+        function checkAdminReplies() {
+            const adminMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+            const userId = getUserId();
+            
+            adminMessages.forEach(msg => {
+                if (msg.userId === userId && msg.status === 'replied' && !msg.displayed) {
+                    addMessage(msg.reply, 'admin');
+                    msg.displayed = true;
+                    localStorage.setItem('adminMessages', JSON.stringify(adminMessages));
+                }
+            });
+        }
+
+        // رویدادها
+        sendBtn.addEventListener('click', sendMessage);
+        
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        input.addEventListener('input', function() {
+            sendBtn.disabled = !this.value.trim();
+        });
+
+        // بارگذاری اولیه
+        renderMessages();
+        
+        // بررسی پاسخ‌های ادمین هر 3 ثانیه
+        setInterval(checkAdminReplies, 3000);
+        
+        // فوکوس روی ورودی
+        setTimeout(() => {
+            input.focus();
+        }, 500);
+    </script>
+</body>
+</html> 

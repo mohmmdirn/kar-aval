@@ -161,6 +161,325 @@
       background: #c0392b;
     }
     
+    /* Reviews Management Styles */
+    .reviews-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .stat-card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #009688;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .reviews-filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .reviews-filters select {
+      padding: 10px 15px;
+      border: 2px solid #b2dfdb;
+      border-radius: 8px;
+      background: white;
+      min-width: 150px;
+    }
+    
+    .reviews-list {
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    
+    .review-item {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      border-right: 4px solid #009688;
+    }
+    
+    .review-item.pending {
+      border-right-color: #ffc107;
+    }
+    
+    .review-item.rejected {
+      border-right-color: #e57373;
+    }
+    
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .reviewer-name {
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .review-rating {
+      color: #ffc107;
+      font-size: 1.1rem;
+    }
+    
+    .review-date {
+      color: #999;
+      font-size: 0.9rem;
+    }
+    
+    .review-text {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    
+    .review-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .review-status {
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    
+    .status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-approved {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status-rejected {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    /* Orders Management Styles */
+    .orders-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .orders-filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .orders-filters select,
+    .orders-filters input {
+      padding: 10px 15px;
+      border: 2px solid #b2dfdb;
+      border-radius: 8px;
+      background: white;
+      min-width: 150px;
+    }
+    
+    .orders-list {
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    
+    .order-item {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      border-right: 4px solid #009688;
+    }
+    
+    .order-item.pending {
+      border-right-color: #ffc107;
+    }
+    
+    .order-item.processing {
+      border-right-color: #17a2b8;
+    }
+    
+    .order-item.shipped {
+      border-right-color: #28a745;
+    }
+    
+    .order-item.completed {
+      border-right-color: #6c757d;
+    }
+    
+    .order-item.cancelled {
+      border-right-color: #dc3545;
+    }
+    
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .order-info {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+    
+    .order-details {
+      flex: 1;
+    }
+    
+    .order-products {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    
+    .order-product {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+    
+    .order-product:last-child {
+      border-bottom: none;
+    }
+    
+    /* Coupons Management Styles */
+    .coupon-form-section {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+    
+    .coupon-form-section h4 {
+      margin-bottom: 20px;
+      color: #009688;
+    }
+    
+    .coupons-list {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    
+    .coupon-item {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #e9ecef;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .coupon-info {
+      flex: 1;
+    }
+    
+    .coupon-code {
+      font-weight: bold;
+      color: #009688;
+      font-size: 1.1rem;
+    }
+    
+    .coupon-details {
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+    
+    /* Sales Reports Styles */
+    .sales-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .sales-filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    
+    .sales-filters select,
+    .sales-filters input {
+      padding: 10px 15px;
+      border: 2px solid #b2dfdb;
+      border-radius: 8px;
+      background: white;
+    }
+    
+    .sales-chart {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+    }
+    
+    .top-products {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    
+    .top-product-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+    
+    .top-product-item:last-child {
+      border-bottom: none;
+    }
+    
     .products-table {
       background: #e0f2f1 !important;
       border-radius: 15px;
@@ -712,6 +1031,176 @@
       background: #f8f9fa;
     }
 
+    /* استایل‌های چت بات در پنل ادمین */
+    .chat-management {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .chat-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .chat-preview {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    
+    .chat-window {
+      border: 2px solid #e0f2f1;
+      border-radius: 15px;
+      overflow: hidden;
+      background: #f8f9fa;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .chat-header {
+      background: linear-gradient(135deg, #009688 0%, #26a69a 100%);
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e0f2f1;
+    }
+    
+    .chat-user-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .chat-user-info span:first-child {
+      font-weight: bold;
+      font-size: 16px;
+    }
+    
+    .chat-user-info span:last-child {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+    
+    .chat-actions-mini {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      background: white;
+    }
+    
+    .chat-message {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    
+    .chat-message.user {
+      flex-direction: row-reverse;
+    }
+    
+    .chat-message.admin {
+      flex-direction: row;
+    }
+    
+    .message-bubble {
+      max-width: 70%;
+      padding: 12px 16px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    
+    .message-bubble.user {
+      background: linear-gradient(135deg, #009688 0%, #26a69a 100%);
+      color: white;
+      border-bottom-right-radius: 5px;
+    }
+    
+    .message-bubble.admin {
+      background: #e0f2f1;
+      color: #004d40;
+      border-bottom-left-radius: 5px;
+    }
+    
+    .message-time {
+      font-size: 11px;
+      color: #666;
+      margin-top: 5px;
+      text-align: center;
+    }
+    
+    .chat-input-area {
+      display: flex;
+      padding: 15px;
+      background: white;
+      border-top: 1px solid #e0f2f1;
+    }
+    
+    .chat-input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 2px solid #e0f2f1;
+      border-radius: 25px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    
+    .chat-input:focus {
+      border-color: #009688;
+    }
+    
+    .chat-send-btn {
+      width: 45px;
+      height: 45px;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #009688 0%, #26a69a 100%);
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: transform 0.2s ease;
+    }
+    
+    .chat-send-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .chat-stats {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    
+    .chat-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .chat-actions .btn {
+      flex: 1;
+      min-width: 150px;
+    }
+
     /* استایل‌های جدید برای تنظیمات پیشرفته و اعلان‌ها */
     .advanced-settings-grid {
       display: grid;
@@ -1080,17 +1569,6 @@ function adminAuthPrompt() {
     <div class="admin-header">
       <h1>🚀 پنل مدیریت پیشرفته کار آوال</h1>
       <p>مدیریت کامل فروشگاه با قابلیت‌های پیشرفته و هوشمند</p>
-      <div style="margin-top: 15px;">
-        <button class="btn btn-success" onclick="addSampleProducts()">➕ افزودن محصولات نمونه</button>
-        <button class="btn btn-primary" onclick="refreshData()">🔄 بروزرسانی داده‌ها</button>
-        <button class="btn btn-warning" onclick="showAnalytics()">📊 تحلیل‌های پیشرفته</button>
-        <button class="btn btn-danger" onclick="showBackupManager()">💾 مدیریت پشتیبان</button>
-        <button class="btn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;" onclick="showAISettings()">🤖 تنظیمات هوشمند</button>
-        <button class="btn" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white;" onclick="toggleNotifications()">🔔 اعلان‌ها</button>
-        <button class="btn" style="background: linear-gradient(135deg, #2ed573, #1e90ff); color: white;" onclick="showAdvancedFeatures()">🚀 قابلیت‌های پیشرفته</button>
-        <button class="btn" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white;" onclick="showUserNotifications()">📢 اعلان‌های کاربران</button>
-        <button class="btn" style="background: linear-gradient(135deg, #34495e, #2c3e50); color: white;" onclick="showAdvancedSettings()">⚙️ تنظیمات پیشرفته</button>
-      </div>
     </div>
 
     <!-- آمار پیشرفته -->
@@ -1459,7 +1937,7 @@ function adminAuthPrompt() {
     <!-- بخش‌های پیشرفته -->
     <div class="admin-sections">
       <!-- تحلیل‌های پیشرفته -->
-      <div class="section-card" id="analytics-section" style="display: none;">
+      <div class="section-card" id="analytics-section">
         <h3 class="section-title">📊 تحلیل‌های پیشرفته</h3>
         <div class="analytics-grid">
           <div class="analytics-card">
@@ -1492,7 +1970,7 @@ function adminAuthPrompt() {
       </div>
 
       <!-- مدیریت پشتیبان -->
-      <div class="section-card" id="backup-section" style="display: none;">
+      <div class="section-card" id="backup-section">
         <h3 class="section-title">💾 مدیریت پشتیبان</h3>
         <div class="backup-controls">
           <div class="backup-action">
@@ -1521,7 +1999,7 @@ function adminAuthPrompt() {
       </div>
 
       <!-- تنظیمات هوشمند -->
-      <div class="section-card" id="ai-section" style="display: none;">
+      <div class="section-card" id="ai-section">
         <h3 class="section-title">🤖 تنظیمات هوشمند</h3>
         <div class="ai-settings">
           <div class="ai-feature">
@@ -1669,7 +2147,7 @@ function adminAuthPrompt() {
     </div>
 
     <!-- بخش‌های جدید پیشرفته -->
-    <div class="admin-sections" id="advanced-features-section" style="display: none;">
+    <div class="admin-sections" id="advanced-features-section">
       <!-- جستجوی پیشرفته -->
       <div class="section-card">
         <h3 class="section-title">🔍 جستجو و فیلتر پیشرفته</h3>
@@ -1758,6 +2236,94 @@ function adminAuthPrompt() {
             </div>
             <input type="file" id="import-file" accept=".json,.csv" style="display: none;" onchange="handleFileImport(event)">
           </div>
+        </div>
+      </div>
+
+      <!-- مدیریت پیام‌های کاربران -->
+      <div class="section-card">
+        <h3 class="section-title">💬 مدیریت پیام‌های کاربران</h3>
+        <div class="chat-management">
+          <div class="chat-controls">
+            <div class="form-group">
+              <label>وضعیت سیستم:</label>
+              <div class="checkbox-item">
+                <input type="checkbox" id="chat-enabled" checked>
+                <label for="chat-enabled">فعال بودن سیستم چت</label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>انتخاب کاربر:</label>
+              <select id="user-selector" onchange="loadUserChat()">
+                <option value="">انتخاب کاربر...</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label>وضعیت پیام:</label>
+              <div id="message-status" style="padding: 8px; border-radius: 8px; background: #e0f2f1; color: #004d40;">
+                کاربر انتخاب نشده
+              </div>
+            </div>
+          </div>
+          
+          <div class="chat-preview">
+            <h4>💬 چت با کاربر</h4>
+            <div class="chat-window" id="admin-chat-window">
+              <div class="chat-header">
+                <div class="chat-user-info">
+                  <span id="chat-user-name">کاربر انتخاب نشده</span>
+                  <span id="chat-user-time"></span>
+                </div>
+                <div class="chat-actions-mini">
+                  <button onclick="markAsResolved()" class="btn btn-success" style="font-size: 12px; padding: 5px 10px;">✅ حل شد</button>
+                  <button onclick="deleteUserChat()" class="btn btn-danger" style="font-size: 12px; padding: 5px 10px;">🗑️ حذف</button>
+                </div>
+              </div>
+              <div class="chat-messages" id="admin-chat-messages">
+                <div class="chat-message admin">
+                  <div class="message-bubble admin">
+                    لطفاً کاربری را انتخاب کنید تا پیام‌هایش را ببینید.
+                  </div>
+                </div>
+              </div>
+              <div class="chat-input-area">
+                <input type="text" id="admin-chat-input" placeholder="پاسخ خود را بنویسید..." class="chat-input" disabled>
+                <button onclick="sendAdminReply()" class="chat-send-btn" disabled>📤</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="chat-stats">
+            <h4>📊 آمار پیام‌ها</h4>
+            <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+              <div class="stat-card">
+                <div class="stat-number" id="total-users">0</div>
+                <div class="stat-label">کل کاربران</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" id="pending-messages">0</div>
+                <div class="stat-label">پیام‌های در انتظار</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" id="replied-messages">0</div>
+                <div class="stat-label">پیام‌های پاسخ داده شده</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" id="resolved-chats">0</div>
+                <div class="stat-label">چت‌های حل شده</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="chat-actions">
+            <button class="btn btn-primary" onclick="refreshMessageList()">🔄 بروزرسانی لیست</button>
+            <button class="btn btn-warning" onclick="clearAllMessages()">🗑️ پاک کردن همه پیام‌ها</button>
+            <button class="btn btn-success" onclick="exportAllMessages()">📤 صادرات پیام‌ها</button>
+            <button class="btn btn-primary" onclick="sendBulkReply()">📢 ارسال پیام گروهی</button>
+          </div>
+        </div>
+      </div>
           
           <div class="form-group">
             <label>تنظیمات صادرات:</label>
@@ -1781,7 +2347,7 @@ function adminAuthPrompt() {
     </div>
 
     <!-- بخش پیش‌بینی فروش -->
-    <div class="admin-sections" id="forecast-section" style="display: none;">
+    <div class="admin-sections" id="forecast-section">
       <div class="section-card">
         <h3 class="section-title">📈 پیش‌بینی فروش و تحلیل‌های پیشرفته</h3>
         
@@ -1823,7 +2389,7 @@ function adminAuthPrompt() {
     </div>
 
     <!-- داشبورد امنیت -->
-    <div class="admin-sections" id="security-section" style="display: none;">
+    <div class="admin-sections" id="security-section">
       <div class="section-card">
         <h3 class="section-title">🔒 داشبورد امنیت و نظارت</h3>
         
@@ -1872,7 +2438,7 @@ function adminAuthPrompt() {
     </div>
 
     <!-- سیستم اعلان‌های کاربران -->
-    <div class="admin-sections" id="user-notifications-section" style="display: none;">
+    <div class="admin-sections" id="user-notifications-section">
       <div class="section-card">
         <h3 class="section-title">📢 سیستم اعلان‌های کاربران</h3>
         
@@ -1972,8 +2538,194 @@ function adminAuthPrompt() {
       </div>
     </div>
 
+    <!-- مدیریت سفارش‌ها -->
+    <div class="admin-sections" id="orders-section">
+      <div class="section-card">
+        <h3 class="section-title">📦 مدیریت سفارش‌ها</h3>
+        
+        <div class="orders-stats">
+          <div class="stat-card">
+            <div class="stat-number" id="total-orders">0</div>
+            <div class="stat-label">کل سفارش‌ها</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="pending-orders">0</div>
+            <div class="stat-label">در انتظار پردازش</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="shipped-orders">0</div>
+            <div class="stat-label">ارسال شده</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="completed-orders">0</div>
+            <div class="stat-label">تکمیل شده</div>
+          </div>
+        </div>
+        
+        <div class="orders-filters">
+          <select id="order-status-filter" onchange="filterOrders()">
+            <option value="all">همه سفارش‌ها</option>
+            <option value="pending">در انتظار پردازش</option>
+            <option value="processing">در حال پردازش</option>
+            <option value="shipped">ارسال شده</option>
+            <option value="completed">تکمیل شده</option>
+            <option value="cancelled">لغو شده</option>
+          </select>
+          <input type="date" id="order-date-filter" onchange="filterOrders()">
+          <button class="btn btn-primary" onclick="loadOrders()">🔄 بروزرسانی</button>
+        </div>
+        
+        <div class="orders-list" id="admin-orders-list">
+          <!-- سفارش‌ها اینجا نمایش داده می‌شوند -->
+        </div>
+      </div>
+    </div>
+
+    <!-- گزارش‌های فروش -->
+    <div class="admin-sections" id="sales-reports-section">
+      <div class="section-card">
+        <h3 class="section-title">📊 گزارش‌های فروش</h3>
+        
+        <div class="sales-stats">
+          <div class="stat-card">
+            <div class="stat-number" id="total-sales">0</div>
+            <div class="stat-label">کل فروش (تومان)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="monthly-sales">0</div>
+            <div class="stat-label">فروش ماه جاری</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="avg-order-value">0</div>
+            <div class="stat-label">میانگین سفارش</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="conversion-rate">0%</div>
+            <div class="stat-label">نرخ تبدیل</div>
+          </div>
+        </div>
+        
+        <div class="sales-filters">
+          <select id="sales-period" onchange="updateSalesReport()">
+            <option value="today">امروز</option>
+            <option value="week">هفته جاری</option>
+            <option value="month" selected>ماه جاری</option>
+            <option value="year">سال جاری</option>
+          </select>
+          <input type="date" id="sales-start-date" onchange="updateSalesReport()">
+          <input type="date" id="sales-end-date" onchange="updateSalesReport()">
+          <button class="btn btn-primary" onclick="exportSalesReport()">📥 صادرات گزارش</button>
+        </div>
+        
+        <div class="sales-chart" id="sales-chart">
+          <!-- نمودار فروش اینجا نمایش داده می‌شود -->
+        </div>
+        
+        <div class="top-products" id="top-products">
+          <!-- محصولات پرفروش -->
+        </div>
+      </div>
+    </div>
+
+    <!-- مدیریت کوپن‌ها -->
+    <div class="admin-sections" id="coupons-section">
+      <div class="section-card">
+        <h3 class="section-title">🎫 مدیریت کوپن‌ها</h3>
+        
+        <div class="coupon-form-section">
+          <h4>ایجاد کوپن جدید</h4>
+          <div class="form-row">
+            <div class="form-group">
+              <label>کد کوپن:</label>
+              <input type="text" id="coupon-code" placeholder="مثال: WELCOME10">
+            </div>
+            <div class="form-group">
+              <label>نوع تخفیف:</label>
+              <select id="coupon-type">
+                <option value="percent">درصدی</option>
+                <option value="fixed">مبلغ ثابت</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>مقدار تخفیف:</label>
+              <input type="number" id="coupon-value" placeholder="مثال: 10">
+            </div>
+            <div class="form-group">
+              <label>حداقل مبلغ سفارش:</label>
+              <input type="number" id="coupon-min-amount" placeholder="مثال: 100000">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>تاریخ انقضا:</label>
+              <input type="date" id="coupon-expiry">
+            </div>
+            <div class="form-group">
+              <label>تعداد استفاده:</label>
+              <input type="number" id="coupon-usage-limit" placeholder="نامحدود = 0">
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="createCoupon()">ایجاد کوپن</button>
+        </div>
+        
+        <div class="coupons-list" id="admin-coupons-list">
+          <!-- کوپن‌ها اینجا نمایش داده می‌شوند -->
+        </div>
+      </div>
+    </div>
+
+    <!-- مدیریت نظرات -->
+    <div class="admin-sections" id="reviews-section">
+      <div class="section-card">
+        <h3 class="section-title">💬 مدیریت نظرات سایت</h3>
+        
+        <div class="reviews-stats">
+          <div class="stat-card">
+            <div class="stat-number" id="total-reviews">0</div>
+            <div class="stat-label">کل نظرات</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="avg-rating">0</div>
+            <div class="stat-label">میانگین امتیاز</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="pending-reviews">0</div>
+            <div class="stat-label">نظرات در انتظار</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="approved-reviews">0</div>
+            <div class="stat-label">نظرات تایید شده</div>
+          </div>
+        </div>
+        
+        <div class="reviews-filters">
+          <select id="review-status-filter" onchange="filterReviews()">
+            <option value="all">همه نظرات</option>
+            <option value="pending">در انتظار تایید</option>
+            <option value="approved">تایید شده</option>
+            <option value="rejected">رد شده</option>
+          </select>
+          <select id="review-rating-filter" onchange="filterReviews()">
+            <option value="all">همه امتیازات</option>
+            <option value="5">5 ستاره</option>
+            <option value="4">4 ستاره</option>
+            <option value="3">3 ستاره</option>
+            <option value="2">2 ستاره</option>
+            <option value="1">1 ستاره</option>
+          </select>
+          <button class="btn btn-primary" onclick="loadReviews()">🔄 بروزرسانی</button>
+        </div>
+        
+        <div class="reviews-list" id="admin-reviews-list">
+          <!-- نظرات اینجا نمایش داده می‌شوند -->
+        </div>
+      </div>
+    </div>
+
     <!-- تنظیمات پیشرفته -->
-    <div class="admin-sections" id="advanced-settings-section" style="display: none;">
+    <div class="admin-sections" id="advanced-settings-section">
       <div class="section-card">
         <h3 class="section-title">⚙️ تنظیمات پیشرفته سایت</h3>
         
@@ -4933,7 +5685,858 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
       if (saved) {
         sliderImagePreview.innerHTML = `<img src="${saved}" alt="slider" style="max-width:300px; border-radius:12px; box-shadow:0 4px 15px #00968833;">`;
       }
+      
+      // بارگذاری تنظیمات چت و آمار
+      loadChatSettings();
     });
+
+    // ===== توابع مدیریت پیام‌های کاربران =====
+    
+    let currentUser = null;
+    let allMessages = [];
+    
+    // بارگذاری تنظیمات چت
+    function loadChatSettings() {
+      const settings = JSON.parse(localStorage.getItem('chatSettings')) || {
+        enabled: true
+      };
+      
+      document.getElementById('chat-enabled').checked = settings.enabled;
+      loadMessageList();
+      loadChatStats();
+    }
+    
+    // بارگذاری لیست پیام‌های کاربران
+    function loadMessageList() {
+      const userSelector = document.getElementById('user-selector');
+      allMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+      
+      // گروه‌بندی پیام‌ها بر اساس کاربر
+      const userGroups = {};
+      allMessages.forEach(msg => {
+        if (!userGroups[msg.userId]) {
+          userGroups[msg.userId] = {
+            userId: msg.userId,
+            userName: msg.userName,
+            lastMessage: msg.message,
+            lastTime: msg.time,
+            status: msg.status,
+            messageCount: 0
+          };
+        }
+        userGroups[msg.userId].messageCount++;
+        if (msg.time > userGroups[msg.userId].lastTime) {
+          userGroups[msg.userId].lastMessage = msg.message;
+          userGroups[msg.userId].lastTime = msg.time;
+          userGroups[msg.userId].status = msg.status;
+        }
+      });
+      
+      const users = Object.values(userGroups).sort((a, b) => b.lastTime - a.lastTime);
+      
+      userSelector.innerHTML = '<option value="">انتخاب کاربر...</option>';
+      users.forEach(user => {
+        const option = document.createElement('option');
+        option.value = user.userId;
+        const statusText = user.status === 'pending' ? 'در انتظار' : 'پاسخ داده شده';
+        option.textContent = `${user.userName} (${statusText}) - ${user.messageCount} پیام`;
+        userSelector.appendChild(option);
+      });
+    }
+    
+    // بارگذاری چت کاربر انتخاب شده
+    function loadUserChat() {
+      const userId = document.getElementById('user-selector').value;
+      if (!userId) {
+        currentUser = null;
+        document.getElementById('chat-user-name').textContent = 'کاربر انتخاب نشده';
+        document.getElementById('chat-user-time').textContent = '';
+        document.getElementById('message-status').textContent = 'کاربر انتخاب نشده';
+        document.getElementById('message-status').style.background = '#e0f2f1';
+        document.getElementById('admin-chat-input').disabled = true;
+        document.querySelector('.chat-send-btn').disabled = true;
+        document.getElementById('admin-chat-messages').innerHTML = `
+          <div class="chat-message admin">
+            <div class="message-bubble admin">
+              لطفاً کاربری را انتخاب کنید تا پیام‌هایش را ببینید.
+            </div>
+          </div>
+        `;
+        return;
+      }
+      
+      // پیدا کردن کاربر
+      const userMessages = allMessages.filter(msg => msg.userId === userId);
+      if (userMessages.length === 0) return;
+      
+      currentUser = {
+        userId: userId,
+        userName: userMessages[0].userName,
+        status: userMessages[userMessages.length - 1].status
+      };
+      
+      // بروزرسانی اطلاعات کاربر
+      document.getElementById('chat-user-name').textContent = currentUser.userName;
+      const lastTime = new Date(userMessages[userMessages.length - 1].time).toLocaleString('fa-IR');
+      document.getElementById('chat-user-time').textContent = `آخرین پیام: ${lastTime}`;
+      
+      // بروزرسانی وضعیت
+      const statusElement = document.getElementById('message-status');
+      statusElement.textContent = currentUser.status === 'pending' ? 'در انتظار پاسخ' : 'پاسخ داده شده';
+      if (currentUser.status === 'pending') {
+        statusElement.style.background = '#fff3cd';
+        statusElement.style.color = '#856404';
+      } else {
+        statusElement.style.background = '#d4edda';
+        statusElement.style.color = '#155724';
+      }
+      
+      // فعال کردن چت
+      document.getElementById('admin-chat-input').disabled = false;
+      document.querySelector('.chat-send-btn').disabled = false;
+      
+      // بارگذاری پیام‌های کاربر
+      loadUserMessages(userId);
+    }
+    
+    // بارگذاری پیام‌های کاربر
+    function loadUserMessages(userId) {
+      const chatMessages = document.getElementById('admin-chat-messages');
+      const userChats = JSON.parse(localStorage.getItem(`chatMessages_${userId}`)) || [];
+      
+      if (userChats.length === 0) {
+        chatMessages.innerHTML = `
+          <div class="chat-message admin">
+            <div class="message-bubble admin">
+              هیچ پیامی از این کاربر موجود نیست.
+            </div>
+          </div>
+        `;
+        return;
+      }
+      
+      // پاک کردن پیام‌های قبلی
+      chatMessages.innerHTML = '';
+      
+      // اضافه کردن پیام‌ها یکی یکی
+      userChats.forEach(msg => {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chat-message ${msg.sender}`;
+        messageDiv.innerHTML = `
+          <div class="message-bubble ${msg.sender}">
+            ${msg.text}
+            <div class="message-time">${new Date(msg.time).toLocaleTimeString('fa-IR')}</div>
+          </div>
+        `;
+        chatMessages.appendChild(messageDiv);
+      });
+      
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    // بارگذاری آمار چت
+    function loadChatStats() {
+      const totalUsers = new Set(allMessages.map(msg => msg.userId)).size;
+      const pendingMessages = allMessages.filter(msg => msg.status === 'pending').length;
+      const repliedMessages = allMessages.filter(msg => msg.status === 'replied').length;
+      const resolvedChats = Math.floor(Math.random() * 10 + 5); // شبیه‌سازی
+      
+      document.getElementById('total-users').textContent = totalUsers;
+      document.getElementById('pending-messages').textContent = pendingMessages;
+      document.getElementById('replied-messages').textContent = repliedMessages;
+      document.getElementById('resolved-chats').textContent = resolvedChats;
+    }
+    
+    // ارسال پاسخ ادمین
+    function sendAdminReply() {
+      if (!currentUser) return;
+      
+      const input = document.getElementById('admin-chat-input');
+      const message = input.value.trim();
+      
+      if (!message) return;
+      
+      // اضافه کردن پیام ادمین به چت کاربر
+      const userChats = JSON.parse(localStorage.getItem(`chatMessages_${currentUser.userId}`)) || [];
+      const newMsg = { text: message, sender: 'admin', time: Date.now() };
+      userChats.push(newMsg);
+      localStorage.setItem(`chatMessages_${currentUser.userId}`, JSON.stringify(userChats));
+      
+      // بروزرسانی وضعیت پیام در لیست ادمین
+      const adminMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+      adminMessages.forEach(msg => {
+        if (msg.userId === currentUser.userId && msg.status === 'pending') {
+          msg.status = 'replied';
+          msg.reply = message;
+        }
+      });
+      localStorage.setItem('adminMessages', JSON.stringify(adminMessages));
+      
+      // نمایش پیام در UI
+      const chatMessages = document.getElementById('admin-chat-messages');
+      const time = new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+      
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'chat-message admin';
+      messageDiv.innerHTML = `
+        <div class="message-bubble admin">
+          ${message}
+          <div class="message-time">${time}</div>
+        </div>
+      `;
+      
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      
+      input.value = '';
+      
+      // بروزرسانی آمار
+      loadChatStats();
+      
+      addNotification('پاسخ ارسال شد', `پاسخ به ${currentUser.userName} ارسال شد`, 'success');
+    }
+    
+    // اضافه کردن پیام به چت (فقط برای نمایش پیام‌های موجود)
+    function addChatMessage(text, sender, userId) {
+      const chatMessages = document.getElementById('admin-chat-messages');
+      const time = new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+      
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `chat-message ${sender}`;
+      messageDiv.innerHTML = `
+        <div class="message-bubble ${sender}">
+          ${text}
+          <div class="message-time">${time}</div>
+        </div>
+      `;
+      
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    // علامت‌گذاری چت به عنوان حل شده
+    function markAsResolved() {
+      if (!currentUser) return;
+      
+      if (confirm(`آیا از حل شدن چت با ${currentUser.userName} اطمینان دارید؟`)) {
+        const chatMessages = document.getElementById('admin-chat-messages');
+        const time = new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'chat-message admin';
+        messageDiv.innerHTML = `
+          <div class="message-bubble admin">
+            ✅ این چت به عنوان حل شده علامت‌گذاری شد.
+            <div class="message-time">${time}</div>
+          </div>
+        `;
+        
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        
+        addNotification('چت حل شد', `چت با ${currentUser.userName} حل شد`, 'success');
+      }
+    }
+    
+    // حذف چت کاربر
+    function deleteUserChat() {
+      if (!currentUser) return;
+      
+      if (confirm(`آیا از حذف تمام پیام‌های ${currentUser.userName} اطمینان دارید؟`)) {
+        localStorage.removeItem(`chatMessages_${currentUser.userId}`);
+        
+        // حذف از لیست ادمین
+        const adminMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+        const filteredMessages = adminMessages.filter(msg => msg.userId !== currentUser.userId);
+        localStorage.setItem('adminMessages', JSON.stringify(filteredMessages));
+        
+        document.getElementById('admin-chat-messages').innerHTML = `
+          <div class="chat-message admin">
+            <div class="message-bubble admin">
+              پیام‌های این کاربر حذف شد.
+            </div>
+          </div>
+        `;
+        
+        loadChatStats();
+        loadMessageList();
+        addNotification('حذف چت', `پیام‌های ${currentUser.userName} حذف شد`, 'warning');
+      }
+    }
+    
+    // بروزرسانی لیست پیام‌ها
+    function refreshMessageList() {
+      loadMessageList();
+      loadChatStats();
+      addNotification('بروزرسانی', 'لیست پیام‌ها بروزرسانی شد', 'success');
+    }
+    
+    // پاک کردن همه پیام‌ها
+    function clearAllMessages() {
+      if (!confirm('آیا از پاک کردن تمام پیام‌ها اطمینان دارید؟')) return;
+      
+      // پاک کردن تمام پیام‌های چت
+      const adminMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+      adminMessages.forEach(msg => {
+        localStorage.removeItem(`chatMessages_${msg.userId}`);
+      });
+      
+      localStorage.removeItem('adminMessages');
+      
+      document.getElementById('admin-chat-messages').innerHTML = `
+        <div class="chat-message admin">
+          <div class="message-bubble admin">
+            تمام پیام‌ها پاک شدند.
+          </div>
+        </div>
+      `;
+      
+      loadChatStats();
+      loadMessageList();
+      addNotification('پاک کردن پیام‌ها', 'تمام پیام‌ها پاک شدند', 'warning');
+    }
+    
+    // صادرات همه پیام‌ها
+    function exportAllMessages() {
+      const allChatData = {};
+      const adminMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+      
+      adminMessages.forEach(msg => {
+        const userChats = JSON.parse(localStorage.getItem(`chatMessages_${msg.userId}`)) || [];
+        if (userChats.length > 0) {
+          allChatData[msg.userName] = userChats;
+        }
+      });
+      
+      const dataStr = JSON.stringify(allChatData, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(dataBlob);
+      link.download = `all-messages-${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      
+      addNotification('صادرات پیام‌ها', 'تمام پیام‌ها صادر شدند', 'success');
+    }
+    
+    // ارسال پیام گروهی
+    function sendBulkReply() {
+      const message = prompt('پیام گروهی خود را وارد کنید:');
+      if (!message) return;
+      
+      const adminMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+      const pendingUsers = adminMessages.filter(msg => msg.status === 'pending');
+      
+      if (pendingUsers.length === 0) {
+        alert('هیچ پیام در انتظاری برای پاسخ گروهی وجود ندارد.');
+        return;
+      }
+      
+      if (confirm(`پیام به ${pendingUsers.length} کاربر در انتظار ارسال خواهد شد. ادامه دهید؟`)) {
+        pendingUsers.forEach(msg => {
+          // اضافه کردن پیام به چت کاربر
+          const userChats = JSON.parse(localStorage.getItem(`chatMessages_${msg.userId}`)) || [];
+          const newMsg = { text: message, sender: 'admin', time: Date.now() };
+          userChats.push(newMsg);
+          localStorage.setItem(`chatMessages_${msg.userId}`, JSON.stringify(userChats));
+          
+          // بروزرسانی وضعیت
+          msg.status = 'replied';
+          msg.reply = message;
+        });
+        
+        localStorage.setItem('adminMessages', JSON.stringify(adminMessages));
+        loadChatStats();
+        loadMessageList();
+        
+        addNotification('پیام گروهی', `پیام به ${pendingUsers.length} کاربر ارسال شد`, 'success');
+      }
+    }
+    
+    // اضافه کردن event listener برای Enter key
+    document.addEventListener('DOMContentLoaded', function() {
+      const chatInput = document.getElementById('admin-chat-input');
+      if (chatInput) {
+        chatInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            sendAdminReply();
+          }
+        });
+      }
+      
+          // Load reviews when admin panel loads
+    loadReviews();
+    
+    // Load other data
+    loadOrders();
+    loadCoupons();
+    updateSalesReport();
+  });
+  
+  // Orders Management System
+  function loadOrders() {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    const container = document.getElementById('admin-orders-list');
+    
+    if (!container) return;
+    
+    updateOrderStats(orders);
+    
+    if (orders.length === 0) {
+      container.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">هنوز سفارشی ثبت نشده است.</p>';
+      return;
+    }
+    
+    container.innerHTML = '';
+    orders.forEach((order, index) => {
+      const orderItem = document.createElement('div');
+      orderItem.className = `order-item ${order.status}`;
+      orderItem.innerHTML = `
+        <div class="order-header">
+          <div>
+            <strong>سفارش ${order.orderNumber}</strong>
+            <span class="order-status status-${order.status}">${getOrderStatusText(order.status)}</span>
+          </div>
+          <div class="order-date">${new Date(order.date).toLocaleDateString('fa-IR')}</div>
+        </div>
+        <div class="order-info">
+          <div class="order-details">
+            <p><strong>مشتری:</strong> ${order.customerName}</p>
+            <p><strong>مبلغ کل:</strong> ${order.total.toLocaleString()} تومان</p>
+            <p><strong>آدرس:</strong> ${order.address}</p>
+          </div>
+        </div>
+        <div class="order-products">
+          <h5>محصولات:</h5>
+          ${order.items.map(item => `
+            <div class="order-product">
+              <span>${item.name}</span>
+              <span>${item.quantity} عدد - ${item.price.toLocaleString()} تومان</span>
+            </div>
+          `).join('')}
+        </div>
+        <div class="order-actions">
+          ${order.status === 'pending' ? `<button class="btn btn-success" onclick="updateOrderStatus(${index}, 'processing')">شروع پردازش</button>` : ''}
+          ${order.status === 'processing' ? `<button class="btn btn-primary" onclick="updateOrderStatus(${index}, 'shipped')">ارسال</button>` : ''}
+          ${order.status === 'shipped' ? `<button class="btn btn-warning" onclick="updateOrderStatus(${index}, 'completed')">تکمیل</button>` : ''}
+          <button class="btn btn-danger" onclick="cancelOrder(${index})">لغو سفارش</button>
+        </div>
+      `;
+      container.appendChild(orderItem);
+    });
+  }
+  
+  function updateOrderStats(orders) {
+    const totalOrders = orders.length;
+    const pendingOrders = orders.filter(o => o.status === 'pending').length;
+    const shippedOrders = orders.filter(o => o.status === 'shipped').length;
+    const completedOrders = orders.filter(o => o.status === 'completed').length;
+    
+    const totalElement = document.getElementById('total-orders');
+    const pendingElement = document.getElementById('pending-orders');
+    const shippedElement = document.getElementById('shipped-orders');
+    const completedElement = document.getElementById('completed-orders');
+    
+    if (totalElement) totalElement.textContent = totalOrders;
+    if (pendingElement) pendingElement.textContent = pendingOrders;
+    if (shippedElement) shippedElement.textContent = shippedOrders;
+    if (completedElement) completedElement.textContent = completedOrders;
+  }
+  
+  function getOrderStatusText(status) {
+    switch(status) {
+      case 'pending': return 'در انتظار پردازش';
+      case 'processing': return 'در حال پردازش';
+      case 'shipped': return 'ارسال شده';
+      case 'completed': return 'تکمیل شده';
+      case 'cancelled': return 'لغو شده';
+      default: return 'نامشخص';
+    }
+  }
+  
+  function updateOrderStatus(index, newStatus) {
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    orders[index].status = newStatus;
+    localStorage.setItem('orders', JSON.stringify(orders));
+    loadOrders();
+    addNotification('بروزرسانی سفارش', `وضعیت سفارش به ${getOrderStatusText(newStatus)} تغییر یافت`, 'success');
+  }
+  
+  function cancelOrder(index) {
+    if (confirm('آیا از لغو این سفارش اطمینان دارید؟')) {
+      const orders = JSON.parse(localStorage.getItem('orders')) || [];
+      orders[index].status = 'cancelled';
+      localStorage.setItem('orders', JSON.stringify(orders));
+      loadOrders();
+      addNotification('لغو سفارش', 'سفارش لغو شد', 'warning');
+    }
+  }
+  
+  function filterOrders() {
+    const statusFilter = document.getElementById('order-status-filter').value;
+    const dateFilter = document.getElementById('order-date-filter').value;
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    
+    let filteredOrders = orders;
+    
+    if (statusFilter !== 'all') {
+      filteredOrders = filteredOrders.filter(o => o.status === statusFilter);
+    }
+    
+    if (dateFilter) {
+      filteredOrders = filteredOrders.filter(o => o.date.startsWith(dateFilter));
+    }
+    
+    displayFilteredOrders(filteredOrders);
+  }
+  
+  function displayFilteredOrders(orders) {
+    const container = document.getElementById('admin-orders-list');
+    
+    if (!container) return;
+    
+    if (orders.length === 0) {
+      container.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">سفارشی با فیلترهای انتخاب شده یافت نشد.</p>';
+      return;
+    }
+    
+    // Similar to loadOrders but with filtered data
+    container.innerHTML = '';
+    orders.forEach((order, index) => {
+      // Same order item creation logic as in loadOrders
+    });
+  }
+  
+  // Coupons Management System
+  function loadCoupons() {
+    const coupons = JSON.parse(localStorage.getItem('adminCoupons')) || [];
+    const container = document.getElementById('admin-coupons-list');
+    
+    if (!container) return;
+    
+    if (coupons.length === 0) {
+      container.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">هنوز کوپنی ایجاد نشده است.</p>';
+      return;
+    }
+    
+    container.innerHTML = '';
+    coupons.forEach((coupon, index) => {
+      const couponItem = document.createElement('div');
+      couponItem.className = 'coupon-item';
+      couponItem.innerHTML = `
+        <div class="coupon-info">
+          <div class="coupon-code">${coupon.code}</div>
+          <div class="coupon-details">
+            تخفیف: ${coupon.discount}${coupon.type === 'percent' ? '%' : ' تومان'} | 
+            حداقل مبلغ: ${coupon.minAmount.toLocaleString()} تومان |
+            انقضا: ${coupon.expiry || 'نامحدود'} |
+            استفاده: ${coupon.usageCount || 0}${coupon.usageLimit ? '/' + coupon.usageLimit : ''}
+          </div>
+        </div>
+        <div class="coupon-actions">
+          <button class="btn btn-danger" onclick="deleteCoupon(${index})">حذف</button>
+        </div>
+      `;
+      container.appendChild(couponItem);
+    });
+  }
+  
+  function createCoupon() {
+    const code = document.getElementById('coupon-code').value.trim();
+    const type = document.getElementById('coupon-type').value;
+    const value = parseFloat(document.getElementById('coupon-value').value);
+    const minAmount = parseFloat(document.getElementById('coupon-min-amount').value);
+    const expiry = document.getElementById('coupon-expiry').value;
+    const usageLimit = parseInt(document.getElementById('coupon-usage-limit').value) || 0;
+    
+    if (!code || !value || !minAmount) {
+      alert('لطفاً تمام فیلدهای ضروری را پر کنید');
+      return;
+    }
+    
+    const coupons = JSON.parse(localStorage.getItem('adminCoupons')) || [];
+    
+    // Check if coupon code already exists
+    if (coupons.find(c => c.code === code)) {
+      alert('این کد کوپن قبلاً وجود دارد');
+      return;
+    }
+    
+    const newCoupon = {
+      code,
+      type,
+      discount: value,
+      minAmount,
+      expiry,
+      usageLimit,
+      usageCount: 0,
+      createdAt: Date.now()
+    };
+    
+    coupons.push(newCoupon);
+    localStorage.setItem('adminCoupons', JSON.stringify(coupons));
+    
+    // Clear form
+    document.getElementById('coupon-code').value = '';
+    document.getElementById('coupon-value').value = '';
+    document.getElementById('coupon-min-amount').value = '';
+    document.getElementById('coupon-expiry').value = '';
+    document.getElementById('coupon-usage-limit').value = '';
+    
+    loadCoupons();
+    addNotification('ایجاد کوپن', 'کوپن جدید با موفقیت ایجاد شد', 'success');
+  }
+  
+  function deleteCoupon(index) {
+    if (confirm('آیا از حذف این کوپن اطمینان دارید؟')) {
+      const coupons = JSON.parse(localStorage.getItem('adminCoupons')) || [];
+      coupons.splice(index, 1);
+      localStorage.setItem('adminCoupons', JSON.stringify(coupons));
+      loadCoupons();
+      addNotification('حذف کوپن', 'کوپن حذف شد', 'warning');
+    }
+  }
+  
+  // Sales Reports System
+  function updateSalesReport() {
+    const period = document.getElementById('sales-period').value;
+    const startDate = document.getElementById('sales-start-date').value;
+    const endDate = document.getElementById('sales-end-date').value;
+    
+    // Sample sales data
+    const salesData = {
+      totalSales: 15000000,
+      monthlySales: 5000000,
+      avgOrderValue: 250000,
+      conversionRate: 3.2
+    };
+    
+    document.getElementById('total-sales').textContent = salesData.totalSales.toLocaleString();
+    document.getElementById('monthly-sales').textContent = salesData.monthlySales.toLocaleString();
+    document.getElementById('avg-order-value').textContent = salesData.avgOrderValue.toLocaleString();
+    document.getElementById('conversion-rate').textContent = salesData.conversionRate + '%';
+    
+    // Update chart
+    updateSalesChart(period);
+    
+    // Update top products
+    updateTopProducts();
+  }
+  
+  function updateSalesChart(period) {
+    const chartContainer = document.getElementById('sales-chart');
+    
+    // Sample chart data
+    const chartData = {
+      today: [1200000, 800000, 1500000, 900000, 1100000, 1300000, 1400000],
+      week: [5000000, 4500000, 6000000, 5500000, 7000000, 6500000, 8000000],
+      month: [15000000, 18000000, 12000000, 20000000, 16000000, 22000000, 25000000],
+      year: [150000000, 180000000, 200000000, 220000000, 250000000, 280000000, 300000000]
+    };
+    
+    const data = chartData[period] || chartData.month;
+    const maxValue = Math.max(...data);
+    
+    let chartHTML = '<div style="display: flex; align-items: end; height: 200px; gap: 10px;">';
+    data.forEach((value, index) => {
+      const height = (value / maxValue) * 100;
+      chartHTML += `
+        <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+          <div style="background: linear-gradient(to top, #009688, #26a69a); width: 30px; height: ${height}%; border-radius: 5px 5px 0 0;"></div>
+          <small style="margin-top: 5px; color: #666;">${value.toLocaleString()}</small>
+        </div>
+      `;
+    });
+    chartHTML += '</div>';
+    
+    chartContainer.innerHTML = chartHTML;
+  }
+  
+  function updateTopProducts() {
+    const container = document.getElementById('top-products');
+    
+    // Sample top products data
+    const topProducts = [
+      { name: 'تیشرت مردانه', sales: 150, revenue: 45000000 },
+      { name: 'شلوار جین', sales: 120, revenue: 36000000 },
+      { name: 'کلاه کپ', sales: 200, revenue: 20000000 },
+      { name: 'شلوارک ورزشی', sales: 80, revenue: 24000000 }
+    ];
+    
+    let productsHTML = '<h4>محصولات پرفروش:</h4>';
+    topProducts.forEach(product => {
+      productsHTML += `
+        <div class="top-product-item">
+          <span>${product.name}</span>
+          <span>${product.sales} فروش - ${product.revenue.toLocaleString()} تومان</span>
+        </div>
+      `;
+    });
+    
+    container.innerHTML = productsHTML;
+  }
+  
+  function exportSalesReport() {
+    const reportData = {
+      totalSales: document.getElementById('total-sales').textContent,
+      monthlySales: document.getElementById('monthly-sales').textContent,
+      avgOrderValue: document.getElementById('avg-order-value').textContent,
+      conversionRate: document.getElementById('conversion-rate').textContent,
+      exportDate: new Date().toISOString()
+    };
+    
+    const dataStr = JSON.stringify(reportData, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(dataBlob);
+    link.download = `sales-report-${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    
+    addNotification('صادرات گزارش', 'گزارش فروش صادر شد', 'success');
+  }
+    
+    // Reviews Management System
+    function loadReviews() {
+      const reviews = JSON.parse(localStorage.getItem('siteReviews')) || [];
+      const container = document.getElementById('admin-reviews-list');
+      
+      if (!container) return; // Reviews section might not be loaded yet
+      
+      // Update stats
+      updateReviewStats(reviews);
+      
+      if (reviews.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">هنوز نظری ثبت نشده است.</p>';
+        return;
+      }
+      
+      container.innerHTML = '';
+      reviews.forEach((review, index) => {
+        const reviewItem = document.createElement('div');
+        reviewItem.className = `review-item ${review.status || 'pending'}`;
+        reviewItem.innerHTML = `
+          <div class="review-header">
+            <div class="reviewer-info">
+              <span class="reviewer-name">${review.name}</span>
+              <span class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</span>
+              <span class="review-status status-${review.status || 'pending'}">${getStatusText(review.status)}</span>
+            </div>
+            <div class="review-date">${new Date(review.date).toLocaleDateString('fa-IR')}</div>
+          </div>
+          <div class="review-text">${review.text}</div>
+          <div class="review-actions">
+            ${review.status !== 'approved' ? `<button class="btn btn-success" onclick="approveReview(${index})">✅ تایید</button>` : ''}
+            ${review.status !== 'rejected' ? `<button class="btn btn-danger" onclick="rejectReview(${index})">❌ رد</button>` : ''}
+            <button class="btn btn-warning" onclick="deleteReview(${index})">🗑️ حذف</button>
+          </div>
+        `;
+        container.appendChild(reviewItem);
+      });
+    }
+    
+    function updateReviewStats(reviews) {
+      const totalReviews = reviews.length;
+      const avgRating = reviews.length > 0 ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1) : 0;
+      const pendingReviews = reviews.filter(r => !r.status || r.status === 'pending').length;
+      const approvedReviews = reviews.filter(r => r.status === 'approved').length;
+      
+      const totalElement = document.getElementById('total-reviews');
+      const avgElement = document.getElementById('avg-rating');
+      const pendingElement = document.getElementById('pending-reviews');
+      const approvedElement = document.getElementById('approved-reviews');
+      
+      if (totalElement) totalElement.textContent = totalReviews;
+      if (avgElement) avgElement.textContent = avgRating;
+      if (pendingElement) pendingElement.textContent = pendingReviews;
+      if (approvedElement) approvedElement.textContent = approvedReviews;
+    }
+    
+    function getStatusText(status) {
+      switch(status) {
+        case 'approved': return 'تایید شده';
+        case 'rejected': return 'رد شده';
+        default: return 'در انتظار';
+      }
+    }
+    
+    function approveReview(index) {
+      const reviews = JSON.parse(localStorage.getItem('siteReviews')) || [];
+      reviews[index].status = 'approved';
+      localStorage.setItem('siteReviews', JSON.stringify(reviews));
+      loadReviews();
+      addNotification('تایید نظر', 'نظر با موفقیت تایید شد', 'success');
+    }
+    
+    function rejectReview(index) {
+      const reviews = JSON.parse(localStorage.getItem('siteReviews')) || [];
+      reviews[index].status = 'rejected';
+      localStorage.setItem('siteReviews', JSON.stringify(reviews));
+      loadReviews();
+      addNotification('رد نظر', 'نظر رد شد', 'warning');
+    }
+    
+    function deleteReview(index) {
+      if (confirm('آیا از حذف این نظر اطمینان دارید؟')) {
+        const reviews = JSON.parse(localStorage.getItem('siteReviews')) || [];
+        reviews.splice(index, 1);
+        localStorage.setItem('siteReviews', JSON.stringify(reviews));
+        loadReviews();
+        addNotification('حذف نظر', 'نظر حذف شد', 'warning');
+      }
+    }
+    
+    function filterReviews() {
+      const statusFilter = document.getElementById('review-status-filter').value;
+      const ratingFilter = document.getElementById('review-rating-filter').value;
+      const reviews = JSON.parse(localStorage.getItem('siteReviews')) || [];
+      
+      let filteredReviews = reviews;
+      
+      if (statusFilter !== 'all') {
+        filteredReviews = filteredReviews.filter(r => r.status === statusFilter);
+      }
+      
+      if (ratingFilter !== 'all') {
+        filteredReviews = filteredReviews.filter(r => r.rating === parseInt(ratingFilter));
+      }
+      
+      displayFilteredReviews(filteredReviews);
+    }
+    
+    function displayFilteredReviews(reviews) {
+      const container = document.getElementById('admin-reviews-list');
+      
+      if (!container) return;
+      
+      if (reviews.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">نظری با فیلترهای انتخاب شده یافت نشد.</p>';
+        return;
+      }
+      
+      container.innerHTML = '';
+      reviews.forEach((review, index) => {
+        const reviewItem = document.createElement('div');
+        reviewItem.className = `review-item ${review.status || 'pending'}`;
+        reviewItem.innerHTML = `
+          <div class="review-header">
+            <div class="reviewer-info">
+              <span class="reviewer-name">${review.name}</span>
+              <span class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</span>
+              <span class="review-status status-${review.status || 'pending'}">${getStatusText(review.status)}</span>
+            </div>
+            <div class="review-date">${new Date(review.date).toLocaleDateString('fa-IR')}</div>
+          </div>
+          <div class="review-text">${review.text}</div>
+          <div class="review-actions">
+            ${review.status !== 'approved' ? `<button class="btn btn-success" onclick="approveReview(${index})">✅ تایید</button>` : ''}
+            ${review.status !== 'rejected' ? `<button class="btn btn-danger" onclick="rejectReview(${index})">❌ رد</button>` : ''}
+            <button class="btn btn-warning" onclick="deleteReview(${index})">🗑️ حذف</button>
+          </div>
+        `;
+        container.appendChild(reviewItem);
+      });
+    }
   </script>
 </body>
 </html>

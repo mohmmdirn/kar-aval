@@ -11,9 +11,21 @@
       box-sizing: border-box;
     }
     
+    :root {
+      --main-bg: linear-gradient(135deg, #b2dfdb 0%, #009688 100%);
+      --header-bg: #e0f2f1;
+      --header-color: #004d40;
+      --primary: #009688;
+      --accent: #26a69a;
+      --card-bg: #e0f2f1;
+      --text: #004d40;
+      --btn-bg: linear-gradient(135deg, #009688 0%, #26a69a 100%);
+      --btn-color: #fff;
+    }
+    
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #b2dfdb 0%, #009688 100%) !important;
+      background: var(--main-bg) !important;
       min-height: 100vh;
       direction: rtl;
     }
@@ -25,7 +37,7 @@
     }
     
     .admin-header {
-      background: #e0f2f1 !important;
+      background: var(--header-bg) !important;
       padding: 20px;
       border-radius: 15px;
       box-shadow: 0 10px 30px rgba(0,150,136,0.1) !important;
@@ -34,12 +46,12 @@
     }
     
     .admin-header h1 {
-      color: #004d40 !important;
+      color: var(--header-color) !important;
       margin-bottom: 10px;
     }
     
     .admin-header p {
-      color: #009688 !important;
+      color: var(--primary) !important;
     }
     
     .admin-sections {
@@ -50,18 +62,18 @@
     }
     
     .section-card {
-      background: #e0f2f1 !important;
+      background: var(--card-bg) !important;
       padding: 25px;
       border-radius: 15px;
       box-shadow: 0 10px 30px rgba(0,150,136,0.08) !important;
     }
     
     .section-title {
-      color: #009688 !important;
+      color: var(--primary) !important;
       margin-bottom: 20px;
       font-size: 18px;
       font-weight: bold;
-      border-bottom: 2px solid #009688 !important;
+      border-bottom: 2px solid var(--primary) !important;
       padding-bottom: 10px;
     }
     
@@ -72,7 +84,7 @@
     .form-group label {
       display: block;
       margin-bottom: 8px;
-      color: #004d40 !important;
+      color: var(--text) !important;
       font-weight: 600;
       font-size: 14px;
     }
@@ -93,7 +105,7 @@
     .form-group select:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: #009688 !important;
+      border-color: var(--primary) !important;
       background: #fff !important;
     }
     
@@ -128,8 +140,8 @@
       cursor: pointer;
       transition: all 0.3s ease;
       margin-right: 10px;
-      background: linear-gradient(135deg, #009688 0%, #26a69a 100%) !important;
-      color: #fff !important;
+      background: var(--btn-bg) !important;
+      color: var(--btn-color) !important;
     }
     
     .btn-primary {
@@ -137,7 +149,7 @@
     }
     
     .btn-success {
-      background: #009688 !important;
+      background: var(--primary) !important;
     }
     
     .btn-success:hover {
@@ -180,7 +192,7 @@
     .stat-number {
       font-size: 2rem;
       font-weight: bold;
-      color: #009688;
+      color: var(--primary);
       margin-bottom: 5px;
     }
     
@@ -215,7 +227,7 @@
       border-radius: 10px;
       margin-bottom: 15px;
       box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      border-right: 4px solid #009688;
+      border-right: 4px solid var(--primary);
     }
     
     .review-item.pending {
@@ -322,7 +334,7 @@
       border-radius: 10px;
       margin-bottom: 15px;
       box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      border-right: 4px solid #009688;
+      border-right: 4px solid var(--primary);
     }
     
     .order-item.pending {
@@ -391,7 +403,7 @@
     
     .coupon-form-section h4 {
       margin-bottom: 20px;
-      color: #009688;
+      color: var(--primary);
     }
     
     .coupons-list {
@@ -416,7 +428,7 @@
     
     .coupon-code {
       font-weight: bold;
-      color: #009688;
+      color: var(--primary);
       font-size: 1.1rem;
     }
     
@@ -481,7 +493,7 @@
     }
     
     .products-table {
-      background: #e0f2f1 !important;
+      background: var(--card-bg) !important;
       border-radius: 15px;
       box-shadow: 0 10px 30px rgba(0,150,136,0.08) !important;
       overflow: hidden;
@@ -489,7 +501,7 @@
     }
     
     .table-header {
-      background: linear-gradient(135deg, #009688 0%, #004d40 100%) !important;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--header-color) 100%) !important;
       color: white;
       padding: 20px;
     }
@@ -587,7 +599,7 @@
     .stat-number {
       font-size: 32px;
       font-weight: bold;
-      color: #667eea;
+      color: var(--primary);
       margin-bottom: 10px;
     }
     
@@ -637,7 +649,7 @@
       background: #f8f9fa;
       padding: 20px;
       border-radius: 10px;
-      border-left: 4px solid #667eea;
+      border-left: 4px solid var(--primary);
     }
     
     .analytics-card h4 {
@@ -1569,6 +1581,18 @@ function adminAuthPrompt() {
     <div class="admin-header">
       <h1>🚀 پنل مدیریت پیشرفته کار آوال</h1>
       <p>مدیریت کامل فروشگاه با قابلیت‌های پیشرفته و هوشمند</p>
+    </div>
+    <!-- انتخاب‌گر تم -->
+    <div style="text-align:center; margin-bottom:25px;">
+      <label for="theme-switcher" style="font-weight:bold; color:#004d40;">انتخاب تم پنل:</label>
+      <select id="theme-switcher" style="padding:8px 16px; border-radius:8px; border:1px solid #b2dfdb; margin-right:10px;">
+        <option value="seyyed" selected>سبز سیدی (پیش‌فرض)</option>
+        <option value="moharram">محرم (مشکی)</option>
+        <option value="norooz">نوروز (سبز روشن/طلایی)</option>
+        <option value="paeez">پاییز (نارنجی/قهوه‌ای)</option>
+        <option value="tabestan">تابستان (آبی/زرد)</option>
+        <option value="zemestan">زمستان (سفید/آبی روشن)</option>
+      </select>
     </div>
 
     <!-- آمار پیشرفته -->

@@ -2,12 +2,21 @@
 <html lang="en">
 <head>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
 
   <!-- <link rel="stylesheet" href="caraval.css"> -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>aval</title>
+  <title>کار آوال - فروشگاه آنلاین محصولات با کیفیت</title>
+  <meta name="description" content="فروشگاه کار آوال - ارائه محصولات با کیفیت شامل کلاه، شلوارک، شلوار و تیشرت با بهترین قیمت و ارسال رایگان">
+  <meta name="keywords" content="کار آوال, فروشگاه آنلاین, کلاه, شلوارک, شلوار, تیشرت, خرید آنلاین">
+  <meta name="author" content="کار آوال">
+  <meta property="og:title" content="کار آوال - فروشگاه آنلاین محصولات با کیفیت">
+  <meta property="og:description" content="فروشگاه کار آوال - ارائه محصولات با کیفیت شامل کلاه، شلوارک، شلوار و تیشرت">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://karaval.com">
+  <link rel="icon" href="home.png" type="image/png">
   <style>
 
 /* ====== مدیا کوئری برای موبایل ====== */
@@ -452,7 +461,7 @@
       transform: translateY(-1px);
     }
 
-    /* ===== مودال مشاهده سریع ===== */
+    /* ===== مودال مشاهده سریع بهبود یافته ===== */
     .quick-view-modal {
       display: none;
       position: fixed;
@@ -460,9 +469,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       z-index: 10000;
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(8px);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .modal-content {
@@ -471,68 +486,271 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background: white;
-      padding: 30px;
-      border-radius: 15px;
-      max-width: 500px;
-      width: 90%;
-      max-height: 80vh;
-      overflow-y: auto;
+      padding: 0;
+      border-radius: 20px;
+      max-width: 900px;
+      width: 95%;
+      max-height: 90vh;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+      animation: slideIn 0.4s ease;
+    }
+
+    @keyframes slideIn {
+      from { 
+        opacity: 0;
+        transform: translate(-50%, -60%);
+      }
+      to { 
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      padding: 25px 30px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 700;
     }
 
     .modal-close {
-      background: none;
+      background: rgba(255,255,255,0.2);
       border: none;
-      font-size: 24px;
+      font-size: 28px;
       cursor: pointer;
-      color: #666;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
     }
 
     .modal-close:hover {
-      color: #333;
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+    }
+
+    .modal-body {
+      padding: 30px;
+      max-height: calc(90vh - 100px);
+      overflow-y: auto;
+    }
+
+    .modal-product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .modal-product-image-container {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     }
 
     .modal-product-image {
       width: 100%;
-      max-height: 300px;
+      height: 400px;
       object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 20px;
+      transition: transform 0.3s ease;
     }
 
-    .modal-product-info h2 {
-      margin-bottom: 10px;
+    .modal-product-image:hover {
+      transform: scale(1.05);
+    }
+
+    .modal-product-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .modal-product-title {
+      font-size: 2.2rem;
+      font-weight: 800;
       color: #333;
+      margin: 0;
+      line-height: 1.2;
     }
 
-    .modal-product-details {
+    .modal-product-rating {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-stars {
+      color: #ffd700;
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
+
+    .modal-rating-text {
+      color: #666;
+      font-weight: 600;
+    }
+
+    .modal-price-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .modal-final-price {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #667eea;
+      margin: 0;
+    }
+
+    .modal-original-price {
+      font-size: 1.5rem;
+      text-decoration: line-through;
+      color: #999;
+      font-weight: 500;
+    }
+
+    .modal-discount-badge {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .modal-description {
+      color: #666;
+      line-height: 1.8;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    .modal-details-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 15px;
-      margin: 20px 0;
     }
 
-    .detail-item {
-      padding: 10px;
-      background: #f8f9fa;
-      border-radius: 8px;
+    .modal-detail-item {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
     }
 
-    .detail-label {
-      font-weight: bold;
-      color: #666;
-      font-size: 12px;
+    .modal-detail-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     }
 
-    .detail-value {
+    .modal-detail-label {
+      font-weight: 700;
+      color: #495057;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .modal-detail-value {
       color: #333;
-      margin-top: 5px;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .modal-add-to-cart {
+      flex: 1;
+      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      color: white;
+      border: none;
+      padding: 18px 30px;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .modal-add-to-cart:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(67, 233, 123, 0.4);
+    }
+
+    .modal-add-to-cart:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .modal-wishlist-btn {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+      color: white;
+      border: none;
+      padding: 18px 25px;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-wishlist-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .modal-content {
+        width: 98%;
+        max-height: 95vh;
+      }
+
+      .modal-product-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .modal-product-title {
+        font-size: 1.8rem;
+      }
+
+      .modal-final-price {
+        font-size: 2rem;
+      }
+
+      .modal-details-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
     }
 
     * {
@@ -1097,7 +1315,7 @@ header {
 
 .carousel-control-next-icon {
   background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708'/></svg>");
-}
+  }
 
 /* تغییر تم سایت به سبز سیدی */
 body {
@@ -1110,7 +1328,7 @@ body {
 }
 .modern-header.scrolled {
   background: rgba(67,233,123,0.95) !important;
-}
+  }
 
 .modern-logo span {
   background: linear-gradient(45deg, #fff, #b9f6ca) !important;
@@ -1228,9 +1446,9 @@ body {
 }
 .scroll-to-top:hover {
   background: #38f9d7 !important;
-}
+  }
 
- </style>
+</style>
   
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
 <body>
@@ -1689,20 +1907,17 @@ body {
       <span>کار آوال</span>
     </a>
     
-    <!-- منوی اصلی -->
+    <!-- منوی اصلی مرتب و تمیز -->
     <nav class="modern-nav" id="modernNav" aria-label="منوی اصلی">
-      <a href="cart.html" class="modern-cart-button">
-        🛒 سبد خرید
-      </a>
-      <a href="kar-aval.html" class="nav-link" id="menu-all-products">تمام‌محصولات</a>
+      <a href="kar-aval.html" class="nav-link" id="menu-home">خانه</a>
+      <a href="#products" class="nav-link" id="menu-products">محصولات</a>
       <a href="category.html?cat=کلاه" class="nav-link" id="menu-hats">کلاه</a>
       <a href="category.html?cat=شلوارک" class="nav-link" id="menu-shorts">شلوارک</a>
       <a href="category.html?cat=شلوار" class="nav-link" id="menu-pants">شلوار</a>
       <a href="category.html?cat=تیشرت" class="nav-link" id="menu-tshirts">تیشرت</a>
-      <a href="about.html" class="nav-link" id="menu-trust">اعتماد</a>
-      <a href="badges.html" class="nav-link" id="menu-badges">نشان‌ها</a>
-      <a href="contact.html" class="nav-link" id="menu-contact">خرید‌حضوری</a>
-      <a href="contact.html" class="nav-link" id="menu-contact2">تماس‌باما</a>
+      <a href="cart.html" class="modern-cart-button">🛒 سبد خرید</a>
+      <a href="about.html" class="nav-link" id="menu-about">درباره ما</a>
+      <a href="contact.html" class="nav-link" id="menu-contact">تماس با ما</a>
       <a href="admin.html" class="nav-link" id="menu-admin">ادمین</a>
     </nav>
     
@@ -1728,6 +1943,22 @@ body {
         <div class="notification-badge" id="notification-badge" style="display: none;">0</div>
       </button>
       
+      <!-- دکمه چت -->
+      <button class="modern-search-btn" onclick="window.location.href='chat.html'" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+        <span style="font-size: 18px;">💬</span>
+      </button>
+      
+      <!-- دکمه علاقه‌مندی‌ها -->
+      <button class="modern-search-btn" onclick="toggleWishlist()" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); position: relative;">
+        <span style="font-size: 18px;">❤️</span>
+        <div class="wishlist-badge" id="wishlist-badge" style="display: none;">0</div>
+      </button>
+      
+      <!-- دکمه مقایسه -->
+      <button class="modern-search-btn" id="compare-btn" onclick="showCompareModal()" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); display: none;">
+        <span style="font-size: 18px;">⚖️</span>
+      </button>
+      
       <!-- دکمه کاربر -->
       <button class="modern-user-btn" aria-label="کاربر" id="user-button" type="button">
         <img src="user.png" alt="کاربر" onerror="this.style.display='none'; this.nextSibling.style.display='inline';" />
@@ -1737,18 +1968,17 @@ body {
     </div>
   </div>
   
-  <!-- منوی موبایل -->
+  <!-- منوی موبایل مرتب و تمیز -->
   <nav class="modern-mobile-menu" id="modernMobileMenu" aria-label="منوی موبایل">
-    <a href="cart.html">🛒 سبد خرید</a>
-    <a href="kar-aval.html" id="mobile-menu-all-products">تمام‌محصولات</a>
+    <a href="kar-aval.html" id="mobile-menu-home">خانه</a>
+    <a href="#products" id="mobile-menu-products">محصولات</a>
     <a href="category.html?cat=کلاه" id="mobile-menu-hats">کلاه</a>
     <a href="category.html?cat=شلوارک" id="mobile-menu-shorts">شلوارک</a>
     <a href="category.html?cat=شلوار" id="mobile-menu-pants">شلوار</a>
     <a href="category.html?cat=تیشرت" id="mobile-menu-tshirts">تیشرت</a>
-    <a href="about.html" id="mobile-menu-trust">اعتماد</a>
-    <a href="badges.html" id="mobile-menu-badges">نشان‌ها</a>
-    <a href="contact.html" id="mobile-menu-contact">خرید‌حضوری</a>
-    <a href="contact.html" id="mobile-menu-contact2">تماس‌باما</a>
+    <a href="cart.html">🛒 سبد خرید</a>
+    <a href="about.html" id="mobile-menu-about">درباره ما</a>
+    <a href="contact.html" id="mobile-menu-contact">تماس با ما</a>
     <a href="admin.html" id="mobile-menu-admin">ادمین</a>
   </nav>
   
@@ -1791,6 +2021,532 @@ body {
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   min-height: 100vh;
   font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Features Section */
+.features-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  margin-bottom: 60px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.feature-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: white;
+}
+
+  .feature-card p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Reviews Section */
+.reviews-section {
+  padding: 80px 0;
+  background: #f8f9fa;
+  margin-bottom: 60px;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.review-card {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.reviewer-name {
+  font-weight: 600;
+  color: #333;
+  margin-right: 10px;
+}
+
+.review-rating {
+  color: #ffc107;
+  font-size: 1.2rem;
+}
+
+.review-text {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.review-date {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.add-review-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin-top: 30px;
+}
+
+.add-review-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Review Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+}
+
+.rating-input {
+  margin-bottom: 20px;
+}
+
+.stars {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.star {
+  font-size: 24px;
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.3s ease;
+}
+
+.star.active {
+  color: #ffc107;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.submit-review-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Wishlist and Compare Styles */
+.wishlist-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.wishlist-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.wishlist-content {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.wishlist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.wishlist-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.wishlist-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+}
+
+.wishlist-items {
+  display: grid;
+  gap: 15px;
+}
+
+.wishlist-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+
+.wishlist-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-left: 15px;
+}
+
+.wishlist-item-info {
+  flex: 1;
+}
+
+.wishlist-item-name {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.wishlist-item-price {
+  color: #009688;
+  font-weight: 600;
+}
+
+.wishlist-item-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.compare-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.compare-content {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  max-width: 1200px;
+  width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.compare-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.compare-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.compare-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compare-table th,
+.compare-table td {
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.compare-table th {
+  background: #f5f5f5;
+  font-weight: bold;
+  color: #333;
+}
+
+.compare-product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.compare-feature {
+  font-weight: bold;
+  text-align: right;
+  background: #f9f9f9;
+}
+
+.compare-better {
+  background: #d4edda;
+  color: #155724;
+}
+
+.compare-worse {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.compare-same {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* Coupon System */
+.coupon-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 0;
+  margin: 40px 0;
+  color: white;
+}
+
+.coupon-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.coupon-form {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.coupon-input {
+  padding: 15px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  min-width: 250px;
+  outline: none;
+}
+
+.coupon-btn {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.coupon-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Order Tracking */
+.tracking-section {
+  background: #f8f9fa;
+  padding: 40px 0;
+  margin: 40px 0;
+}
+
+.tracking-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.tracking-form {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.tracking-input {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.tracking-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+
+.tracking-result {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  display: none;
+}
+
+.tracking-success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.tracking-error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+@media (max-width: 768px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .feature-card {
+    padding: 20px;
+  }
 }
 
 /* Hero Section */
@@ -2826,6 +3582,63 @@ body {
   </div>
 </section>
 
+<!-- Features Section -->
+<section class="features-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>چرا کار آوال؟</h2>
+      <p>ما متعهد به ارائه بهترین خدمات به شما هستیم</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🚚</div>
+        <h3>ارسال رایگان</h3>
+        <p>برای خریدهای بالای 500 هزار تومان</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>ضمانت اصالت</h3>
+        <p>تمام محصولات ما اصل و با کیفیت هستند</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">↩️</div>
+        <h3>بازگشت آسان</h3>
+        <p>تا 7 روز امکان بازگشت کالا</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>پشتیبانی 24/7</h3>
+        <p>همیشه آماده پاسخگویی به شما</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Coupon Section -->
+<section class="coupon-section">
+  <div class="coupon-container">
+    <h2>🎫 کد تخفیف ویژه</h2>
+    <p>کد تخفیف خود را وارد کنید و از تخفیف‌های ویژه بهره‌مند شوید</p>
+    <form class="coupon-form" onsubmit="applyCoupon(event)">
+      <input type="text" class="coupon-input" id="coupon-code" placeholder="کد تخفیف را وارد کنید..." required>
+      <button type="submit" class="coupon-btn">اعمال کد تخفیف</button>
+    </form>
+    <div id="coupon-result" style="margin-top: 15px; font-weight: bold;"></div>
+  </div>
+</section>
+
+<!-- Order Tracking Section -->
+<section class="tracking-section">
+  <div class="tracking-container">
+    <h2 style="text-align: center; margin-bottom: 30px;">📦 پیگیری سفارش</h2>
+    <div class="tracking-form">
+      <input type="text" class="tracking-input" id="order-number" placeholder="شماره سفارش خود را وارد کنید..." required>
+      <button class="tracking-btn" onclick="trackOrder()">پیگیری سفارش</button>
+      <div id="tracking-result" class="tracking-result"></div>
+    </div>
+  </div>
+</section>
+
 <!-- Modern Footer -->
 <footer class="modern-footer">
   <div class="footer-container">
@@ -2836,10 +3649,11 @@ body {
     
     <div class="footer-section">
       <h3>لینک‌های مفید</h3>
-      <p><a href="#">درباره ما</a></p>
-      <p><a href="#">تماس با ما</a></p>
-      <p><a href="#">قوانین و مقررات</a></p>
-      <p><a href="#">حریم خصوصی</a></p>
+      <p><a href="about.html">درباره ما</a></p>
+      <p><a href="contact.html">تماس با ما</a></p>
+      <p><a href="terms.html">قوانین و مقررات</a></p>
+      <p><a href="privacy.html">حریم خصوصی</a></p>
+      <p><a href="blog.html">وبلاگ</a></p>
     </div>
     
     <div class="footer-section">
@@ -3008,6 +3822,8 @@ body {
               ${product.stock > 0 ? 'افزودن به سبد خرید' : 'ناموجود'}
             </button>
             <button class="modern-quick-view" data-product='${JSON.stringify(product)}'>مشاهده سریع</button>
+            <button class="btn btn-outline-primary" onclick="addToWishlist('${product.name}', ${finalPrice}, '${product.image}')" style="margin-top: 5px; width: 100%;">❤️ علاقه‌مندی</button>
+            <button class="btn btn-outline-secondary" onclick="addToCompare(${JSON.stringify(product).replace(/"/g, '&quot;')})" style="margin-top: 5px; width: 100%;">⚖️ مقایسه</button>
           </div>
         </div>
       `;
@@ -3186,70 +4002,7 @@ body {
     }
   }
 
-  // تابع مشاهده سریع
-  function attachQuickViewButtons() {
-    document.querySelectorAll('.quick-view').forEach(button => {
-      button.addEventListener('click', function() {
-        const productData = JSON.parse(this.getAttribute('data-product'));
-        showQuickView(productData);
-      });
-    });
-  }
 
-  // نمایش مودال مشاهده سریع
-  function showQuickView(product) {
-    const modal = document.getElementById('quickViewModal');
-    const content = document.getElementById('modalProductContent');
-    
-    const originalPrice = product.price || 0;
-    const discount = product.discount || 0;
-    const finalPrice = originalPrice - (originalPrice * discount / 100);
-    const rating = product.rating || 0;
-    const stars = '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));
-    
-    content.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" class="modal-product-image" />
-      <div class="modal-product-info">
-        <h2>${product.name}</h2>
-        <div class="product-rating">
-          <span class="stars">${stars}</span>
-          <span class="rating-text">(${rating.toFixed(1)})</span>
-        </div>
-        <div class="product-price-container">
-          ${discount > 0 ? `<span class="original-price">${originalPrice.toLocaleString()} تومان</span>` : ''}
-          <span class="final-price">${finalPrice.toLocaleString()} تومان</span>
-        </div>
-        <p>${escapeHtml(product.description || '')}</p>
-        
-        <div class="modal-product-details">
-          <div class="detail-item">
-            <div class="detail-label">دسته‌بندی</div>
-            <div class="detail-value">${product.category || 'عمومی'}</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">موجودی</div>
-            <div class="detail-value">${product.stock || 0} عدد</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">تخفیف</div>
-            <div class="detail-value">${discount}%</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">وضعیت</div>
-            <div class="detail-value">${product.stock > 0 ? 'موجود' : 'ناموجود'}</div>
-          </div>
-        </div>
-        
-        <div class="card-actions">
-          <button class="add-to-cart" onclick="addToCartFromModal('${product.name}', ${finalPrice}, '${product.image}')" ${product.stock <= 0 ? 'disabled' : ''}>
-            ${product.stock > 0 ? 'افزودن به سبد خرید' : 'ناموجود'}
-          </button>
-        </div>
-      </div>
-    `;
-    
-    modal.style.display = 'block';
-  }
 
   // بستن مودال
   function closeQuickView() {
@@ -3862,114 +4615,48 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 </script>
 
-<!-- مودال مشاهده سریع -->
+<!-- مودال مشاهده سریع بهبود یافته -->
 <div id="quickViewModal" class="quick-view-modal">
   <div class="modal-content">
     <div class="modal-header">
-      <h3>جزئیات محصول</h3>
+      <h3>🔍 مشاهده سریع محصول</h3>
       <button class="modal-close" onclick="closeQuickView()">&times;</button>
     </div>
-    <div id="modalProductContent">
-      <!-- محتوای محصول اینجا قرار می‌گیرد -->
+    <div class="modal-body">
+      <div id="modalProductContent">
+        <!-- محتوای محصول اینجا قرار می‌گیرد -->
+      </div>
     </div>
   </div>
 </div>
 
-<script>
-  // تابع مشاهده سریع
-  function attachQuickViewButtons() {
-    document.querySelectorAll('.quick-view').forEach(button => {
-      button.addEventListener('click', function() {
-        const productData = JSON.parse(this.getAttribute('data-product'));
-        showQuickView(productData);
-      });
-    });
-  }
+<!-- Wishlist Modal -->
+<div class="wishlist-modal" id="wishlist-modal">
+  <div class="wishlist-content">
+    <div class="wishlist-header">
+      <h3 class="wishlist-title">❤️ لیست علاقه‌مندی‌ها</h3>
+      <button class="wishlist-close" onclick="closeWishlist()">&times;</button>
+    </div>
+    <div class="wishlist-items" id="wishlist-items">
+      <!-- Wishlist items will be loaded here -->
+    </div>
+  </div>
+</div>
 
-  // نمایش مودال مشاهده سریع
-  function showQuickView(product) {
-    const modal = document.getElementById('quickViewModal');
-    const content = document.getElementById('modalProductContent');
-    
-    const originalPrice = product.price || 0;
-    const discount = product.discount || 0;
-    const finalPrice = originalPrice - (originalPrice * discount / 100);
-    const rating = product.rating || 0;
-    const stars = '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));
-    
-    content.innerHTML = `
-      <img src="${product.image}" alt="${product.name}" class="modal-product-image" />
-      <div class="modal-product-info">
-        <h2>${product.name}</h2>
-        <div class="product-rating">
-          <span class="stars">${stars}</span>
-          <span class="rating-text">(${rating.toFixed(1)})</span>
-        </div>
-        <div class="product-price-container">
-          ${discount > 0 ? `<span class="original-price">${originalPrice.toLocaleString()} تومان</span>` : ''}
-          <span class="final-price">${finalPrice.toLocaleString()} تومان</span>
-        </div>
-        <p>${escapeHtml(product.description || '')}</p>
-        
-        <div class="modal-product-details">
-          <div class="detail-item">
-            <div class="detail-label">دسته‌بندی</div>
-            <div class="detail-value">${product.category || 'عمومی'}</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">موجودی</div>
-            <div class="detail-value">${product.stock || 0} عدد</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">تخفیف</div>
-            <div class="detail-value">${discount}%</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">وضعیت</div>
-            <div class="detail-value">${product.stock > 0 ? 'موجود' : 'ناموجود'}</div>
-          </div>
-        </div>
-        
-        <div class="card-actions">
-          <button class="add-to-cart" onclick="addToCartFromModal('${product.name}', ${finalPrice}, '${product.image}')" ${product.stock <= 0 ? 'disabled' : ''}>
-            ${product.stock > 0 ? 'افزودن به سبد خرید' : 'ناموجود'}
-          </button>
-        </div>
-      </div>
-    `;
-    
-    modal.style.display = 'block';
-  }
+<!-- Compare Modal -->
+<div class="compare-modal" id="compare-modal">
+  <div class="compare-content">
+    <div class="compare-header">
+      <h3 class="compare-title">⚖️ مقایسه محصولات</h3>
+      <button class="compare-close" onclick="closeCompare()">&times;</button>
+    </div>
+    <div id="compare-table-container">
+      <!-- Compare table will be loaded here -->
+    </div>
+  </div>
+</div>
 
-  // بستن مودال
-  function closeQuickView() {
-    document.getElementById('quickViewModal').style.display = 'none';
-  }
 
-  // افزودن به سبد خرید از مودال
-  function addToCartFromModal(name, price, image) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-    const existingProduct = cart.find(item => item.name === name);
-    if (existingProduct) {
-      existingProduct.quantity++;
-    } else {
-      cart.push({ name, price, quantity: 1, image });
-    }
-    
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCounter();
-    alert(`${name} به سبد خرید اضافه شد.`);
-    closeQuickView();
-  }
-
-  // بستن مودال با کلیک بیرون
-  document.getElementById('quickViewModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-      closeQuickView();
-    }
-  });
-</script>
 
 <script>
   // اگر داده carouselImages موجود نیست، مقدار نمونه قرار بده
@@ -3982,19 +4669,6 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem("carouselImages", JSON.stringify(sampleImages));
   }
 </script>
-
-<!-- مودال مشاهده سریع -->
-<div id="quickViewModal" class="quick-view-modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>جزئیات محصول</h3>
-      <button class="modal-close" onclick="closeQuickView()">&times;</button>
-    </div>
-    <div id="modalProductContent">
-      <!-- محتوای محصول اینجا قرار می‌گیرد -->
-    </div>
-  </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -4803,5 +5477,1043 @@ document.addEventListener('DOMContentLoaded', function() {
   updateNotificationBadge();
 });
 </script>
+
+<!-- Chatbot Widget -->
+<style>
+  #chatbot-fab {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 8px 25px rgba(67,233,123,0.2);
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3000;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  #chatbot-fab:hover {
+    box-shadow: 0 12px 35px rgba(67,233,123,0.3);
+    transform: scale(1.08);
+  }
+  #chatbot-widget {
+    position: fixed;
+    bottom: 100px;
+    left: 30px;
+    width: 350px;
+    max-width: 95vw;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 10px 40px rgba(67,233,123,0.15);
+    z-index: 3001;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Vazirmatn', sans-serif;
+    animation: chatbotIn 0.3s;
+  }
+  @keyframes chatbotIn {
+    from { opacity: 0; transform: translateY(40px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  #chatbot-header {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: white;
+    padding: 16px 20px;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  #chatbot-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  #chatbot-messages {
+    padding: 18px 15px 10px 15px;
+    background: #f8f9fa;
+    height: 320px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+  }
+  .chatbot-msg {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 14px;
+    margin-bottom: 2px;
+    word-break: break-word;
+    box-shadow: 0 2px 8px rgba(67,233,123,0.06);
+    line-height: 1.7;
+  }
+  .chatbot-msg.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+  .chatbot-msg.bot {
+    align-self: flex-start;
+    background: #e0f7fa;
+    color: #222;
+    border-bottom-left-radius: 4px;
+  }
+  #chatbot-input-row {
+    display: flex;
+    gap: 8px;
+    padding: 12px 15px 15px 15px;
+    background: #fff;
+    border-top: 1px solid #e0f7fa;
+  }
+  #chatbot-input {
+    flex: 1;
+    border: 1px solid #b9f6ca;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.2s;
+  }
+  #chatbot-input:focus {
+    border: 1.5px solid #43e97b;
+  }
+  #chatbot-send {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  #chatbot-send:hover {
+    background: #00c853;
+  }
+</style>
+
+<!-- دکمه شناور چت‌بات -->
+<button id="chatbot-fab" title="چت آنلاین">
+  💬
+</button>
+<!-- پنجره چت‌بات -->
+<div id="chatbot-widget">
+  <div id="chatbot-header">
+    <span>چت آنلاین</span>
+    <button id="chatbot-close">×</button>
+  </div>
+  <div id="chatbot-messages"></div>
+  <form id="chatbot-input-row" autocomplete="off">
+    <input id="chatbot-input" type="text" placeholder="پیام خود را بنویسید..." autocomplete="off" />
+    <button id="chatbot-send" type="submit">ارسال</button>
+  </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // پیام‌های نمونه هوش مصنوعی
+  const aiReplies = [
+    "سلام! چطور می‌تونم کمکتون کنم؟",
+    "سوالتون رو بپرسید، من اینجام!",
+    "در حال حاضر ادمین آنلاین نیست، اما من می‌تونم راهنماییتون کنم.",
+    "برای اطلاعات بیشتر به بخش محصولات یا تماس با ما مراجعه کنید.",
+    "سوالات پرتکرار: ارسال رایگان، نحوه خرید، وضعیت سفارش و ..."
+  ];
+
+
+});
+</script>
+
+<!-- CHATBOT - NEW VERSION -->
+<style>
+.chatbot-fab {
+  position: fixed !important;
+  bottom: 30px !important;
+  left: 30px !important;
+  width: 60px !important;
+  height: 60px !important;
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50% !important;
+  box-shadow: 0 8px 25px rgba(67,233,123,0.2) !important;
+  font-size: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  z-index: 9999 !important;
+  transition: all 0.3s ease !important;
+}
+.chatbot-fab:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 12px 35px rgba(67,233,123,0.3) !important;
+}
+.chatbot-widget {
+  position: fixed !important;
+  bottom: 100px !important;
+  left: 30px !important;
+  width: 350px !important;
+  max-width: 90vw !important;
+  background: white !important;
+  border-radius: 15px !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15) !important;
+  z-index: 10000 !important;
+  display: none !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  font-family: Arial, sans-serif !important;
+}
+.chatbot-header {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+  color: white !important;
+  padding: 15px 20px !important;
+  font-weight: bold !important;
+  font-size: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+.chatbot-close {
+  background: none !important;
+  border: none !important;
+  color: white !important;
+  font-size: 20px !important;
+  cursor: pointer !important;
+}
+.chatbot-messages {
+  padding: 15px !important;
+  background: #f8f9fa !important;
+  height: 300px !important;
+  overflow-y: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+.chatbot-msg {
+  max-width: 80% !important;
+  padding: 10px 15px !important;
+  border-radius: 15px !important;
+  word-break: break-word !important;
+  line-height: 1.4 !important;
+}
+.chatbot-msg.user {
+  align-self: flex-end !important;
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+  color: white !important;
+}
+.chatbot-msg.bot {
+  align-self: flex-start !important;
+  background: #e9ecef !important;
+  color: #333 !important;
+}
+.chatbot-msg.admin {
+  align-self: flex-start !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+}
+.chatbot-input-row {
+  display: flex !important;
+  gap: 10px !important;
+  padding: 15px !important;
+  background: white !important;
+  border-top: 1px solid #eee !important;
+}
+.chatbot-input {
+  flex: 1 !important;
+  border: 1px solid #ddd !important;
+  border-radius: 20px !important;
+  padding: 10px 15px !important;
+  font-size: 14px !important;
+  outline: none !important;
+}
+.chatbot-send {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 20px !important;
+  padding: 10px 20px !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+}
+</style>
+
+<button class="chatbot-fab" id="chatbot-fab" title="چت آنلاین">💬</button>
+
+<div class="chatbot-widget" id="chatbot-widget">
+  <div class="chatbot-header">
+    <span>چت آنلاین</span>
+    <button class="chatbot-close" id="chatbot-close">×</button>
+  </div>
+  <div class="chatbot-messages" id="chatbot-messages"></div>
+  <div class="chatbot-input-row">
+    <input type="text" class="chatbot-input" id="chatbot-input" placeholder="پیام خود را بنویسید..." />
+    <button class="chatbot-send" id="chatbot-send">ارسال</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+  
+  // منتظر بارگذاری کامل صفحه
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initChatbot);
+  } else {
+    initChatbot();
+  }
+  
+  function initChatbot() {
+    console.log('Initializing chatbot...');
+    
+    // پیام‌های نمونه
+    const aiReplies = [
+      "سلام! چطور می‌تونم کمکتون کنم؟",
+      "سوالتون رو بپرسید، من اینجام!",
+      "در حال حاضر ادمین آنلاین نیست، اما من می‌تونم راهنماییتون کنم.",
+      "برای اطلاعات بیشتر به بخش محصولات یا تماس با ما مراجعه کنید.",
+      "سوالات پرتکرار: ارسال رایگان، نحوه خرید، وضعیت سفارش و ..."
+    ];
+    
+    // المنت‌ها
+    const fab = document.getElementById('chatbot-fab');
+    const widget = document.getElementById('chatbot-widget');
+    const closeBtn = document.getElementById('chatbot-close');
+    const messages = document.getElementById('chatbot-messages');
+    const input = document.getElementById('chatbot-input');
+    const sendBtn = document.getElementById('chatbot-send');
+    
+    console.log('Chatbot elements:', { fab, widget, closeBtn, messages, input, sendBtn });
+    
+    if (!fab || !widget || !closeBtn || !messages || !input || !sendBtn) {
+      console.error('Some chatbot elements not found!');
+      return;
+    }
+    
+    // تولید شناسه کاربر
+    function getUserId() {
+      let userId = localStorage.getItem('chatUserId');
+      if (!userId) {
+        userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('chatUserId', userId);
+      }
+      return userId;
+    }
+    
+    // کلید ذخیره
+    function getChatKey() {
+      return `chatMessages_${getUserId()}`;
+    }
+    
+    // بارگذاری پیام‌ها
+    function loadMessages() {
+      const key = getChatKey();
+      return JSON.parse(localStorage.getItem(key)) || [];
+    }
+    
+    // ذخیره پیام‌ها
+    function saveMessages(msgs) {
+      const key = getChatKey();
+      localStorage.setItem(key, JSON.stringify(msgs));
+      
+      // ذخیره در لیست پیام‌های ادمین
+      const adminMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+      const lastMessage = msgs[msgs.length - 1];
+      if (lastMessage && lastMessage.sender === 'user') {
+        // بررسی اینکه آیا این پیام قبلاً در لیست ادمین ذخیره شده یا نه
+        const existingMessage = adminMessages.find(msg => 
+          msg.userId === getUserId() && msg.message === lastMessage.text
+        );
+        
+        if (!existingMessage) {
+          adminMessages.push({
+            userId: getUserId(),
+            userName: `کاربر ${getUserId().substr(-6)}`,
+            message: lastMessage.text,
+            time: lastMessage.time,
+            status: 'pending'
+          });
+          localStorage.setItem('adminMessages', JSON.stringify(adminMessages));
+        }
+      }
+    }
+    
+    // نمایش پیام‌ها
+    function renderMessages() {
+      const msgs = loadMessages();
+      messages.innerHTML = '';
+      
+      // بررسی پاسخ‌های ادمین
+      const adminMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+      const userId = getUserId();
+      
+      adminMessages.forEach(msg => {
+        if (msg.userId === userId && msg.status === 'replied' && !msg.displayed) {
+          // اضافه کردن پاسخ ادمین به پیام‌های محلی
+          msgs.push({ text: msg.reply, sender: 'admin', time: Date.now() });
+          msg.displayed = true;
+        }
+      });
+      
+      // ذخیره پیام‌های به‌روزرسانی شده
+      if (adminMessages.some(msg => msg.userId === userId && msg.displayed)) {
+        localStorage.setItem('adminMessages', JSON.stringify(adminMessages));
+        localStorage.setItem(getChatKey(), JSON.stringify(msgs));
+      }
+      
+      msgs.forEach(msg => {
+        const div = document.createElement('div');
+        div.className = 'chatbot-msg ' + msg.sender;
+        div.textContent = msg.text;
+        messages.appendChild(div);
+      });
+      messages.scrollTop = messages.scrollHeight;
+    }
+    
+    // افزودن پیام
+    function addMessage(text, sender) {
+      const msgs = loadMessages();
+      
+      // بررسی اینکه آیا این پیام قبلاً وجود دارد یا نه
+      const existingMessage = msgs.find(msg => 
+        msg.text === text && msg.sender === sender && 
+        Math.abs(msg.time - Date.now()) < 5000 // پیام‌های مشابه در 5 ثانیه گذشته
+      );
+      
+      if (!existingMessage) {
+        msgs.push({ text, sender, time: Date.now() });
+        saveMessages(msgs);
+        renderMessages();
+      }
+    }
+    
+    // پاسخ هوش مصنوعی
+    function aiReply() {
+      const reply = aiReplies[Math.floor(Math.random() * aiReplies.length)];
+      setTimeout(() => {
+        addMessage(reply, 'bot');
+      }, 1000);
+    }
+    
+    // رویدادها
+    fab.addEventListener('click', function() {
+      console.log('Chat button clicked');
+      widget.style.display = 'flex';
+      renderMessages();
+      setTimeout(() => input.focus(), 100);
+    });
+    
+    closeBtn.addEventListener('click', function() {
+      console.log('Close button clicked');
+      widget.style.display = 'none';
+    });
+    
+    sendBtn.addEventListener('click', function() {
+      const text = input.value.trim();
+      if (text) {
+        console.log('Sending message:', text);
+        addMessage(text, 'user');
+        input.value = '';
+        aiReply();
+      }
+    });
+    
+    input.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendBtn.click();
+      }
+    });
+    
+    // بستن با کلیک بیرون
+    window.addEventListener('click', function(e) {
+      if (widget.style.display === 'flex' && !widget.contains(e.target) && e.target !== fab) {
+        widget.style.display = 'none';
+      }
+    });
+    
+    // بارگذاری اولیه
+    renderMessages();
+    
+    // بررسی پاسخ‌های ادمین هر 3 ثانیه
+    setInterval(() => {
+      const adminMessages = JSON.parse(localStorage.getItem('adminMessages')) || [];
+      const userId = getUserId();
+      
+      adminMessages.forEach(msg => {
+        if (msg.userId === userId && msg.status === 'replied' && !msg.displayed) {
+          addMessage(msg.reply, 'admin');
+          msg.displayed = true;
+          localStorage.setItem('adminMessages', JSON.stringify(adminMessages));
+        }
+      });
+    }, 3000);
+    
+    console.log('Chatbot initialized successfully!');
+  }
+})();
+
+// Reviews System
+let currentRating = 0;
+
+function loadReviews() {
+  const reviews = JSON.parse(localStorage.getItem('siteReviews')) || [];
+  const container = document.getElementById('reviews-container');
+  
+  if (reviews.length === 0) {
+    container.innerHTML = '<p style="text-align: center; color: #666; grid-column: 1/-1;">هنوز نظری ثبت نشده است. اولین نفری باشید که نظر می‌دهید!</p>';
+    return;
+  }
+  
+  container.innerHTML = '';
+  reviews.forEach(review => {
+    const reviewCard = document.createElement('div');
+    reviewCard.className = 'review-card';
+    reviewCard.innerHTML = `
+      <div class="review-header">
+        <span class="reviewer-name">${review.name}</span>
+        <span class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</span>
+      </div>
+      <div class="review-text">${review.text}</div>
+      <div class="review-date">${new Date(review.date).toLocaleDateString('fa-IR')}</div>
+    `;
+    container.appendChild(reviewCard);
+  });
+}
+
+function showReviewForm() {
+  document.getElementById('review-modal').style.display = 'flex';
+  currentRating = 0;
+  updateStars();
+}
+
+function closeReviewModal() {
+  document.getElementById('review-modal').style.display = 'none';
+  document.getElementById('review-form').reset();
+}
+
+function updateStars() {
+  const stars = document.querySelectorAll('.star');
+  stars.forEach((star, index) => {
+    if (index < currentRating) {
+      star.textContent = '★';
+      star.classList.add('active');
+    } else {
+      star.textContent = '☆';
+      star.classList.remove('active');
+    }
+  });
+}
+
+// Star rating functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const stars = document.querySelectorAll('.star');
+  stars.forEach(star => {
+    star.addEventListener('click', function() {
+      currentRating = parseInt(this.dataset.rating);
+      updateStars();
+    });
+  });
+  
+  // Review form submission
+  document.getElementById('review-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('review-name').value;
+    const text = document.getElementById('review-text').value;
+    
+    if (currentRating === 0) {
+      alert('لطفاً امتیاز خود را انتخاب کنید');
+      return;
+    }
+    
+    const review = {
+      name: name,
+      text: text,
+      rating: currentRating,
+      date: Date.now()
+    };
+    
+    const reviews = JSON.parse(localStorage.getItem('siteReviews')) || [];
+    reviews.unshift(review);
+    localStorage.setItem('siteReviews', JSON.stringify(reviews));
+    
+    closeReviewModal();
+    loadReviews();
+    showToast('نظر شما با موفقیت ثبت شد', 'success');
+  });
+  
+  // Load reviews on page load
+  loadReviews();
+  
+  // Load wishlist count
+  updateWishlistBadge();
+});
+
+// Wishlist System
+function addToWishlist(productName, price, image) {
+  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  
+  // Check if product already exists
+  const existingProduct = wishlist.find(item => item.name === productName);
+  if (existingProduct) {
+    showToast('این محصول قبلاً در لیست علاقه‌مندی‌ها موجود است', 'warning');
+    return;
+  }
+  
+  wishlist.push({
+    name: productName,
+    price: price,
+    image: image,
+    date: Date.now()
+  });
+  
+  localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  updateWishlistBadge();
+  showToast('محصول به لیست علاقه‌مندی‌ها اضافه شد', 'success');
+}
+
+function removeFromWishlist(index) {
+  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  wishlist.splice(index, 1);
+  localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  updateWishlistBadge();
+  loadWishlist();
+  showToast('محصول از لیست علاقه‌مندی‌ها حذف شد', 'warning');
+}
+
+function updateWishlistBadge() {
+  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  const badge = document.getElementById('wishlist-badge');
+  
+  if (wishlist.length > 0) {
+    badge.textContent = wishlist.length;
+    badge.style.display = 'flex';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function toggleWishlist() {
+  const modal = document.getElementById('wishlist-modal');
+  modal.style.display = 'flex';
+  loadWishlist();
+}
+
+function closeWishlist() {
+  document.getElementById('wishlist-modal').style.display = 'none';
+}
+
+function loadWishlist() {
+  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  const container = document.getElementById('wishlist-items');
+  
+  if (wishlist.length === 0) {
+    container.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">لیست علاقه‌مندی‌ها خالی است</p>';
+    return;
+  }
+  
+  container.innerHTML = '';
+  wishlist.forEach((item, index) => {
+    const wishlistItem = document.createElement('div');
+    wishlistItem.className = 'wishlist-item';
+    wishlistItem.innerHTML = `
+      <img src="${item.image}" alt="${item.name}">
+      <div class="wishlist-item-info">
+        <div class="wishlist-item-name">${item.name}</div>
+        <div class="wishlist-item-price">${item.price.toLocaleString()} تومان</div>
+      </div>
+      <div class="wishlist-item-actions">
+        <button class="btn btn-primary" onclick="addToCartWithAuth('${item.name}', ${item.price}, '${item.image}')">افزودن به سبد</button>
+        <button class="btn btn-danger" onclick="removeFromWishlist(${index})">حذف</button>
+      </div>
+    `;
+    container.appendChild(wishlistItem);
+  });
+}
+
+// Compare System
+let compareList = [];
+
+function addToCompare(product) {
+  if (compareList.length >= 4) {
+    showToast('حداکثر 4 محصول قابل مقایسه است', 'warning');
+    return;
+  }
+  
+  const existingProduct = compareList.find(item => item.name === product.name);
+  if (existingProduct) {
+    showToast('این محصول قبلاً در لیست مقایسه موجود است', 'warning');
+    return;
+  }
+  
+  compareList.push(product);
+  showToast('محصول به لیست مقایسه اضافه شد', 'success');
+  updateCompareButton();
+}
+
+function removeFromCompare(index) {
+  compareList.splice(index, 1);
+  updateCompareButton();
+  showToast('محصول از لیست مقایسه حذف شد', 'warning');
+}
+
+function updateCompareButton() {
+  const compareBtn = document.getElementById('compare-btn');
+  if (compareBtn) {
+    compareBtn.textContent = `مقایسه (${compareList.length})`;
+    compareBtn.style.display = compareList.length > 0 ? 'block' : 'none';
+  }
+}
+
+function showCompareModal() {
+  if (compareList.length < 2) {
+    showToast('حداقل 2 محصول برای مقایسه نیاز است', 'warning');
+    return;
+  }
+  
+  const modal = document.getElementById('compare-modal');
+  modal.style.display = 'flex';
+  loadCompareTable();
+}
+
+function closeCompare() {
+  document.getElementById('compare-modal').style.display = 'none';
+}
+
+function loadCompareTable() {
+  const container = document.getElementById('compare-table-container');
+  
+  let tableHTML = '<table class="compare-table">';
+  tableHTML += '<tr><th>ویژگی</th>';
+  compareList.forEach(product => {
+    tableHTML += `<th>${product.name}</th>`;
+  });
+  tableHTML += '</tr>';
+  
+  // Product images
+  tableHTML += '<tr><td class="compare-feature">تصویر</td>';
+  compareList.forEach(product => {
+    tableHTML += `<td><img src="${product.image}" class="compare-product-image" alt="${product.name}"></td>`;
+  });
+  tableHTML += '</tr>';
+  
+  // Price comparison
+  const prices = compareList.map(p => p.price || 0);
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  
+  tableHTML += '<tr><td class="compare-feature">قیمت</td>';
+  compareList.forEach(product => {
+    const price = product.price || 0;
+    let priceClass = 'compare-same';
+    if (price === minPrice) priceClass = 'compare-better';
+    if (price === maxPrice && minPrice !== maxPrice) priceClass = 'compare-worse';
+    
+    tableHTML += `<td class="${priceClass}">${price.toLocaleString()} تومان</td>`;
+  });
+  tableHTML += '</tr>';
+  
+  // Category comparison
+  tableHTML += '<tr><td class="compare-feature">دسته‌بندی</td>';
+  compareList.forEach(product => {
+    tableHTML += `<td>${product.category || 'نامشخص'}</td>`;
+  });
+  tableHTML += '</tr>';
+  
+  // Stock comparison
+  const stocks = compareList.map(p => p.stock || 0);
+  const maxStock = Math.max(...stocks);
+  
+  tableHTML += '<tr><td class="compare-feature">موجودی</td>';
+  compareList.forEach(product => {
+    const stock = product.stock || 0;
+    let stockClass = 'compare-same';
+    if (stock === maxStock && stock > 0) stockClass = 'compare-better';
+    if (stock === 0) stockClass = 'compare-worse';
+    
+    tableHTML += `<td class="${stockClass}">${stock > 0 ? stock : 'ناموجود'}</td>`;
+  });
+  tableHTML += '</tr>';
+  
+  // Rating comparison
+  const ratings = compareList.map(p => p.rating || 0);
+  const maxRating = Math.max(...ratings);
+  
+  tableHTML += '<tr><td class="compare-feature">امتیاز</td>';
+  compareList.forEach(product => {
+    const rating = product.rating || 0;
+    let ratingClass = 'compare-same';
+    if (rating === maxRating && rating > 0) ratingClass = 'compare-better';
+    if (rating === 0) ratingClass = 'compare-worse';
+    
+    const stars = '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));
+    tableHTML += `<td class="${ratingClass}">${stars} (${rating.toFixed(1)})</td>`;
+  });
+  tableHTML += '</tr>';
+  
+  tableHTML += '</table>';
+  
+  // Add action buttons
+  tableHTML += '<div style="margin-top: 20px; text-align: center;">';
+  compareList.forEach((product, index) => {
+    tableHTML += `<button class="btn btn-primary" style="margin: 0 10px;" onclick="addToCartWithAuth('${product.name}', ${product.price || 0}, '${product.image}')">افزودن ${product.name} به سبد</button>`;
+  });
+  tableHTML += '</div>';
+  
+  container.innerHTML = tableHTML;
+}
+
+// Coupon System
+function applyCoupon(event) {
+  event.preventDefault();
+  const couponCode = document.getElementById('coupon-code').value.trim();
+  const resultDiv = document.getElementById('coupon-result');
+  
+  // Sample coupon codes
+  const coupons = {
+    'WELCOME10': { discount: 10, type: 'percent', minAmount: 0 },
+    'SAVE20': { discount: 20, type: 'percent', minAmount: 100000 },
+    'FREESHIP': { discount: 50000, type: 'fixed', minAmount: 200000 },
+    'NEWUSER': { discount: 15, type: 'percent', minAmount: 50000 }
+  };
+  
+  if (coupons[couponCode]) {
+    const coupon = coupons[couponCode];
+    const cartTotal = getCartTotal();
+    
+    if (cartTotal >= coupon.minAmount) {
+      localStorage.setItem('activeCoupon', JSON.stringify({
+        code: couponCode,
+        discount: coupon.discount,
+        type: coupon.type
+      }));
+      
+      resultDiv.style.color = '#155724';
+      resultDiv.style.backgroundColor = '#d4edda';
+      resultDiv.style.padding = '10px';
+      resultDiv.style.borderRadius = '5px';
+      resultDiv.textContent = `کد تخفیف ${couponCode} با موفقیت اعمال شد!`;
+      
+      showToast(`تخفیف ${coupon.discount}${coupon.type === 'percent' ? '%' : ' تومان'} اعمال شد`, 'success');
+    } else {
+      resultDiv.style.color = '#721c24';
+      resultDiv.style.backgroundColor = '#f8d7da';
+      resultDiv.style.padding = '10px';
+      resultDiv.style.borderRadius = '5px';
+      resultDiv.textContent = `حداقل مبلغ سفارش برای این کد تخفیف ${coupon.minAmount.toLocaleString()} تومان است`;
+    }
+  } else {
+    resultDiv.style.color = '#721c24';
+    resultDiv.style.backgroundColor = '#f8d7da';
+    resultDiv.style.padding = '10px';
+    resultDiv.style.borderRadius = '5px';
+    resultDiv.textContent = 'کد تخفیف نامعتبر است';
+  }
+}
+
+function getCartTotal() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+}
+
+// Order Tracking System
+function trackOrder() {
+  const orderNumber = document.getElementById('order-number').value.trim();
+  const resultDiv = document.getElementById('tracking-result');
+  
+  if (!orderNumber) {
+    showToast('لطفاً شماره سفارش را وارد کنید', 'warning');
+    return;
+  }
+  
+  // Sample order tracking data
+  const orders = {
+    'ORD001': {
+      status: 'در حال پردازش',
+      date: '2024-01-15',
+      estimatedDelivery: '2024-01-20',
+      steps: [
+        { step: 'سفارش ثبت شد', completed: true, date: '2024-01-15' },
+        { step: 'در حال پردازش', completed: true, date: '2024-01-16' },
+        { step: 'آماده ارسال', completed: false, date: null },
+        { step: 'ارسال شده', completed: false, date: null },
+        { step: 'تحویل داده شد', completed: false, date: null }
+      ]
+    },
+    'ORD002': {
+      status: 'ارسال شده',
+      date: '2024-01-10',
+      estimatedDelivery: '2024-01-15',
+      steps: [
+        { step: 'سفارش ثبت شد', completed: true, date: '2024-01-10' },
+        { step: 'در حال پردازش', completed: true, date: '2024-01-11' },
+        { step: 'آماده ارسال', completed: true, date: '2024-01-12' },
+        { step: 'ارسال شده', completed: true, date: '2024-01-13' },
+        { step: 'تحویل داده شد', completed: false, date: null }
+      ]
+    }
+  };
+  
+  if (orders[orderNumber]) {
+    const order = orders[orderNumber];
+    resultDiv.className = 'tracking-result tracking-success';
+    resultDiv.style.display = 'block';
+    
+    let stepsHTML = '<h4>وضعیت سفارش:</h4>';
+    order.steps.forEach((step, index) => {
+      const stepClass = step.completed ? 'completed' : 'pending';
+      const stepIcon = step.completed ? '✅' : '⏳';
+      stepsHTML += `
+        <div style="margin: 10px 0; padding: 10px; background: ${step.completed ? '#d4edda' : '#f8f9fa'}; border-radius: 5px;">
+          ${stepIcon} ${step.step}
+          ${step.date ? `<small style="color: #666;"> - ${step.date}</small>` : ''}
+        </div>
+      `;
+    });
+    
+    resultDiv.innerHTML = `
+      <h3>سفارش ${orderNumber}</h3>
+      <p><strong>وضعیت:</strong> ${order.status}</p>
+      <p><strong>تاریخ سفارش:</strong> ${order.date}</p>
+      <p><strong>تخمین تحویل:</strong> ${order.estimatedDelivery}</p>
+      ${stepsHTML}
+    `;
+  } else {
+    resultDiv.className = 'tracking-result tracking-error';
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = 'سفارش با این شماره یافت نشد. لطفاً شماره سفارش را بررسی کنید.';
+  }
+}
+
+// نسخه بهبود یافته مشاهده سریع و علاقه‌مندی
+function showQuickView(product) {
+  const modal = document.getElementById('quickViewModal');
+  const content = document.getElementById('modalProductContent');
+
+  const originalPrice = product.price || 0;
+  const discount = product.discount || 0;
+  const finalPrice = originalPrice - (originalPrice * discount / 100);
+  const rating = product.rating || 0;
+  const stars = '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));
+
+  content.innerHTML = `
+    <div class="modal-product-grid">
+      <div class="modal-product-image-container">
+        <img src="${product.image}" alt="${product.name}" class="modal-product-image" />
+      </div>
+      <div class="modal-product-info">
+        <h2 class="modal-product-title">${product.name}</h2>
+        <div class="modal-product-rating">
+          <span class="modal-stars">${stars}</span>
+          <span class="modal-rating-text">(${rating.toFixed(1)})</span>
+        </div>
+        <div class="modal-price-container">
+          <span class="modal-final-price">${finalPrice.toLocaleString()} تومان</span>
+          ${discount > 0 ? `<span class="modal-original-price">${originalPrice.toLocaleString()} تومان</span>` : ''}
+          ${discount > 0 ? `<span class="modal-discount-badge">${discount}% تخفیف</span>` : ''}
+        </div>
+        <p class="modal-description">${escapeHtml(product.description || '')}</p>
+        <div class="modal-details-grid">
+          <div class="modal-detail-item">
+            <div class="modal-detail-label">دسته‌بندی</div>
+            <div class="modal-detail-value">${product.category || 'عمومی'}</div>
+          </div>
+          <div class="modal-detail-item">
+            <div class="modal-detail-label">موجودی</div>
+            <div class="modal-detail-value">${product.stock || 0} عدد</div>
+          </div>
+          <div class="modal-detail-item">
+            <div class="modal-detail-label">تخفیف</div>
+            <div class="modal-detail-value">${discount}%</div>
+          </div>
+          <div class="modal-detail-item">
+            <div class="modal-detail-label">وضعیت</div>
+            <div class="modal-detail-value">${product.stock > 0 ? 'موجود' : 'ناموجود'}</div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-add-to-cart" onclick="addToCartWithAuth('${product.name}', ${finalPrice}, '${product.image}')" ${product.stock <= 0 ? 'disabled' : ''}>
+            ${product.stock > 0 ? 'افزودن به سبد خرید' : 'ناموجود'}
+          </button>
+          <button class="modal-wishlist-btn" onclick="addToWishlist('${product.name}', ${finalPrice}, '${product.image}')">❤️ علاقه‌مندی</button>
+        </div>
+      </div>
+    </div>
+  `;
+  modal.style.display = 'block';
+}
+
+function attachQuickViewButtons() {
+  document.querySelectorAll('.quick-view, .modern-quick-view').forEach(button => {
+    button.addEventListener('click', function() {
+      const productData = JSON.parse(this.getAttribute('data-product'));
+      showQuickView(productData);
+    });
+  });
+}
+// اجرای اولیه برای دکمه‌های مشاهده سریع
+attachQuickViewButtons();
+</script>
+
+<!-- Reviews Section -->
+<section class="reviews-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>نظرات مشتریان</h2>
+      <p>تجربه‌های واقعی مشتریان ما</p>
+    </div>
+    <div class="reviews-grid" id="reviews-container">
+      <!-- Reviews will be loaded here -->
+    </div>
+    <div class="review-form-container">
+      <button class="add-review-btn" onclick="showReviewForm()">افزودن نظر</button>
+    </div>
+  </div>
+</section>
+
+<!-- Review Modal -->
+<div id="review-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeReviewModal()">&times;</span>
+    <h3>افزودن نظر</h3>
+    <form id="review-form">
+      <div class="rating-input">
+        <label>امتیاز شما:</label>
+        <div class="stars">
+          <span class="star" data-rating="1">☆</span>
+          <span class="star" data-rating="2">☆</span>
+          <span class="star" data-rating="3">☆</span>
+          <span class="star" data-rating="4">☆</span>
+          <span class="star" data-rating="5">☆</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>نام شما:</label>
+        <input type="text" id="review-name" required>
+      </div>
+      <div class="form-group">
+        <label>نظر شما:</label>
+        <textarea id="review-text" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="submit-review-btn">ارسال نظر</button>
+    </form>
+  </div>
+</div>
 </body>
 </html>

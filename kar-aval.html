@@ -6515,5 +6515,15 @@ attachQuickViewButtons();
     </form>
   </div>
 </div>
+
+<script>
+fetch('firebase-proxy/site-color.txt')
+  .then(res => res.text())
+  .then(color => {
+    if(/^#[0-9A-Fa-f]{6}$/.test(color.trim())) {
+      document.body.style.backgroundColor = color.trim();
+    }
+  });
+</script>
 </body>
 </html>

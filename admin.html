@@ -2088,10 +2088,11 @@ function adminAuthPrompt() {
       </div>
 
       <!-- تنظیمات پیشرفته -->
-      <div class="section-card">
-        <h3 class="section-title">⚙️ تنظیمات پیشرفته</h3>
-        <div class="advanced-settings">
-          <div class="setting-group">
+      <div class="section-card" id="advanced-settings-section">
+        <h3 class="section-title">⚙️ تنظیمات پیشرفته سایت</h3>
+        <div class="advanced-settings-grid">
+          <!-- تنظیمات ظاهری -->
+          <div class="setting-panel">
             <h4>🎨 تنظیمات ظاهری</h4>
             <div class="form-group">
               <label>تم رنگی:</label>
@@ -2103,16 +2104,31 @@ function adminAuthPrompt() {
               </select>
             </div>
             <div class="form-group">
+              <label for="siteColor">تغیر رنگ سایت:</label>
+              <div id="color-picker"></div>
+              <button onclick="saveSiteColor()">ذخیره رنگ</button>
+            </div>
+            <div class="form-group">
+              <label>فونت سایت:</label>
+              <div class="font-selector">
+                <div class="font-option selected" onclick="selectFont('default', this)">پیش‌فرض</div>
+                <div class="font-option" onclick="selectFont('tahoma', this)">Tahoma</div>
+                <div class="font-option" onclick="selectFont('arial', this)">Arial</div>
+                <div class="font-option" onclick="selectFont('times', this)">Times</div>
+              </div>
+            </div>
+            <div class="form-group">
               <label>اندازه فونت:</label>
-              <select id="font-size">
+              <select id="site-font-size">
                 <option value="small">کوچک</option>
                 <option value="medium" selected>متوسط</option>
                 <option value="large">بزرگ</option>
               </select>
             </div>
+            <button class="btn btn-primary" onclick="saveAppearanceSettings()">💾 ذخیره تنظیمات ظاهری</button>
           </div>
           
-          <div class="setting-group">
+          <div class="setting-panel">
             <h4>🔔 اعلان‌ها</h4>
             <div class="checkbox-item">
               <input type="checkbox" id="email-notifications" checked>
@@ -2128,7 +2144,7 @@ function adminAuthPrompt() {
             </div>
           </div>
           
-          <div class="setting-group">
+          <div class="setting-panel">
             <h4>📱 تنظیمات موبایل</h4>
             <div class="checkbox-item">
               <input type="checkbox" id="mobile-optimization" checked>
@@ -4071,7 +4087,7 @@ ${analysis.recommendations.join('\n')}
           <div class="activity-time">${new Date(activity.timestamp).toLocaleString('fa-IR')}</div>
           <div class="activity-action">${activity.action}</div>
           <div class="activity-user">${activity.details}</div>
-        </div>
+     </div>
       `).join('');
     }
 
@@ -4612,16 +4628,16 @@ ${analysis.recommendations.join('\n')}
             <div style="font-weight: 600;">${userEmail}</div>
             <div style="font-size: 12px; color: #666;">
               ${totalItems} محصول | ${totalValue.toLocaleString()} تومان
-            </div>
+           </div>
             <div style="font-size: 11px; color: #999;">
               آخرین فعالیت: ${new Date().toLocaleDateString('fa-IR')}
-            </div>
-          </div>
+         </div>
+           </div>
           <div class="user-actions">
             <button class="btn btn-primary" onclick="viewUserDetails('${userEmail}')" style="font-size: 12px;">مشاهده</button>
             <button class="btn btn-warning" onclick="exportUserData('${userEmail}')" style="font-size: 12px;">صادرات</button>
             <button class="btn btn-danger" onclick="deleteUserData('${userEmail}')" style="font-size: 12px;">حذف</button>
-          </div>
+         </div>
         `;
         
         container.appendChild(userCard);
@@ -4882,7 +4898,7 @@ ${cart.map(item => `- ${item.name} (${item.quantity} عدد)`).join('\n')}
           <div style="font-size: 16px; color: #333; margin-bottom: 5px;">درآمد فعلی: ${currentRevenue.toLocaleString()} تومان</div>
           <div style="font-size: 16px; color: #27ae60; margin-bottom: 5px;">درآمد پیش‌بینی شده: ${forecastRevenue.toLocaleString()} تومان</div>
           <div style="font-size: 14px; color: #666;">نرخ رشد: ${growthRate}%</div>
-        </div>
+           </div>
       `;
       
       addNotification('پیش‌بینی فروش', 'پیش‌بینی فروش تولید شد', 'success');
@@ -4929,7 +4945,7 @@ ${cart.map(item => `- ${item.name} (${item.quantity} عدد)`).join('\n')}
           container.innerHTML += `
             <div style="padding: 10px; background: #fff3cd; border-radius: 5px; margin-bottom: 5px;">
               <strong>${product.name}</strong> - موجودی: ${product.stock} عدد
-            </div>
+         </div>
           `;
         });
       }
@@ -4940,7 +4956,7 @@ ${cart.map(item => `- ${item.name} (${item.quantity} عدد)`).join('\n')}
           container.innerHTML += `
             <div style="padding: 10px; background: #f8d7da; border-radius: 5px; margin-bottom: 5px;">
               <strong>${product.name}</strong> - موجودی: 0 عدد
-            </div>
+       </div>
           `;
         });
       }
@@ -5208,10 +5224,10 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
         <div style="background: ${typeColor}; color: white; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
           <div style="font-weight: 600;">${typeIcon} ${title || 'عنوان اعلان'}</div>
           <div style="margin-top: 5px;">${message || 'متن اعلان'}</div>
-        </div>
+     </div>
         <div style="font-size: 12px; color: #666;">
           گیرندگان: ${selectedUsers.length} کاربر
-        </div>
+   </div>
       `;
     }
 
@@ -5340,7 +5356,7 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
           <div class="history-time">${new Date(notification.timestamp).toLocaleString('fa-IR')}</div>
           <div class="history-message">${notification.title}</div>
           <div class="history-recipients">${notification.recipients.length} کاربر</div>
-        </div>
+           </div>
       `).join('');
     }
 
@@ -5359,7 +5375,7 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
           <div class="schedule-message">${notification.title}</div>
           <div class="schedule-recipients">${notification.recipients.length} کاربر</div>
           <button class="btn btn-danger" onclick="cancelScheduledNotification(${notification.id})" style="font-size: 12px;">لغو</button>
-        </div>
+         </div>
       `).join('');
     }
 
@@ -5759,8 +5775,8 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
           <div class="chat-message admin">
             <div class="message-bubble admin">
               لطفاً کاربری را انتخاب کنید تا پیام‌هایش را ببینید.
-            </div>
-          </div>
+           </div>
+         </div>
         `;
         return;
       }
@@ -5809,8 +5825,8 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
           <div class="chat-message admin">
             <div class="message-bubble admin">
               هیچ پیامی از این کاربر موجود نیست.
-            </div>
-          </div>
+       </div>
+     </div>
         `;
         return;
       }
@@ -5826,7 +5842,7 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
           <div class="message-bubble ${msg.sender}">
             ${msg.text}
             <div class="message-time">${new Date(msg.time).toLocaleTimeString('fa-IR')}</div>
-          </div>
+   </div>
         `;
         chatMessages.appendChild(messageDiv);
       });
@@ -5882,7 +5898,7 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
         <div class="message-bubble admin">
           ${message}
           <div class="message-time">${time}</div>
-        </div>
+           </div>
       `;
       
       chatMessages.appendChild(messageDiv);
@@ -5907,7 +5923,7 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
         <div class="message-bubble ${sender}">
           ${text}
           <div class="message-time">${time}</div>
-        </div>
+         </div>
       `;
       
       chatMessages.appendChild(messageDiv);
@@ -5928,7 +5944,7 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
           <div class="message-bubble admin">
             ✅ این چت به عنوان حل شده علامت‌گذاری شد.
             <div class="message-time">${time}</div>
-          </div>
+           </div>
         `;
         
         chatMessages.appendChild(messageDiv);
@@ -5954,8 +5970,8 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
           <div class="chat-message admin">
             <div class="message-bubble admin">
               پیام‌های این کاربر حذف شد.
-            </div>
-          </div>
+           </div>
+         </div>
         `;
         
         loadChatStats();
@@ -5987,8 +6003,8 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
         <div class="chat-message admin">
           <div class="message-bubble admin">
             تمام پیام‌ها پاک شدند.
-          </div>
-        </div>
+           </div>
+         </div>
       `;
       
       loadChatStats();
@@ -6096,31 +6112,31 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
           <div>
             <strong>سفارش ${order.orderNumber}</strong>
             <span class="order-status status-${order.status}">${getOrderStatusText(order.status)}</span>
-          </div>
+           </div>
           <div class="order-date">${new Date(order.date).toLocaleDateString('fa-IR')}</div>
-        </div>
+         </div>
         <div class="order-info">
           <div class="order-details">
             <p><strong>مشتری:</strong> ${order.customerName}</p>
             <p><strong>مبلغ کل:</strong> ${order.total.toLocaleString()} تومان</p>
             <p><strong>آدرس:</strong> ${order.address}</p>
-          </div>
-        </div>
+           </div>
+         </div>
         <div class="order-products">
           <h5>محصولات:</h5>
           ${order.items.map(item => `
             <div class="order-product">
               <span>${item.name}</span>
               <span>${item.quantity} عدد - ${item.price.toLocaleString()} تومان</span>
-            </div>
+       </div>
           `).join('')}
-        </div>
+     </div>
         <div class="order-actions">
           ${order.status === 'pending' ? `<button class="btn btn-success" onclick="updateOrderStatus(${index}, 'processing')">شروع پردازش</button>` : ''}
           ${order.status === 'processing' ? `<button class="btn btn-primary" onclick="updateOrderStatus(${index}, 'shipped')">ارسال</button>` : ''}
           ${order.status === 'shipped' ? `<button class="btn btn-warning" onclick="updateOrderStatus(${index}, 'completed')">تکمیل</button>` : ''}
           <button class="btn btn-danger" onclick="cancelOrder(${index})">لغو سفارش</button>
-        </div>
+   </div>
       `;
       container.appendChild(orderItem);
     });
@@ -6231,11 +6247,11 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
             حداقل مبلغ: ${coupon.minAmount.toLocaleString()} تومان |
             انقضا: ${coupon.expiry || 'نامحدود'} |
             استفاده: ${coupon.usageCount || 0}${coupon.usageLimit ? '/' + coupon.usageLimit : ''}
-          </div>
-        </div>
+           </div>
+         </div>
         <div class="coupon-actions">
           <button class="btn btn-danger" onclick="deleteCoupon(${index})">حذف</button>
-        </div>
+       </div>
       `;
       container.appendChild(couponItem);
     });
@@ -6344,7 +6360,7 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
         <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
           <div style="background: linear-gradient(to top, #009688, #26a69a); width: 30px; height: ${height}%; border-radius: 5px 5px 0 0;"></div>
           <small style="margin-top: 5px; color: #666;">${value.toLocaleString()}</small>
-        </div>
+           </div>
       `;
     });
     chartHTML += '</div>';
@@ -6369,7 +6385,7 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
         <div class="top-product-item">
           <span>${product.name}</span>
           <span>${product.sales} فروش - ${product.revenue.toLocaleString()} تومان</span>
-        </div>
+           </div>
       `;
     });
     
@@ -6421,15 +6437,15 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
               <span class="reviewer-name">${review.name}</span>
               <span class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</span>
               <span class="review-status status-${review.status || 'pending'}">${getStatusText(review.status)}</span>
-            </div>
+           </div>
             <div class="review-date">${new Date(review.date).toLocaleDateString('fa-IR')}</div>
-          </div>
+         </div>
           <div class="review-text">${review.text}</div>
           <div class="review-actions">
             ${review.status !== 'approved' ? `<button class="btn btn-success" onclick="approveReview(${index})">✅ تایید</button>` : ''}
             ${review.status !== 'rejected' ? `<button class="btn btn-danger" onclick="rejectReview(${index})">❌ رد</button>` : ''}
             <button class="btn btn-warning" onclick="deleteReview(${index})">🗑️ حذف</button>
-          </div>
+       </div>
         `;
         container.appendChild(reviewItem);
       });
@@ -6524,15 +6540,15 @@ ${scanResults.recommendations.map(r => `• ${r}`).join('\n')}
               <span class="reviewer-name">${review.name}</span>
               <span class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</span>
               <span class="review-status status-${review.status || 'pending'}">${getStatusText(review.status)}</span>
-            </div>
+           </div>
             <div class="review-date">${new Date(review.date).toLocaleDateString('fa-IR')}</div>
-          </div>
+         </div>
           <div class="review-text">${review.text}</div>
           <div class="review-actions">
             ${review.status !== 'approved' ? `<button class="btn btn-success" onclick="approveReview(${index})">✅ تایید</button>` : ''}
             ${review.status !== 'rejected' ? `<button class="btn btn-danger" onclick="rejectReview(${index})">❌ رد</button>` : ''}
             <button class="btn btn-warning" onclick="deleteReview(${index})">🗑️ حذف</button>
-          </div>
+       </div>
         `;
         container.appendChild(reviewItem);
       });
